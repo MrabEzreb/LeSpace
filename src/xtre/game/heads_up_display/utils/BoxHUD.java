@@ -13,8 +13,8 @@ public class BoxHUD extends HeadsUpDisplay {
 	
 	public float x=0, y=0, width=0, height=0;
 
-	public BoxHUD(String name, int x, int y, int width, int height){
-		this.name = name;
+	public BoxHUD(int id, int x, int y, int width, int height){
+		this.id = id;
 		this.x = x;
 		this.y = y;
 		this.width = width;

@@ -33,8 +33,8 @@ public class Star {
 		this.sprite = sprite;
 
 	}
-	public boolean clicked(int mx, int my, int i){
-		if(mx > sprite.getX() && mx < sprite.getX()+clickAreaSize && my > sprite.getY() && my < sprite.getY()+clickAreaSize)
+	public boolean clicked(float mx, float my, boolean mouseDown){
+		if(areaCheck(mx, my) && mouseDown)
 			return true;
 		else
 			return false;
@@ -46,5 +46,19 @@ public class Star {
 
 	public void updatePosition(float px, float py) {
 		sprite.setPosition(x-(px/depth), y-(py/depth));
+	}
+
+	public boolean hovered(float mx, float my) {
+		if(areaCheck(mx, my))
+			return true;
+		else
+			return false;
+	}
+	
+	private boolean areaCheck(float mx, float my){
+		if(mx > sprite.getX() && mx < sprite.getX()+clickAreaSize && my > sprite.getY() && my < sprite.getY()+clickAreaSize)
+			return true;
+		else
+			return false;
 	}
 }

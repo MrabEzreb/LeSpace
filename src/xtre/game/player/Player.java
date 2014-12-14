@@ -53,10 +53,9 @@ public class Player extends PhysicsEntity {
 	private Vector2 point = new Vector2();
 	private Vector2 mp = new Vector2();
 	
-	public void update(float camX, float camY){
-		//The mouse position
-		mp.x = (Gdx.input.getX()+sprite.getWidth()/2);
-		mp.y = -((Gdx.input.getY()-ScreenGlobals.HEIGHT));
+	public void update(float camX, float camY, float mouseX, float mouseY){
+		mp.x = mouseX;
+		mp.y = mouseY;
 		
 		float angle = MathUtils.atan2((ScreenGlobals.HEIGHT/2) - mp.y, (ScreenGlobals.WIDTH/2) - mp.x);
 		

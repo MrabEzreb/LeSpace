@@ -3,7 +3,9 @@ package xtre.game.graphics.space.background;
 import java.util.Arrays;
 import java.util.Random;
 
+import xtre.game.heads_up_display.HUDManager;
 import xtre.globals.ScreenGlobals;
+import xtre.globals.hud.HUDGlobals;
 import xtre.graphics.sprites.SpriteEntity;
 import xtre.graphics.sprites.sprite_types.SpaceBackgroundStarSprites;
 
@@ -16,16 +18,21 @@ public class Stars {
 	
 	private final int worldSize, density, depth;
 	
+	private HUDManager hud;
+	
 	private Random r = new Random();
 	
 	private Star[] stars;
 	private Float[] depths;
 	
-	private float camX, camY;
+	private float camX, camY, mouseX, mouseY;
+	private boolean starHighlightDisplaying = false, starOptionsDisplaying = false;
+	private boolean mouseButtonLeft = false;
 	
-	public int selectedStar = -1;
+	public int selectedStar = -1, starHovered = -1;
 	
-	public Stars(int worldSize, int density, int depth){
+	public Stars(HUDManager hud, int worldSize, int density, int depth){
+		this.hud = hud;
 		this.worldSize = worldSize;
 		this.density = density;
 		this.depth = depth;
@@ -40,7 +47,6 @@ public class Stars {
 		
 	}
 	
-	
 	public Star getSelectedStar(){
 		if(selectedStar!=-1)
 			return stars[selectedStar];
@@ -48,10 +54,18 @@ public class Stars {
 			return null;
 	}
 	
-	public void update(float camX, float camY){
+	public void update(float camX, float camY, float mouseX, float mouseY){
 		this.camX = camX;
 		this.camY = camY;
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
+		
+		starHighlightDisplaying = hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT);
+		starOptionsDisplaying = hud.hudDisplaying(HUDGlobals.STAR_OPTIONS);
+		mouseButtonLeft = Gdx.input.isButtonPressed(Buttons.LEFT);
+		
 		updateStars();
+
 	}
 	
 	public void render(SpriteBatch batch, float camX, float camY){
@@ -64,29 +78,33 @@ public class Stars {
 	private void updateStars(){
 		for(int i = 0; i < stars.length; i++){
 			stars[i].updatePosition(camX, camY);
-			starSelection(i);
-			
+			starHighlightInteraction(i);
+			starOptionsInteraction(i);
+
 		}
-		//if(Gdx.input.isButtonPressed(Buttons.LEFT))
-
 	}
-
-	private void starSelection(int i){
-		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
-			if(selectedStar == -1 || stars[i].selected && selectedStar == i){
-				if(stars[i].selected){
-					stars[i].selected = false;
-					selectedStar = -1;
-				}
-				
-				if(stars[i].clicked(Gdx.input.getX(), (int)(-Gdx.input.getY()+ScreenGlobals.HEIGHT), i)){
-					stars[i].selected = true;
-					selectedStar = i;
-				}
-			}
+	
+	private void starHighlightInteraction(int i){
+		if(!stars[i].selected && stars[i].hovered(mouseX, mouseY) && !starHighlightDisplaying){
+			starHovered = i;
+		}else if(starHovered == i && !stars[i].hovered(mouseX, mouseY)){
+			starHovered = -1;
 		}
 	}
 
+	private void starOptionsInteraction(int i){
+		boolean starClicked = stars[i].clicked(mouseX, mouseY, mouseButtonLeft);
+		if(starClicked){
+			stars[i].selected = true;
+			selectedStar = i;
+		
+		}else
+		if(mouseButtonLeft && !starClicked && stars[i].selected && selectedStar == i && starOptionsDisplaying){
+			stars[i].selected = false;
+			selectedStar = -1;
+		}
+	}
+	
 	private void createStars(){
 		float z = 0;
 		int starMaxSize=0;
@@ -141,6 +159,10 @@ public class Stars {
 		for(Star s : stars){
 			s.sprite.getTexture().dispose();
 		}
+	}
+
+	public Star getStar(int i) {
+		return stars[i];
 	}
 	
 }

@@ -2,7 +2,7 @@ package xtre.game;
 
 import xtre.game.heads_up_display.HUDManager;
 import xtre.game.player.Player;
-import xtre.game.world.SpaceWorld;
+import xtre.game.world.space_world.SpaceWorld;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -30,9 +30,9 @@ public class GameManager {
 		hudManager.render(batch);
 	}
 		
-	public void update(float camX, float camY){
+	public void update(float camX, float camY, float mouseX, float mouseY){
 		hudManager.update();
-		spaceWorld.update(camX, camY);
+		spaceWorld.update(camX, camY, mouseX, mouseY);
 	}
 	
 	public void updateDegugMonitor(int data){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import xtre.game.heads_up_display.types.HighlightHUD;
 import xtre.game.heads_up_display.utils.BoxHUD;
 import xtre.game.heads_up_display.utils.HeadsUpDisplay;
 
@@ -35,9 +36,9 @@ public class HUDManager {
 		}
 	}
 	
-	public HeadsUpDisplay getHUD(String name){
+	public HeadsUpDisplay getHUD(int id){
 		for(int i = 0; i < huds.size(); i++){
-			if(huds.get(i).name.equals(name))
+			if(huds.get(i).id == id)
 				return huds.get(i);
 		}
 		
@@ -46,30 +47,30 @@ public class HUDManager {
 
 	Random r = new Random();
 	
-	public String requestBox(String name, float x, float y, int width, int height) {
-		if(name.equals("")) return null;
-		String returnedName = name;
+	public int requestBox(int id, float x, float y, int width, int height) {
+		if(id==-1) return -1;
+		int returnedID = id;
 		System.out.println("hud request box");
 	
 		for(int i = 0; i < huds.size(); i++){
-			if(huds.get(i).name.equals(name)){
-				System.out.println("Error requesting box HUD [\""+name+"\"] already exists.");
+			if(huds.get(i).id == returnedID){
+				System.out.println("Error requesting box HUD [\""+returnedID+"\"] already exists.");
 				String s = "abcdefghijklmnopqrstuvwxyz";
 				for(int l = 0; l < 26; l++){
-					name += s.charAt(r.nextInt(25));
+					returnedID += s.charAt(r.nextInt(25));
 				}
 			}
 		}
 		
-		huds.add(new BoxHUD(name, (int)x,(int) y, width, height));
+		huds.add(new BoxHUD(returnedID, (int)x,(int) y, width, height));
 		
-		System.out.println(returnedName + "  -]");
-		return returnedName;
+		System.out.println(returnedID + "  -]");
+		return returnedID;
 	}
 	
-	public void closeHud(String hud_name){
+	public void closeHud(int hud_id){
 		for(int i = 0; i < huds.size(); i++){
-			if(huds.get(i).name.equals(hud_name)){
+			if(huds.get(i).id == hud_id){
 				huds.get(i).dispose();
 				huds.remove(i);
 				System.out.println("removing hud from list");
@@ -87,14 +88,44 @@ public class HUDManager {
 		return huds.size();
 	}
 
-	public boolean hudNameMatches(int i, String name) {
+	public boolean hudNamseMatches(int i, int id) {
 		boolean match = false;
 		
-		if(name.equals(huds.get(i).name)){
+		if(id == huds.get(i).id){
 			match = true;
 			System.out.println("name matches in test for hudNameMatches");
 		}
 		
 		return match;
+	}
+
+	public int requestStarHighlight(int id, float x, float y, int width, int height) {
+		if(id == -1) return -1;
+		int returnedID = id;
+		System.out.println("hud request highlight");
+		for(int i = 0; i < huds.size(); i++){
+			if(huds.get(i).id == returnedID){
+				System.out.println("Error requesting box HUD [\""+returnedID+"\"] already exists.");
+				String s = "abcdefghijklmnopqrstuvwxyz";
+				for(int l = 0; l < 26; l++){
+					returnedID += r.nextInt(25);
+				}
+			}
+		}
+		
+		huds.add(new HighlightHUD(returnedID, (int)x,(int) y, width, height));
+		
+		System.out.println(returnedID + "  -]");
+		return returnedID;
+	}
+
+	public boolean hudDisplaying(int id){
+		boolean hudAlreadyDisplaying = false;
+		for(int i = 0; i < huds.size(); i++){
+			if(huds.get(i).id == id){
+				hudAlreadyDisplaying = true;
+			}
+		}
+		return hudAlreadyDisplaying;
 	}
 }

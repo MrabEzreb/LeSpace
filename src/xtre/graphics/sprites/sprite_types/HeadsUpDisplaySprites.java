@@ -15,6 +15,9 @@ public class HeadsUpDisplaySprites {
 	public final static SpriteData paneling_bm = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_bm");
 	public final static SpriteData paneling_br = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_br");
 
+	public final static SpriteData star_highlight = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "star_highlight");
+	
 	public final static SpriteData button = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "button");
+
 
 }
