@@ -23,6 +23,7 @@ public class Player extends PhysicsEntity {
 		this.x = x;
 		this.y = y;
 		this.sprite = sprite;
+		this.sprite.scale(3);
 
 		bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -50,7 +51,6 @@ public class Player extends PhysicsEntity {
 	}
 	
 	private Vector2 force = new Vector2();
-	private Vector2 point = new Vector2();
 	private Vector2 mp = new Vector2();
 	
 	public void update(float camX, float camY, float mouseX, float mouseY){
@@ -68,9 +68,6 @@ public class Player extends PhysicsEntity {
 		force.x = (xx*MathUtils.radiansToDegrees)/20;
 		force.y = (yy*MathUtils.radiansToDegrees)/20;
 		
-		point.x = 01;
-		point.y = -5;
-
 		if(!slowing){
 			if(Gdx.input.isKeyPressed(Keys.A)) {
 				body.applyTorque(2, true);
@@ -93,7 +90,7 @@ public class Player extends PhysicsEntity {
 			}
 			body.setLinearDamping(0);
 		}else{
-			body.setLinearDamping(1);
+			body.setLinearDamping(0.78f);
 		}
 
 		//Set sprite position to match body position

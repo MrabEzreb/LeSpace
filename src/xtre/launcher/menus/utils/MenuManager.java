@@ -3,7 +3,7 @@ package xtre.launcher.menus.utils;
 import xtre.Main;
 import xtre.game.GameLoop;
 import xtre.graphics.sprites.SpriteEntity;
-import xtre.graphics.sprites.sprite_types.SpaceGUISprites;
+import xtre.graphics.sprites.sprite_types.SpritesSpaceGUI;
 import xtre.launcher.menus.MenuStartGame;
 
 import com.badlogic.gdx.Gdx;

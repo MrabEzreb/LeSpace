@@ -19,7 +19,7 @@ public class MenuMultiplayer extends Menu{
 		this.manager = manager;
 
 		BitmapFont menuFont = new BitmapFont(Gdx.files.internal("font/default.fnt"));
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press_synth.wav"));
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/bedip_button.ogg"));
 
 		for(int i = 0; i < 3; i++){
 			buttons.add(new MenuButton(125, (Gdx.graphics.getHeight()/2)-(i*40), 100, 32, "", menuFont, sound));	//0

@@ -20,6 +20,8 @@ public class MenuButton {
 		this.font = font;
 		this.title = title;
 		this.btnSound = btnSound;
+		
+		
 	}
 
 	public void setTitle(String title){

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import xtre.Main;
 import xtre.graphics.sprites.SpriteEntity;
-import xtre.graphics.sprites.sprite_types.SpaceGameSprites;
+import xtre.graphics.sprites.sprite_types.SpritesSpaceGame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -65,7 +65,7 @@ public class TestScreen implements Screen {
 
 			createShape(0, -60 + 0.1f*x);
 		}
-		playerSprite = new Sprite(se.getSprite(SpaceGameSprites.player_ship));
+		playerSprite = new Sprite(se.getSprite(SpritesSpaceGame.player_ship));
 		
 		createBounds();
 

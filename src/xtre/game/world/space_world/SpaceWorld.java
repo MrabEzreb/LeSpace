@@ -5,14 +5,12 @@ import java.util.List;
 
 import xtre.game.graphics.space.background.Stars;
 import xtre.game.heads_up_display.HUDManager;
-import xtre.game.heads_up_display.types.HighlightHUD;
-import xtre.game.heads_up_display.utils.HeadsUpDisplay;
 import xtre.game.physics_objects.player.SpaceRock;
 import xtre.game.player.Player;
 import xtre.globals.ScreenGlobals;
 import xtre.globals.hud.HUDGlobals;
 import xtre.graphics.sprites.SpriteEntity;
-import xtre.graphics.sprites.sprite_types.SpaceGameSprites;
+import xtre.graphics.sprites.sprite_types.SpritesSpaceGame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,7 +25,6 @@ public class SpaceWorld {
 
 	public World world;
 	
-	private SpaceWorldHUD spaceWorldHUD;
 	private HUDManager hud;
 		
 	SpriteEntity se = new SpriteEntity();
@@ -37,6 +34,7 @@ public class SpaceWorld {
 	public Stars stars;
 
 	private float camX=0, camY=0;
+	private boolean justPressedLeftMouseButton = false;
 
 	public final float timeStep = 1f/30f;
 	public final int velocityIterations = 80, positionIterations = 30;
@@ -48,7 +46,7 @@ public class SpaceWorld {
 		stars = new Stars(hud, 15000, 1, 10);
 		
 		//Player
-		Sprite playerSprite = new Sprite(se.getSprite(SpaceGameSprites.player_ship));
+		Sprite playerSprite = new Sprite(se.getSprite(SpritesSpaceGame.player_ship));
 		player = new Player[1];
 		
 		float playerwp = (0), playerhp = (0);
@@ -59,34 +57,28 @@ public class SpaceWorld {
 
 		//Rocks
 		rock = new SpaceRock[4];		
-		rock[0] = new SpaceRock((ScreenGlobals.MPP(300)), (ScreenGlobals.MPP(-300)), new Sprite(se.getSprite(SpaceGameSprites.space_rock)), world);
-		rock[1] = new SpaceRock((ScreenGlobals.MPP(300)), (ScreenGlobals.MPP(300)), new Sprite(se.getSprite(SpaceGameSprites.space_rock)), world);
-		rock[2] = new SpaceRock((ScreenGlobals.MPP(-300)), (ScreenGlobals.MPP(-300)), new Sprite(se.getSprite(SpaceGameSprites.space_rock)), world);
-		rock[3] = new SpaceRock((ScreenGlobals.MPP(-300)), (ScreenGlobals.MPP(300)), new Sprite(se.getSprite(SpaceGameSprites.space_rock)), world);
+		rock[0] = new SpaceRock((ScreenGlobals.MPP(300)), (ScreenGlobals.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[1] = new SpaceRock((ScreenGlobals.MPP(300)), (ScreenGlobals.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[2] = new SpaceRock((ScreenGlobals.MPP(-300)), (ScreenGlobals.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[3] = new SpaceRock((ScreenGlobals.MPP(-300)), (ScreenGlobals.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
 
-
-		//
-
-		// Bounds
+//		 Bounds
 		
-		//setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//		setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 //		setBounds((16f * 1f)/4, (9f * 2f)/4, 2f/4f, 2f/4f);
-		//setBounds(5, 5, 5, 5);
-
-		//
-
-		spaceWorldHUD = new SpaceWorldHUD(hud, this);
+//		setBounds(5, 5, 5, 5);
+	
 
 	}
 	
 	List<String> starOptions = new ArrayList<>();
 	
-	public void update(float camX, float camY, float mouseX, float mouseY) {
-		
+	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedLeftMouseButton) {
 		this.camX = camX;
 		this.camY = camY;
+		this.justPressedLeftMouseButton = justPressedLeftMouseButton;
 		
-		stars.update(camX, camY, mouseX, mouseY);
+		stars.update(camX, camY, mouseX, mouseY, justPressedLeftMouseButton);
 		
 		for(int i = 0; i < player.length; i++)
 			player[0].update(camX, camY, mouseX, mouseY);
@@ -99,7 +91,6 @@ public class SpaceWorld {
 		starOptions();
 		
 		world.step(timeStep, velocityIterations, positionIterations);
-		
 	}
 	
 	public void render(SpriteBatch batch){
@@ -112,29 +103,31 @@ public class SpaceWorld {
 			rock[i].render(batch);
 		}
 	}
-
+	
 	private void starHighlight(){
-		if(stars.starHovered!=-1 && !hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT)){
-			Sprite highlight = stars.getStar(stars.starHovered).sprite;
+		if(!hud.hudDisplaying(HUDGlobals.STAR_OPTIONS) && stars.hoveredStar != -1 && !hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT)){
+			Sprite highlight = stars.getStar(stars.hoveredStar).sprite;
 			hud.requestStarHighlight(HUDGlobals.STAR_HIGHLIGHT, (highlight.getX()-(48/2))+(highlight.getWidth()/2), (highlight.getY()-(48/2))+(highlight.getWidth()/2), 1, 1);
-		}else if(stars.starHovered==-1){
+		}else if(stars.hoveredStar == -1){
 			hud.closeHud(HUDGlobals.STAR_HIGHLIGHT);
 		}
 	}
 	
-	private void starOptions(){
-		if(stars.selectedStar!=-1 && hud.getHUD(HUDGlobals.STAR_OPTIONS) == null){
-			System.out.println(HUDGlobals.STAR_OPTIONS +" engaged");
-			player[0].slowToStop(true);
-			hud.requestBox(HUDGlobals.STAR_OPTIONS, stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 14, 7);
-		}
-		else if(stars.selectedStar==-1 && hud.getHUD(HUDGlobals.STAR_OPTIONS)!=null){
-			System.out.println(HUDGlobals.STAR_OPTIONS +" disengaged");
-			hud.closeHud(HUDGlobals.STAR_OPTIONS);
-			player[0].slowToStop(false);
+	private void starOptions() {
+		if(justPressedLeftMouseButton) {
+			if (stars.selectedStar != -1 && !hud.hudDisplaying(HUDGlobals.STAR_OPTIONS)) {
+				hud.requestBox(HUDGlobals.STAR_OPTIONS,	stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 16, 8);
+				player[0].slowToStop(true);
+				return;
+			}
+
+			if (hud.hudDisplaying(HUDGlobals.STAR_OPTIONS) && hud.getHUD(HUDGlobals.STAR_OPTIONS).status()) {
+				hud.closeHud(HUDGlobals.STAR_OPTIONS);
+				player[0].slowToStop(false);
+				return;
+			}
 		}
 	}
-	
 	
 	private void setBounds(float x, float y, float w, float h){
 		x=ScreenGlobals.MPP(x);

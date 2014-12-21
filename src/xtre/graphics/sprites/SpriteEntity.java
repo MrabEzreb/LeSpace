@@ -14,8 +14,6 @@ public class SpriteEntity {
 	public SpriteEntity(){
 		assets = new AssetManager();
 
-		
-
 	}	
 	
 	public Sprite getSprite(SpriteData data){
@@ -27,6 +25,6 @@ public class SpriteEntity {
 		Sprite sprite = new Sprite(atlas.findRegion(data.name));
 		sprite.setPosition(0,0);
 		
-		return sprite;
+		return new Sprite(sprite);
 	}
 }

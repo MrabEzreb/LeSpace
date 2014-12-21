@@ -21,7 +21,7 @@ public class MenuStartGame extends Menu {
 		
 
 		//Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press_edited.ogg")).play();
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press_synth.wav"));
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/bedip_button.ogg"));
 		//Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press.wav")).play();
 		
 		for(int i = 0; i < 5; i++){
@@ -59,6 +59,7 @@ public class MenuStartGame extends Menu {
 		if(buttonPressed.equals("Exit")){
 			dispose();
 			manager.main.dispose();
+			Gdx.app.exit();
 		}
 	}
 	
