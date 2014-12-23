@@ -29,7 +29,7 @@ public class PlayerInterface extends HeadsUpDisplay{
 				se.getSprite(SpritesHeadsUpDisplay.paneling_lm),	//[2] 
 				se.getSprite(SpritesHeadsUpDisplay.paneling_mr),	//[3]
 				
-				se.getSprite(SpritesHeadsUpDisplay.paneling_mm),	//[4] 
+				se.getSprite(SpritesHeadsUpDisplay.paneling_mm),	//[4]
 			
 				se.getSprite(SpritesHeadsUpDisplay.paneling_tl),	//[5] 
 				se.getSprite(SpritesHeadsUpDisplay.paneling_tr),	//[6] 

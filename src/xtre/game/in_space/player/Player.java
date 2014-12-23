@@ -3,6 +3,7 @@ package xtre.game.in_space.player;
 import xtre.game.game_gui.heads_up_display.utils.HUDManager;
 import xtre.game.game_gui.space_gui.PlayerInterface;
 import xtre.game.in_space.physics_objects.PhysicsEntity;
+import xtre.game.utils.Timer;
 import xtre.globals.ScreenGlobals;
 
 import com.badlogic.gdx.Gdx;
@@ -20,6 +21,9 @@ public class Player extends PhysicsEntity {
 	
 	private PlayerInterface playersGUI;
 	public boolean slowing = false;
+	
+	private float fuelLevel = 100;
+	private float fuelEfficiency = .0005f;
 	
 	public Player(float x, float y, Sprite sprite, World world, HUDManager hudManager) {
 		System.out.println("player");
@@ -53,10 +57,27 @@ public class Player extends PhysicsEntity {
 		playersGUI = new PlayerInterface(hudManager);
 	}
 	
+	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedL){
+			updateFuelLevel(updateMovement(mouseX, mouseY));
+		
+		playersGUI.updateInterface(mouseX, mouseY, justPressedL);
+	}
+
+	public void render(SpriteBatch batch){
+		sprite.draw(batch);
+		playersGUI.render(batch);
+		
+	}
+	
+	private void updateFuelLevel(boolean usingFuel){
+		if(usingFuel)fuelLevel -= fuelEfficiency;
+	}
+	
 	private Vector2 force = new Vector2();
 	private Vector2 mp = new Vector2();
 	
-	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedL){
+	private boolean updateMovement(float mouseX, float mouseY){
+		boolean usingFuel = false;
 		mp.x = mouseX;
 		mp.y = mouseY;
 		
@@ -71,29 +92,34 @@ public class Player extends PhysicsEntity {
 		force.x = (xx*MathUtils.radiansToDegrees)/20;
 		force.y = (yy*MathUtils.radiansToDegrees)/20;
 		
-		if(!slowing){
+		if(!slowing && Math.abs(body.getLinearVelocity().x+body.getLinearVelocity().y) < 10){
 			if(Gdx.input.isKeyPressed(Keys.A)) {
-				body.applyTorque(2, true);
+				usingFuel = true;
+				body.applyTorque(0.7f, true);
 			}
 			if(Gdx.input.isKeyPressed(Keys.D)){
-				body.applyTorque(-2, true);
+				usingFuel = true;
+				body.applyTorque(-0.7f, true);
 			}		
 			
-	
 			if(Gdx.input.isKeyPressed(Keys.W)){
+				usingFuel = true;
 				body.applyForceToCenter(force, true);
 				
 				if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
+					fuelEfficiency = .05f;
 					body.applyForceToCenter(force, true);
 					body.setLinearDamping(0);
+				}else{
+					fuelEfficiency = .0005f;
 				}
-				
 			}else if(Gdx.input.isKeyPressed(Keys.S)){
+				usingFuel = true;
 				body.setLinearDamping(0.78f);
 //				body.applyForceToCenter(-(force.x*3)/4, -(force.y*3)/4, true);
 			}
 		}else{
-			body.setLinearDamping(0.78f);
+			body.setLinearDamping(0.50f);
 		}
 
 		//Set sprite position to match body position
@@ -102,15 +128,8 @@ public class Player extends PhysicsEntity {
 		sprite.setPosition(sox, soy);
 		sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
 		
-		playersGUI.updateInterface(mouseX, mouseY, justPressedL);
+		return usingFuel;
 	}
-
-	public void render(SpriteBatch batch){
-		sprite.draw(batch);
-		playersGUI.render(batch);
-		
-	}
-	
 
 	public void create(World world) {
 		body = world.createBody(bodyDef);
