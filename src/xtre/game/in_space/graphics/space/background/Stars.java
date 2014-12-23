@@ -64,7 +64,7 @@ public class Stars {
 		this.justPressedLeftMouseButton = justPressedLeftMouseButton;
 		
 		starHighlightDisplaying = hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT);
-		starOptionsDisplaying = hud.hudDisplaying(HUDGlobals.STAR_OPTIONS);
+		starOptionsDisplaying = hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR);
 
 		updateStars();
 	}
@@ -94,7 +94,7 @@ public class Stars {
 		for(int i = 0; i < stars.length; i++){
 		boolean b = stars[i].clicked(mouseX, mouseY, justPressedLeftMouseButton);
 			
-			if(b && !hud.hudDisplaying(HUDGlobals.STAR_OPTIONS)){
+			if(b && !hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR)){
 				selectedStar = i;
 			}
 			

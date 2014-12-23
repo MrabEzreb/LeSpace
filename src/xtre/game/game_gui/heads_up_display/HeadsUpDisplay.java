@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.heads_up_display.button_interface.button_set.space.GameButton;
+import xtre.game.game_gui.heads_up_display.menu_bar.GameMenu;
 import xtre.graphics.sprites.SpriteEntity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -81,8 +82,8 @@ public abstract class HeadsUpDisplay {
 		renderInterface(batch);
 	}
 	
-	public void updateInterface(float mouseX, float mouseY, boolean justPressedLeftMouseButton){}
-	public void renderInterface(SpriteBatch batch){}
+	public abstract void updateInterface(float mouseX, float mouseY, boolean justPressedLeftMouseButton);
+	public abstract void renderInterface(SpriteBatch batch);
 
 	public void closeHUD(){
 		dispose();
@@ -99,13 +100,6 @@ public abstract class HeadsUpDisplay {
 		System.out.println("disposed of hud ");
 	}
 	
-	public boolean mouseOutOfBounds(){
-		if(mouseX > x && mouseX < x+(width) && mouseY > y && mouseY < y+(height))
-			return false;
-		else
-			return true;
-	}
-
 	public void addMenu(GameMenu menu) {
 		disposable.add(menu.menuBarSprite.getTexture());
 		disposable.add(menu.font);
@@ -122,6 +116,13 @@ public abstract class HeadsUpDisplay {
 		}
 	}
 	
+	public boolean mouseOutOfBounds(){
+		if(mouseX > x && mouseX < x+(width) && mouseY > y && mouseY < y+(height))
+			return false;
+		else
+			return true;
+	}
+
 	public boolean status(){
 		boolean status = false;
 		if(mouseOutOfBounds()){
@@ -135,5 +136,4 @@ public abstract class HeadsUpDisplay {
 		
 		return status;
 	}
-	
 }

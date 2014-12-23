@@ -1,11 +1,11 @@
 package xtre.game.game_gui.heads_up_display.hud_interfaces;
 
-import xtre.game.game_gui.heads_up_display.GameMenu;
 import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
 import xtre.game.game_gui.heads_up_display.button_interface.button_set.space.GameButton;
 import xtre.game.game_gui.heads_up_display.button_interface.button_set.space.GameButtonAction;
-import xtre.graphics.sprites.SpriteEntity;
-import xtre.graphics.sprites.sprite_types.space_hud.HeadsUpDisplaySprites;
+import xtre.game.game_gui.heads_up_display.menu_bar.GameMenu;
+import xtre.game.game_gui.heads_up_display.menu_bar.MenuBarAction;
+import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 
 import com.badlogic.gdx.Gdx;
@@ -18,10 +18,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class BoxHUD extends HeadsUpDisplay {
 	
-	private int step = 0;
-	
 	/**
-	 * Add new custom BoxHUD. 
+	 * Add new custom BoxHUD.
 	 * Sprites must be in an order of {@code TM, BM, LM, RM, M, TL, TR, BR, BL}
 	 *  
 	 * @param int globalID
@@ -62,8 +60,7 @@ public class BoxHUD extends HeadsUpDisplay {
 		}
 	}
 	
-	public void createDropDownMenu(float menuX, float menuY){
-		Sprite menuBarSprite = se.getSprite(SpritesSpaceHudMenu.menu_bar);
+	public void createDropDownMenu(float menuX, float menuY, Sprite menuBarSprite){
 		Texture t = new Texture(Gdx.files.internal("font/default_0.png"));
 		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		BitmapFont menuFont = new BitmapFont(Gdx.files.internal("font/default.fnt"), new TextureRegion(t));
@@ -97,14 +94,23 @@ public class BoxHUD extends HeadsUpDisplay {
 		
 		addMenu(menu);
 	}
+
+	public void setMenuBarAction(int whichMenu, MenuBarAction menuBarAction) {
+		gameMenus[whichMenu].addAction(menuBarAction);
+	}
+	
 	
 //		Sprite menuSprite = se.getSprite(SpritesSpaceHudMenu.menu_bar);
 //
 //		for(int i = 0; i < amountOfMenus; i++)
 //			addMenu(createMenu(boxX+12, (boxY+(i*40)+6), new Sprite(menuSprite), menuSprite.getWidth(), menuSprite.getHeight()+10));
 //		
-	
-	public void createHotbarMenu(float menuBarX, float menuBarY, Sprite menuBarSprite , float menuButtonX, float menuButtonY){
+	/**
+	 * @param {@code float menuBarX}
+	 * @param {@code float menuBarY}
+	 * @param {@code Sprite menuBarSprite}
+	 */
+	public void createHotbarMenu(float menuBarX, float menuBarY, Sprite menuBarSprite){
 		Texture t = new Texture(Gdx.files.internal("font/default_0.png"));
 		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		BitmapFont menuFont = new BitmapFont(Gdx.files.internal("font/default.fnt"), new TextureRegion(t));
@@ -114,7 +120,8 @@ public class BoxHUD extends HeadsUpDisplay {
 		
 		GameMenu menu = new GameMenu(menuBarX, menuBarY, menuBarSprite.getWidth(), menuBarSprite.getHeight(), menuBarSprite);
 		menu.setBitmapFont(menuFont, menuBarX+20, menuBarY+26, "Inspect");
-	
+		
+		addMenu(menu);
 	}
 
 	public void setHUDPosition(float x, float y){
@@ -126,7 +133,7 @@ public class BoxHUD extends HeadsUpDisplay {
 	
 	////// Box creation below only
 	
-	
+	private int step = 0;
 	private void step(){
 		// ;)
 		for(int i = 0; i < paneling.length; i++){
@@ -167,7 +174,7 @@ public class BoxHUD extends HeadsUpDisplay {
 	
 	private void setupTM(int x, int y, int width, int height, Sprite sprite){
 		Sprite[] tmPaneling = new Sprite[width];
-		se.getSprite(HeadsUpDisplaySprites.paneling_tm);
+		se.getSprite(SpritesHeadsUpDisplay.paneling_tm);
 		
 		for(int i = 0; i < tmPaneling.length; i++){
 			tmPaneling[i] = new Sprite(sprite);
@@ -230,5 +237,4 @@ public class BoxHUD extends HeadsUpDisplay {
 		}
 		step();
 	}
-	
 }

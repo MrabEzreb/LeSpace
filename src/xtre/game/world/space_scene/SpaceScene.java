@@ -13,7 +13,8 @@ import xtre.globals.ScreenGlobals;
 import xtre.globals.hud.HUDGlobals;
 import xtre.graphics.sprites.SpriteEntity;
 import xtre.graphics.sprites.sprite_types.SpritesSpaceGame;
-import xtre.graphics.sprites.sprite_types.space_hud.HeadsUpDisplaySprites;
+import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
+import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -53,7 +54,7 @@ public class SpaceScene {
 		
 		float playerwp = (0), playerhp = (0);
 		for(int i = 0; i < player.length; i++){
-			player[i] = new Player(playerwp, playerhp, playerSprite, world);
+			player[i] = new Player(playerwp, playerhp, playerSprite, world, hud);
 		}
 
 		rock = new SpaceRock[4];		
@@ -74,7 +75,7 @@ public class SpaceScene {
 		stars.update(camX, camY, mouseX, mouseY, justPressedLeftMouseButton);
 		
 		for(int i = 0; i < player.length; i++)
-			player[0].update(camX, camY, mouseX, mouseY);
+			player[0].update(camX, camY, mouseX, mouseY, justPressedLeftMouseButton);
 		
 		for(int i = 0; i < rock.length; i++){
 			rock[i].update(camX, camY);
@@ -98,7 +99,7 @@ public class SpaceScene {
 	}
 	
 	private void starHighlight(){
-		if(!hud.hudDisplaying(HUDGlobals.STAR_OPTIONS) && stars.hoveredStar != -1 && !hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT)){
+		if(!hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR) && stars.hoveredStar != -1 && !hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT)){
 			Sprite highlight = stars.getStar(stars.hoveredStar).sprite;
 			hud.requestStarHighlight(HUDGlobals.STAR_HIGHLIGHT, (highlight.getX()-(48/2))+(highlight.getWidth()/2), (highlight.getY()-(48/2))+(highlight.getWidth()/2), 1, 1);
 		}else if(hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT) && stars.hoveredStar == -1){
@@ -108,31 +109,32 @@ public class SpaceScene {
 	
 	private void starOptions() {
 		if(justPressedLeftMouseButton) {
-			if (stars.selectedStar != -1 && !hud.hudDisplaying(HUDGlobals.STAR_OPTIONS)) {
-				
+			if (stars.selectedStar != -1 && !hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR)) {
 				Sprite[] boxHUDGraphics = new Sprite[]{
 						
-						se.getSprite(HeadsUpDisplaySprites.paneling_tm),	//[0]
-						se.getSprite(HeadsUpDisplaySprites.paneling_bm),	//[1] 
-						se.getSprite(HeadsUpDisplaySprites.paneling_lm),	//[2] 
-						se.getSprite(HeadsUpDisplaySprites.paneling_mr),	//[3]
+						se.getSprite(SpritesHeadsUpDisplay.paneling_tm),	//[0]
+						se.getSprite(SpritesHeadsUpDisplay.paneling_bm),	//[1] 
+						se.getSprite(SpritesHeadsUpDisplay.paneling_lm),	//[2] 
+						se.getSprite(SpritesHeadsUpDisplay.paneling_mr),	//[3]
 						
-						se.getSprite(HeadsUpDisplaySprites.paneling_mm),	//[4] 
+						se.getSprite(SpritesHeadsUpDisplay.paneling_mm),	//[4] 
 					
-						se.getSprite(HeadsUpDisplaySprites.paneling_tl),	//[5] 
-						se.getSprite(HeadsUpDisplaySprites.paneling_tr),	//[6] 
-						se.getSprite(HeadsUpDisplaySprites.paneling_bl),	//[7] 
-						se.getSprite(HeadsUpDisplaySprites.paneling_br),	//[8]
+						se.getSprite(SpritesHeadsUpDisplay.paneling_tl),	//[5] 
+						se.getSprite(SpritesHeadsUpDisplay.paneling_tr),	//[6] 
+						se.getSprite(SpritesHeadsUpDisplay.paneling_bl),	//[7] 
+						se.getSprite(SpritesHeadsUpDisplay.paneling_br),	//[8]
 				};
 				
-				hud.requestBox(HUDGlobals.STAR_OPTIONS,	stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 16, 8, boxHUDGraphics);
-				for(int i = 0; i < 3; i++) ((BoxHUD)hud.getHUD(HUDGlobals.STAR_OPTIONS)).createDropDownMenu(0, (i*40)+6);
+				hud.requestBox(HUDGlobals.SPACE_INSPECT_STAR,	stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 16, 8, boxHUDGraphics);
+				for(int i = 0; i < 3; i++)
+					((BoxHUD)hud.getHUD(HUDGlobals.SPACE_INSPECT_STAR)).createDropDownMenu(0, (i*40)+6, se.getSprite(SpritesSpaceHudMenu.menu_bar));
+				
 				player[0].slowToStop(true);
 				return;
 			}
 
-			if (hud.hudDisplaying(HUDGlobals.STAR_OPTIONS) && hud.getHUD(HUDGlobals.STAR_OPTIONS).status()) {
-				hud.closeHud(HUDGlobals.STAR_OPTIONS);
+			if (hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR) && hud.getHUD(HUDGlobals.SPACE_INSPECT_STAR).status()) {
+				hud.closeHud(HUDGlobals.SPACE_INSPECT_STAR);
 				player[0].slowToStop(false);
 				return;
 			}

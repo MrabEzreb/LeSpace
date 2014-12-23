@@ -52,7 +52,9 @@ public class GameButton {
 		this.y = y;
 	}
 	
-	public void doAction() { buttonAction.doAction(); }
+	public void doAction() {
+		buttonAction.doAction();
+	}
 	
 	public boolean isClicked(float mouseX, float mouseY, boolean justPressedL) {
 		if(justPressedL && Glbls.withinSquareBounds(mouseX, mouseY, x, y, width, height))

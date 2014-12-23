@@ -14,7 +14,6 @@ public class GameManager {
 	public SpaceScene spaceWorld;
 	
 	private HUDManager hudManager;
-	private PlayerInterface playersGUI;
 	
 	private GameInputs inputs = new GameInputs();
 	
@@ -25,10 +24,7 @@ public class GameManager {
 
 	public GameManager(){
 		hudManager = new HUDManager();
-		
 		spaceWorld = new SpaceScene(hudManager);
-		
-		playersGUI = new PlayerInterface();
 	}
 	
 	public Player getPlayer(int playerID){
@@ -38,7 +34,6 @@ public class GameManager {
 	public void render(SpriteBatch batch, float dt) {
 		spaceWorld.render(batch);
 		hudManager.render(batch);
-		playersGUI.render(batch);
 	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY){
@@ -49,7 +44,6 @@ public class GameManager {
 		
 		hudManager.update(mouseX, mouseY, justPressedLeftMouseButton);
 		spaceWorld.update(camX, camY, mouseX, mouseY, justPressedLeftMouseButton);
-		playersGUI.updateInterface(mouseX, mouseY, justPressedLeftMouseButton);
 	}
 	
 	public void updateDegugMonitor(int data){

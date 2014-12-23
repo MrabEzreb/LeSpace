@@ -1,5 +1,7 @@
 package xtre.game.in_space.player;
 
+import xtre.game.game_gui.heads_up_display.utils.HUDManager;
+import xtre.game.game_gui.space_gui.PlayerInterface;
 import xtre.game.in_space.physics_objects.PhysicsEntity;
 import xtre.globals.ScreenGlobals;
 
@@ -16,9 +18,10 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends PhysicsEntity {
 	
+	private PlayerInterface playersGUI;
 	public boolean slowing = false;
 	
-	public Player(float x, float y, Sprite sprite, World world) {
+	public Player(float x, float y, Sprite sprite, World world, HUDManager hudManager) {
 		System.out.println("player");
 		this.x = x;
 		this.y = y;
@@ -46,13 +49,14 @@ public class Player extends PhysicsEntity {
 		Vector2 v = new Vector2();
 		body.getWorldVector(v);
 		shape.dispose();
-	
+		
+		playersGUI = new PlayerInterface(hudManager);
 	}
 	
 	private Vector2 force = new Vector2();
 	private Vector2 mp = new Vector2();
 	
-	public void update(float camX, float camY, float mouseX, float mouseY){
+	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedL){
 		mp.x = mouseX;
 		mp.y = mouseY;
 		
@@ -98,10 +102,13 @@ public class Player extends PhysicsEntity {
 		sprite.setPosition(sox, soy);
 		sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
 		
+		playersGUI.updateInterface(mouseX, mouseY, justPressedL);
 	}
 
 	public void render(SpriteBatch batch){
 		sprite.draw(batch);
+		playersGUI.render(batch);
+		
 	}
 	
 
