@@ -35,7 +35,7 @@ public class BoxHUD extends HeadsUpDisplay {
 	
 	public BoxHUD(int globalID, int boxX, int boxY, int boxWidth, int boxHeight, Sprite[] panelGraphics, int amountOfMenus){
 		super("I am a BoxHUD", globalID, boxX, boxY, boxWidth*16, boxHeight*16);
-
+		
 		paneling = new Sprite[(boxWidth*boxHeight) + (boxWidth*2) + (boxHeight*2)+4];
 		
 		setupTM(boxX, boxY, boxWidth, boxHeight, panelGraphics[0]);
