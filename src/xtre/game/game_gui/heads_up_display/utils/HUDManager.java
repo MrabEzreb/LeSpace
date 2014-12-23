@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
-import xtre.game.game_gui.heads_up_display.hud_interfaces.BoxHUD;
-import xtre.game.game_gui.heads_up_display.hud_interfaces.HighlightHUD;
+import xtre.game.game_gui.heads_up_display.hud_interfaces.HUDBox;
+import xtre.game.game_gui.heads_up_display.hud_interfaces.HUDHighlight;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -65,7 +65,7 @@ public class HUDManager {
 		if(id==-1) return -1;
 		int returnedID = id;
 	
-		huds.add(new BoxHUD(returnedID, (int)x,(int) y, width, height, panelGraphics, 4));
+		huds.add(new HUDBox(returnedID, (int)x,(int) y, width, height, panelGraphics, 4));
 		
 		System.out.println("requestBox [" + returnedID + "]");
 		return returnedID;
@@ -76,7 +76,7 @@ public class HUDManager {
  	 *Sprites must be in an order of (TM, BM, LM, RM, M, TL, TR, BR, BL)
 	 * @param BoxHUD, 
 	 */
-	public int addBoxHUD(BoxHUD boxHUD) {
+	public int addBoxHUD(HUDBox boxHUD) {
 		if(boxHUD.id==-1) return -1;
 		int returnedID = boxHUD.id;
 	
@@ -90,7 +90,7 @@ public class HUDManager {
 		if(id == -1) return -1;
 		int returnedID = id;
 
-		huds.add(new HighlightHUD(returnedID, (int)x,(int) y, width, height));
+		huds.add(new HUDHighlight(returnedID, (int)x,(int) y, width, height));
 		return returnedID;
 	}
 	

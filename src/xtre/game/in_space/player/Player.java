@@ -3,8 +3,8 @@ package xtre.game.in_space.player;
 import xtre.game.game_gui.heads_up_display.utils.HUDManager;
 import xtre.game.game_gui.space_gui.PlayerInterface;
 import xtre.game.in_space.physics_objects.PhysicsEntity;
-import xtre.game.utils.Timer;
 import xtre.globals.ScreenGlobals;
+import xtre.graphics.sprites.sprite_types.SpritesSpaceGUI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -39,7 +39,7 @@ public class Player extends PhysicsEntity {
 		
 //		PolygonShape shape = new PolygonShape();
 //		shape.setAsBox(5,5);
-		
+
 		fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.filter.groupIndex = -1;

@@ -1,7 +1,7 @@
 package xtre.game.game_gui.space_gui;
 
 import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
-import xtre.game.game_gui.heads_up_display.hud_interfaces.BoxHUD;
+import xtre.game.game_gui.heads_up_display.hud_interfaces.HUDBox;
 import xtre.game.game_gui.heads_up_display.menu_bar.MenuBarAction;
 import xtre.game.game_gui.heads_up_display.utils.HUDManager;
 import xtre.globals.hud.HUDGlobals;
@@ -13,7 +13,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PlayerInterface extends HeadsUpDisplay{
 	
-	BoxHUD hotbar;
+	private float fuelLevel=0;
+	
+	HUDBox hotbar;
 	HUDManager hud;
 	
 	public PlayerInterface(HUDManager hud){
@@ -37,7 +39,7 @@ public class PlayerInterface extends HeadsUpDisplay{
 				se.getSprite(SpritesHeadsUpDisplay.paneling_br),	//[8]
 		};
 		
-		hotbar = new BoxHUD(HUDGlobals.SPACE_HOTBAR, 10, 10, 80, 3, sprites, 1);
+		hotbar = new HUDBox(HUDGlobals.SPACE_HOTBAR, 10, 10, 80, 3, sprites, 1);
 		hotbar.createHotbarMenu(0, 8, se.getSprite(SpritesSpaceHudMenu.menu_bar));
 		hotbar.setMenuBarAction(0, new MenuBarAction(){
 			public void doAction(){
@@ -47,10 +49,14 @@ public class PlayerInterface extends HeadsUpDisplay{
 		hud.addBoxHUD(hotbar);
 	}
 	
+	public void updateInterface(float mouseX, float mouseY, boolean justPressedL){
+		
+	}
+	
 	public void renderInterface(SpriteBatch batch){
 	}
 	
-	public void updateInterface(float mouseX, float mouseY, boolean justPressedL){
-		
+	public void setFuelLevel(float fuelLevel){
+		this.fuelLevel = fuelLevel;
 	}
 }

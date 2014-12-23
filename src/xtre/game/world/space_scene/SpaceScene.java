@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import xtre.game.game_gui.heads_up_display.hud_interfaces.BoxHUD;
+import xtre.game.game_gui.heads_up_display.hud_interfaces.HUDBox;
 import xtre.game.game_gui.heads_up_display.utils.HUDManager;
 import xtre.game.in_space.graphics.space.background.Stars;
 import xtre.game.in_space.physics_objects.player.SpaceRock;
@@ -127,7 +127,7 @@ public class SpaceScene {
 				
 				hud.requestBox(HUDGlobals.SPACE_INSPECT_STAR,	stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 16, 8, boxHUDGraphics);
 				for(int i = 0; i < 3; i++)
-					((BoxHUD)hud.getHUD(HUDGlobals.SPACE_INSPECT_STAR)).createDropDownMenu(0, (i*40)+6, se.getSprite(SpritesSpaceHudMenu.menu_bar));
+					((HUDBox)hud.getHUD(HUDGlobals.SPACE_INSPECT_STAR)).createDropDownMenu(0, (i*40)+6, se.getSprite(SpritesSpaceHudMenu.menu_bar));
 				
 				player[0].slowToStop(true);
 				return;

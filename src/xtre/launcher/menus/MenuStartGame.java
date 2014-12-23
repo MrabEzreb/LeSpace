@@ -17,7 +17,7 @@ public class MenuStartGame extends Menu {
 	public MenuStartGame(MenuManager manager){
 		this.manager = manager;
 		
-		BitmapFont menuFont = new BitmapFont(Gdx.files.internal("font/default.fnt"));
+		BitmapFont menuFont = new BitmapFont(Gdx.files.internal("font/default_font.fnt"));
 		
 
 		//Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press_edited.ogg")).play();
