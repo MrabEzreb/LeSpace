@@ -32,7 +32,7 @@ public class GameLoop implements Screen {
 		
 	public void show() {
 		Gdx.graphics.setDisplayMode((int)ScreenGlobals.WIDTH, (int)ScreenGlobals.HEIGHT, false);
-
+		Gdx.graphics.setTitle("LeSpace");
 		gameManager = new GameManager();
 
 		world = gameManager.spaceWorld.world;
@@ -79,8 +79,7 @@ public class GameLoop implements Screen {
 		camera.update();
 		
 		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
-			dispose();
-			main.setScreen(new LauncherLoop(main));
+			Gdx.app.exit();
 		}
 		
 		//
@@ -92,7 +91,6 @@ public class GameLoop implements Screen {
 	
 	public void hide() {
 		System.out.println("GameLoop hide");
-		dispose();
 	}
 	
 	public void pause() {
@@ -105,8 +103,8 @@ public class GameLoop implements Screen {
 	
 	public void dispose() {
 		System.out.println("GameLoop dispose");
-		
-		gameManager.dispose();
+		main.setScreen(new LauncherLoop(main));
+
 	}
 
 }
