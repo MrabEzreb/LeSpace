@@ -7,4 +7,5 @@ public class HUDGlobals {
 	public static final int SPACE_INSPECT_STAR = 1;
 	public static final int STAR_HIGHLIGHT = 2;
 	public static final int SPACE_HOTBAR = 3;
+	public static final int SPACE_FUEL_METRE = 4;
 }

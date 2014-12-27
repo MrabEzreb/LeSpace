@@ -1,0 +1,26 @@
+
+space_hud_menu_buttons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+menu_bar_ott
+  rotate: false
+  xy: 1, 1
+  size: 200, 100
+  orig: 200, 100
+  offset: 0, 0
+  index: -1
+menu_bar
+  rotate: false
+  xy: 203, 65
+  size: 114, 36
+  orig: 114, 36
+  offset: 0, 0
+  index: -1
+menu_bar_button
+  rotate: false
+  xy: 203, 35
+  size: 106, 28
+  orig: 106, 28
+  offset: 0, 0
+  index: -1

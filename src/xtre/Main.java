@@ -1,6 +1,8 @@
 package xtre;
 
 
+import xtre.launcher.LauncherLoop;
+
 import com.badlogic.gdx.Game;
 
 public class Main extends Game {

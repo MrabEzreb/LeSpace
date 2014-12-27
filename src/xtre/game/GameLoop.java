@@ -1,8 +1,8 @@
 package xtre.game;
 
-import xtre.LauncherLoop;
 import xtre.Main;
 import xtre.globals.ScreenGlobals;
+import xtre.launcher.LauncherLoop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -61,7 +61,7 @@ public class GameLoop implements Screen {
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		debugRenderer.render(world, camera.combined);
+		//debugRenderer.render(world, camera.combined);
 		
 		batch.begin();
 		gameManager.render(batch, dt);

@@ -3,8 +3,8 @@ package xtre.game.game_gui.heads_up_display;
 import java.util.ArrayList;
 import java.util.List;
 
-import xtre.game.game_gui.heads_up_display.button_interface.button_set.space.GameButton;
-import xtre.game.game_gui.heads_up_display.menu_bar.GameMenu;
+import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
+import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
 import xtre.graphics.sprites.SpriteEntity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,7 +19,7 @@ public abstract class HeadsUpDisplay {
 	
 	protected boolean justPressedLeftMouse = false;
 	
-	public Sprite[] paneling;
+	public Sprite[] graphics;
 	public Sprite background;
 	
 	public final SpriteEntity se = new SpriteEntity();
@@ -63,22 +63,22 @@ public abstract class HeadsUpDisplay {
 	}
 
 	public final void render(SpriteBatch batch){
-		try{
-			if(paneling!=null){
-				for(Sprite s : paneling){
-					if(s!=null)
-					s.draw(batch);
-				}
-			}
-			
-			if(background!=null){
-				background.draw(batch);
-			}
-			
-		}catch(NullPointerException e){
-			System.out.println("ERROR: (HeadsUpDisplay.java:) "+this.getClass().getName() + " " + e.getCause());
-		}
-		
+//		try{
+//			if(graphics!=null){
+//				for(Sprite s : graphics){
+//					if(s!=null)
+//					s.draw(batch);
+//				}
+//			}
+//			
+//			if(background!=null){
+//				background.draw(batch);
+//			}
+//			
+//		}catch(NullPointerException e){
+//			System.out.println("ERROR: (HeadsUpDisplay.java:) "+this.getClass().getName() + " " + e.getCause());
+//		}
+//		
 		renderInterface(batch);
 	}
 	
@@ -90,8 +90,8 @@ public abstract class HeadsUpDisplay {
 	}
 
 	public final void dispose(){
-		if(paneling!=null)
-		for(Sprite s : paneling){
+		if(graphics!=null)
+		for(Sprite s : graphics){
 			s.getTexture().dispose();
 		}
 		
@@ -135,5 +135,15 @@ public abstract class HeadsUpDisplay {
 		}		
 		
 		return status;
+	}
+
+	public int step = 0;
+	public void step(){
+		for(int i = 0; i < graphics.length; i++){
+			if(graphics[i] == null){
+				step = i;
+				return;
+			}
+		}
 	}
 }

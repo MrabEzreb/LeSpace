@@ -5,7 +5,7 @@ import java.util.Random;
 
 import xtre.Main;
 import xtre.graphics.sprites.SpriteEntity;
-import xtre.graphics.sprites.sprite_types.SpritesSpaceGame;
+import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;

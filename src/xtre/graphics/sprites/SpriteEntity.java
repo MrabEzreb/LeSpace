@@ -1,6 +1,6 @@
 package xtre.graphics.sprites;
 
-import xtre.graphics.sprites.sprite_types.utils.SpriteData;
+import xtre.graphics.sprites.utils.SpriteData;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Sprite;

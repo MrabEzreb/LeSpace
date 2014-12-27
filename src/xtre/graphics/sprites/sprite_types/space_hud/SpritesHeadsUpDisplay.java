@@ -1,6 +1,6 @@
 package xtre.graphics.sprites.sprite_types.space_hud;
 
-import xtre.graphics.sprites.sprite_types.utils.SpriteData;
+import xtre.graphics.sprites.utils.SpriteData;
 
 public class SpritesHeadsUpDisplay {
 	public final static SpriteData paneling_tl = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_tl");

@@ -1,9 +1,9 @@
 package xtre.game;
 
-import xtre.game.game_gui.heads_up_display.utils.HUDManager;
-import xtre.game.game_gui.space_gui.PlayerInterface;
-import xtre.game.in_space.player.Player;
-import xtre.game.world.space_scene.SpaceScene;
+import xtre.game.game_gui.heads_up_display.HUDManager;
+import xtre.game.game_gui.player.PlayerInterface;
+import xtre.game.player.Player;
+import xtre.game.space_world.SpaceScene;
 import xtre.globals.hud.GameInputs;
 
 import com.badlogic.gdx.Input.Buttons;
