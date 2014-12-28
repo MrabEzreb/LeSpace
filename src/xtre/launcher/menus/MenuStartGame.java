@@ -1,6 +1,5 @@
 package xtre.launcher.menus;
 
-import xtre.Main;
 import xtre.game.GameLoop;
 import xtre.launcher.menus.utils.Menu;
 import xtre.launcher.menus.utils.MenuButton;
@@ -12,20 +11,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class MenuStartGame extends Menu {
 	
-	MenuManager manager;
-	
 	public MenuStartGame(MenuManager manager){
-		this.manager = manager;
-		
-		BitmapFont menuFont = new BitmapFont(Gdx.files.internal("font/default_font.fnt"));
-		
-
-		//Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press_edited.ogg")).play();
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/bedip_button.ogg"));
-		//Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press.wav")).play();
+		super(manager);
 		
 		for(int i = 0; i < 5; i++){
-			buttons.add(new MenuButton(125, (Gdx.graphics.getHeight()/2)-(i*40), 100, 32, "", menuFont, sound));	//0
+			buttons.add(new MenuButton(125, (Gdx.graphics.getHeight()/2)-(i*40), 100, 32, "", font, sound));	//0
 		}
 		
 		buttons.get(0).setTitle("Single Player");
@@ -33,7 +23,6 @@ public class MenuStartGame extends Menu {
 		buttons.get(2).setTitle("Options");
 		buttons.get(3).setTitle("Credits");
 		buttons.get(4).setTitle("Exit");
-
 	}
 
 	@Override
@@ -44,12 +33,11 @@ public class MenuStartGame extends Menu {
 		}
 		
 		if(buttonPressed.equals("Multiplayer")){
-			manager.setMenu(new MenuMultiplayer(manager));
-			System.out.println("lol");
+			manager.setMenu(new MenuMultiplayer(manager, font));
 		}
 		
 		if(buttonPressed.equals("Options")){
-			
+			manager.setMenu(new MenuOptions(manager, font));
 		}
 		
 		if(buttonPressed.equals("Credits")){
@@ -62,5 +50,4 @@ public class MenuStartGame extends Menu {
 			Gdx.app.exit();
 		}
 	}
-	
 }

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import xtre.game.game_gui.heads_up_display.hud_types.HUDBox;
-import xtre.game.game_gui.heads_up_display.hud_types.HUDMetre;
-import xtre.game.game_gui.heads_up_display.hud_types.HUDHighlight;
+import xtre.game.game_gui.heads_up_display.hud_parts.HUDBox;
+import xtre.game.game_gui.heads_up_display.hud_parts.HUDHighlight;
+import xtre.game.game_gui.heads_up_display.hud_parts.HUDMetre;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

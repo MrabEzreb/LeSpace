@@ -2,9 +2,7 @@ package xtre.launcher.sprites.sprite_types;
 
 import xtre.graphics.sprites.utils.SpriteData;
 
-
 public class SpritesLauncherMenu {
-	
 	public final static SpriteData start_menu_button = new SpriteData("output/launcher/menu_bars/launcher_menu_sprites.pack", "start_menu_button");
 	public final static SpriteData server_menu_button = new SpriteData("output/launcher/menu_bars/launcher_menu_sprites.pack", "server_menu_button");
 	public final static SpriteData options_menu_button = new SpriteData("output/launcher/menu_bars/launcher_menu_sprites.pack", "options_menu_button");

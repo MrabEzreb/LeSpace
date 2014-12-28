@@ -2,8 +2,8 @@ package xtre.game.game_gui.player;
 
 import xtre.game.game_gui.heads_up_display.HUDManager;
 import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
-import xtre.game.game_gui.heads_up_display.hud_types.HUDBox;
-import xtre.game.game_gui.heads_up_display.hud_types.HUDMetre;
+import xtre.game.game_gui.heads_up_display.hud_parts.HUDBox;
+import xtre.game.game_gui.heads_up_display.hud_parts.HUDMetre;
 import xtre.game.game_gui.heads_up_display.utils.menu_bar.MenuBarAction;
 import xtre.globals.hud.HUDGlobals;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;

@@ -3,12 +3,11 @@ package xtre.game.player;
 import xtre.game.game_gui.heads_up_display.HUDManager;
 import xtre.game.game_gui.player.PlayerInterface;
 import xtre.game.physics_objects.PhysicsEntity;
+import xtre.game.utils.Timer;
 import xtre.globals.ScreenGlobals;
 import xtre.graphics.sprites.SpriteEntity;
-import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -147,7 +146,7 @@ public class Player extends PhysicsEntity {
 	}
 
 	public void create(World world) {
-		body = world.createBody(bodyDef);
+		body = world.createBody(bodyDef);Math.floor(0);
 		body.createFixture(fixtureDef);
 	}
 

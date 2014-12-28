@@ -1,16 +1,13 @@
 package xtre.launcher.menus.utils;
 
 import xtre.Main;
-import xtre.game.GameLoop;
-import xtre.graphics.sprites.SpriteEntity;
-import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceGUI;
+import xtre.launcher.menus.MenuControls;
 import xtre.launcher.menus.MenuStartGame;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 
 public class MenuManager {
 	
@@ -21,7 +18,7 @@ public class MenuManager {
 	public MenuManager(Main main){
 		this.main = main;
 		
-		menu = new MenuStartGame(this);
+		menu = new MenuControls(this);
 	}
 
 	public void setMenu(Menu menu) {

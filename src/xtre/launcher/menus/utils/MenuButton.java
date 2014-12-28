@@ -12,12 +12,23 @@ public class MenuButton {
 	public String title;
 	public Sound btnSound;
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param title
+	 * @param font
+	 * @param btnSound
+	 */
 	public MenuButton(int x, int y, int width, int height, String title, BitmapFont font, Sound btnSound) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.font = font;
+		this.font = new BitmapFont(Gdx.files.internal("font/default_font.fnt"));
 		this.title = title;
 		this.btnSound = btnSound;
 		

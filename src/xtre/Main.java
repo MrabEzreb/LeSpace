@@ -7,7 +7,7 @@ import com.badlogic.gdx.Game;
 
 public class Main extends Game {
 	
-	LauncherLoop launcherGameLoop;
+	public LauncherLoop launcherGameLoop;
 	
 	public void create () {
 		launcherGameLoop = new LauncherLoop(this);

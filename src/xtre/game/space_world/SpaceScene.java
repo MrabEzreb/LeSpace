@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.heads_up_display.HUDManager;
-import xtre.game.game_gui.heads_up_display.hud_types.HUDBox;
+import xtre.game.game_gui.heads_up_display.hud_parts.HUDBox;
 import xtre.game.physics_objects.player.SpaceRock;
 import xtre.game.player.Player;
 import xtre.globals.ScreenGlobals;

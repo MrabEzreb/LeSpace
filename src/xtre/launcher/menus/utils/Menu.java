@@ -3,14 +3,34 @@ package xtre.launcher.menus.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import xtre.graphics.sprites.SpriteEntity;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Menu {
+	/*
+	 * 		//Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press_edited.ogg")).play();
+		buttonSound = Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/bedip_button.ogg"));
+		//Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/button_press.wav")).play();
+	 */
+	protected Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/launcher/click_menu/bedip_button.ogg"));
+	protected BitmapFont font = new BitmapFont(Gdx.files.internal("font/default_font.fnt"));
+	//TODO remove all sound and font creations from sub classes as this makes them obsolete. (Unless custom)
+	
+	protected SpriteEntity se = new SpriteEntity();
+	
+	protected final MenuManager manager;
 	
 	public List<MenuButton> buttons = new ArrayList<>();
 	private boolean mouseReleased = true, activateChecks = false;
+	
+	public Menu(MenuManager manager){
+		this.manager = manager;
+	}
 	
 	public void update(){
 		boolean mousePressed = Gdx.input.isButtonPressed(Buttons.LEFT);
@@ -33,6 +53,11 @@ public abstract class Menu {
 		for(int i = 0; i < buttons.size(); i++){
 			buttons.get(i).font.draw(batch, buttons.get(i).title, buttons.get(i).x, buttons.get(i).y);
 		}
+		renderScreen(batch);
+	}
+	
+	public void renderScreen(SpriteBatch batch){
+		
 	}
 	
 	public void addButton(MenuButton btn){

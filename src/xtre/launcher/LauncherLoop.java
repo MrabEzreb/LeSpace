@@ -20,7 +20,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class LauncherLoop implements Screen{
 	
 	private SpriteBatch batch;
-	private OrthographicCamera cam;
+	public OrthographicCamera cam;
 	
 	private final Main main;
 
@@ -42,10 +42,7 @@ public class LauncherLoop implements Screen{
 		//Menus
 		menus = new MenuManager(main);
 		
-		
-
 		batch = new SpriteBatch();		
-
 		//
 		
 	}	
