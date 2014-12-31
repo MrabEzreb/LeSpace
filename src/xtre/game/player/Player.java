@@ -6,6 +6,7 @@ import xtre.game.physics_objects.PhysicsEntity;
 import xtre.game.utils.Timer;
 import xtre.globals.ScreenGlobals;
 import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceGUI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -19,14 +20,14 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends PhysicsEntity {
+	SpriteEntity se = new SpriteEntity();
 	
 	private PlayerInterface playersGUI;
 	public boolean slowing = false;
 	
-	private float fuelLevel = 100;
-	private float fuelEfficiency = .0005f;
-	
-	SpriteEntity se = new SpriteEntity();
+	public float fuelAmount = 100;
+	private float fuelEfficiency = .005f;
+	private float fuelReduction = 0;
 	
 	public Player(float x, float y, Sprite sprite, World world, HUDManager hudManager) {
 		System.out.println("player");
@@ -57,14 +58,14 @@ public class Player extends PhysicsEntity {
 		body.getWorldVector(v);
 		shape.dispose();
 		
-		playersGUI = new PlayerInterface(hudManager);
+		playersGUI = new PlayerInterface(hudManager, this);
 	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedL){
-			updateFuelLevel(updateMovement(mouseX, mouseY));
+		updateFuelLevel(updateMovement(mouseX, mouseY));
 		
 		playersGUI.updateInterface(mouseX, mouseY, justPressedL);
-		playersGUI.setFuelLevel(fuelLevel);
+		playersGUI.reduceFuelBy(fuelReduction);
 	}
 
 	public void render(SpriteBatch batch){
@@ -74,7 +75,8 @@ public class Player extends PhysicsEntity {
 	}
 	
 	private void updateFuelLevel(boolean usingFuel){
-		if(usingFuel)fuelLevel -= fuelEfficiency;
+		if(usingFuel)fuelReduction = fuelEfficiency;
+		else fuelReduction = 0;
 	}
 	
 	private Vector2 force = new Vector2();

@@ -51,7 +51,7 @@ public abstract class Menu {
 	
 	public void render(SpriteBatch batch){
 		for(int i = 0; i < buttons.size(); i++){
-			buttons.get(i).font.draw(batch, buttons.get(i).title, buttons.get(i).x, buttons.get(i).y);
+			buttons.get(i).render(batch);
 		}
 		renderScreen(batch);
 	}

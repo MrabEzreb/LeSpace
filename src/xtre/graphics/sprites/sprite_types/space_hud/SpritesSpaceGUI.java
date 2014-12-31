@@ -15,9 +15,11 @@ public class SpritesSpaceGUI {
 	public final static SpriteData empty_fuel_bar_m = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "empty_fuel_bar_middle");
 	public final static SpriteData empty_fuel_bar_r = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "empty_fuel_bar_right");
 
-	public final static SpriteData full_fuel_bar_l = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "full_fuel_bar_left");
-	public final static SpriteData full_fuel_bar_m = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "full_fuel_bar_middle");
-	public final static SpriteData full_fuel_bar_r = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "full_fuel_bar_right");
-
+	public final static SpriteData fuel_bar_full_l = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "full_fuel_bar_left");
+	public final static SpriteData fuel_bar_full_m = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "full_fuel_bar_middle");
+	public final static SpriteData fuel_bar_full_r = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "full_fuel_bar_right");
 	
+	public final static SpriteData fuel_bar_empty_l = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "empty_fuel_bar_left");
+	public final static SpriteData fuel_bar_empty_m = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "empty_fuel_bar_middle");
+	public final static SpriteData fuel_bar_empty_r = new SpriteData("output/game_sprites/space_gui/player/fuel_guage/fuel_guage.pack", "empty_fuel_bar_right");
 }

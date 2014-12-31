@@ -18,7 +18,7 @@ public class MenuManager {
 	public MenuManager(Main main){
 		this.main = main;
 		
-		menu = new MenuControls(this);
+		menu = new MenuStartGame(this);
 	}
 
 	public void setMenu(Menu menu) {

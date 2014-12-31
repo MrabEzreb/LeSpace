@@ -21,6 +21,15 @@ public class Glbls {
 			return false;
 	}
 	
+	/**
+	 * 
+	 * @param mouseX
+	 * @param mouseY
+	 * @param circleX
+	 * @param circleY
+	 * @param radius
+	 * @return
+	 */
 	public static final boolean isWithin(float mouseX, float mouseY, float circleX, float circleY, double radius){
 		double n = sq(mouseX - circleX) + sq(mouseY - circleY);
 		if(n < radius)

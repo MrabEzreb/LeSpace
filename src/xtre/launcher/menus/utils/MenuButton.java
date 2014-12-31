@@ -1,8 +1,11 @@
 package xtre.launcher.menus.utils;
 
+import xtre.globals.hud.Glbls;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuButton {
 
@@ -53,6 +56,17 @@ public class MenuButton {
 			return true;
 		}else{
 			return false;
+		}
+	}
+	
+	public void render(SpriteBatch batch){
+		int mx = Gdx.input.getX(), my = -Gdx.input.getY() + Gdx.graphics.getHeight();
+		if(Glbls.withinSquareBounds(mx, my+20, x-10, y-10, font.getBounds(title).width+20, height+10)){
+			font.setColor(.8f, .8f, 1.0f, 1f);
+			font.draw(batch, title, x, y);
+		}else{
+			font.setColor(.4f, .4f, .7f, 1f);
+			font.draw(batch, title, x, y);
 		}
 	}
 }
