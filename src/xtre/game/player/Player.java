@@ -20,14 +20,11 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends PhysicsEntity {
-	SpriteEntity se = new SpriteEntity();
+	private SpriteEntity se = new SpriteEntity();
+
+	public PlayerStats stats;
 	
 	private PlayerInterface playersGUI;
-	public boolean slowing = false;
-	
-	public float fuelAmount = 100;
-	private float fuelEfficiency = .005f;
-	private float fuelReduction = 0;
 	
 	public Player(float x, float y, Sprite sprite, World world, HUDManager hudManager) {
 		System.out.println("player");
@@ -58,6 +55,7 @@ public class Player extends PhysicsEntity {
 		body.getWorldVector(v);
 		shape.dispose();
 		
+		stats = new PlayerStats();
 		playersGUI = new PlayerInterface(hudManager, this);
 	}
 	
@@ -65,18 +63,19 @@ public class Player extends PhysicsEntity {
 		updateFuelLevel(updateMovement(mouseX, mouseY));
 		
 		playersGUI.updateInterface(mouseX, mouseY, justPressedL);
-		playersGUI.reduceFuelBy(fuelReduction);
+		if(!playersGUI.setMetreLevel(stats.fuelAmount)){
+			stats.outOfFuel=true;
+			System.out.println("out of fuel");
+		}
 	}
 
 	public void render(SpriteBatch batch){
 		sprite.draw(batch);
 		//playersGUI.render(batch);
-		
 	}
 	
 	private void updateFuelLevel(boolean usingFuel){
-		if(usingFuel)fuelReduction = fuelEfficiency;
-		else fuelReduction = 0;
+		if(usingFuel) stats.fuelAmount -= stats.fuelEfficiency;
 	}
 	
 	private Vector2 force = new Vector2();
@@ -84,66 +83,66 @@ public class Player extends PhysicsEntity {
 	
 	private boolean updateMovement(float mouseX, float mouseY){
 		boolean usingFuel = false;
-		mp.x = mouseX;
-		mp.y = mouseY;
-		
-		//float angle = MathUtils.atan2((ScreenGlobals.HEIGHT/2) - mp.y, (ScreenGlobals.WIDTH/2) - mp.x);
-		
-		float xx = MathUtils.cos(body.getAngle());
-		float yy = MathUtils.sin(body.getAngle());
-		
-		if(!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-			body.setLinearDamping(.2f);
-		else
-			body.setLinearDamping(0);
-		body.setAngularDamping(4);
-
-		force.x = (xx*MathUtils.radiansToDegrees)/20;
-		force.y = (yy*MathUtils.radiansToDegrees)/20;
-		
-		if(!slowing && Math.abs(body.getLinearVelocity().x+body.getLinearVelocity().y) < 10){
-			if(Gdx.input.isKeyPressed(Keys.A)) {
-				usingFuel = true;
-				body.applyTorque(0.7f, true);
-			}
-			if(Gdx.input.isKeyPressed(Keys.D)){
-				usingFuel = true;
-				body.applyTorque(-0.7f, true);
-			}		
+		if(!stats.outOfFuel){
+			mp.x = mouseX;
+			mp.y = mouseY;
 			
-			if(Gdx.input.isKeyPressed(Keys.W)){
-				usingFuel = true;
-				body.applyForceToCenter(force, true);
-				
-				if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
-					fuelEfficiency = .05f;
-					body.applyForceToCenter(force, true);
-					body.setLinearDamping(0);
-					
-					
-					float sox = (ScreenGlobals.WIDTH/2) + (x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (y-sprite.getWidth()/2);
-
-					sprite.setPosition(sox, soy);
-					sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
-					return usingFuel;
-				}else{
-					fuelEfficiency = .0005f;
+			//float angle = MathUtils.atan2((ScreenGlobals.HEIGHT/2) - mp.y, (ScreenGlobals.WIDTH/2) - mp.x);
+			
+			float xx = MathUtils.cos(body.getAngle());
+			float yy = MathUtils.sin(body.getAngle());
+			
+			if(!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
+				body.setLinearDamping(.2f);
+			else
+				body.setLinearDamping(0);
+			body.setAngularDamping(4);
+	
+			force.x = (xx*MathUtils.radiansToDegrees)/20;
+			force.y = (yy*MathUtils.radiansToDegrees)/20;
+			
+			if(!stats.slowing && Math.abs(body.getLinearVelocity().x+body.getLinearVelocity().y) < 10){
+				if(Gdx.input.isKeyPressed(Keys.A)) {
+					usingFuel = true;
+					body.applyTorque(0.7f, true);
 				}
-			}else if(Gdx.input.isKeyPressed(Keys.S)){
-				usingFuel = true;
-				body.setLinearDamping(0.78f);
-//				body.applyForceToCenter(-(force.x*3)/4, -(force.y*3)/4, true);
+				if(Gdx.input.isKeyPressed(Keys.D)){
+					usingFuel = true;
+					body.applyTorque(-0.7f, true);
+				}		
+				
+				if(Gdx.input.isKeyPressed(Keys.W)){
+					usingFuel = true;
+					body.applyForceToCenter(force, true);
+					
+					if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
+						stats.fuelEfficiency = .05f;
+						body.applyForceToCenter(force, true);
+						body.setLinearDamping(0);
+						
+						float sox = (ScreenGlobals.WIDTH/2) + (x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (y-sprite.getWidth()/2);
+	
+						sprite.setPosition(sox, soy);
+						sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
+						return usingFuel;
+					}else{
+						stats.fuelEfficiency = .0005f;
+					}
+				}else if(Gdx.input.isKeyPressed(Keys.S)){
+					usingFuel = true;
+					body.setLinearDamping(0.78f);
+	//				body.applyForceToCenter(-(force.x*3)/4, -(force.y*3)/4, true);
+				}
+			}else{
+				body.setLinearDamping(0.50f);
 			}
-		}else{
-			body.setLinearDamping(0.50f);
+	
+			//Set sprite position to match body position
+			float sox = (ScreenGlobals.WIDTH/2) + (x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (y-sprite.getWidth()/2);
+	
+			sprite.setPosition(sox, soy);
+			sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
 		}
-
-		//Set sprite position to match body position
-		float sox = (ScreenGlobals.WIDTH/2) + (x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (y-sprite.getWidth()/2);
-
-		sprite.setPosition(sox, soy);
-		sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
-		
 		return usingFuel;
 	}
 
@@ -156,7 +155,10 @@ public class Player extends PhysicsEntity {
 	}
 
 	public void slowToStop(boolean slow) {
-		slowing = slow;
+		stats.slowing = slow;
 	}
-	
+
+	public float getFuelAmount() {
+		return stats.fuelAmount;
+	}
 }

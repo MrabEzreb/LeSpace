@@ -27,7 +27,7 @@ public class PlayerInterface extends HeadsUpDisplay{
 	public PlayerInterface(HUDManager hud, Player player){
 		this.hud = hud;
 		this.player = player;
-		fuelAmount = player.fuelAmount;
+		fuelAmount = player.getFuelAmount();
 //		background = new Sprite(se.getSprite(SpritesTextArea.gui_box_mid));
 //		background.setColor(1.4f,1,1,.5f);
 //		background.setPosition((ScreenGlobals.WIDTH/2)-(background.getWidth()/2), 7+(background.getHeight()/2));
@@ -45,8 +45,8 @@ public class PlayerInterface extends HeadsUpDisplay{
 		hotbar.render(batch);
 	}
 	
-	public void reduceFuelBy(float fuelReduction){
-		metre.reduceFuelBy(fuelReduction);
+	public boolean setMetreLevel(float level){
+		return metre.setLevel(level);
 	}
 	
 	//Creation below only
