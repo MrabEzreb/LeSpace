@@ -1,6 +1,5 @@
 package xtre.game.game_gui.heads_up_display.hud_parts;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
@@ -12,7 +11,7 @@ public class HUDHighlight extends HeadsUpDisplay {
 	SpriteEntity se = new SpriteEntity();
 	
 	public HUDHighlight(int id, int x, int y, int width, int height){
-		super("i am a HighlightHUD", id, x, y, width, height);
+		super(id, x, y, width, height);
 		
 		background = se.getSprite(SpritesHeadsUpDisplay.star_highlight);
 		

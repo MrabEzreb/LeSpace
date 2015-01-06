@@ -1,7 +1,7 @@
 package xtre.game.space_world;
 
 import xtre.globals.ScreenGlobals;
-import xtre.globals.hud.Glbls;
+import xtre.globals.game_interface.GlobalsInterface;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -53,7 +53,7 @@ public class Star {
 	}
 	
 	private boolean areaCheck(float mx, float my){
-		if(Glbls.isWithin(mx, my, sprite.getX(), sprite.getY(), clickAreaSize))
+		if(GlobalsInterface.isWithin(mx, my, sprite.getX(), sprite.getY(), clickAreaSize))
 			return true;
 		else
 			return false;

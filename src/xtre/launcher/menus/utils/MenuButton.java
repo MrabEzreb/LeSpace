@@ -1,6 +1,6 @@
 package xtre.launcher.menus.utils;
 
-import xtre.globals.hud.Glbls;
+import xtre.globals.game_interface.GlobalsInterface;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -61,7 +61,7 @@ public class MenuButton {
 	
 	public void render(SpriteBatch batch){
 		int mx = Gdx.input.getX(), my = -Gdx.input.getY() + Gdx.graphics.getHeight();
-		if(Glbls.withinSquareBounds(mx, my+20, x-10, y-10, font.getBounds(title).width+20, height+10)){
+		if(GlobalsInterface.withinSquareBounds(mx, my+20, x-10, y-10, font.getBounds(title).width+20, height+10)){
 			font.setColor(.8f, .8f, 1.0f, 1f);
 			font.draw(batch, title, x, y);
 		}else{

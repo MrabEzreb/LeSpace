@@ -3,15 +3,13 @@ package xtre.game.space_world;
 import java.util.Arrays;
 import java.util.Random;
 
-import xtre.game.game_gui.heads_up_display.HUDManager;
+import xtre.game.game_gui.GameInterfaceManager;
 import xtre.globals.ScreenGlobals;
-import xtre.globals.hud.GameInputs;
-import xtre.globals.hud.HUDGlobals;
+import xtre.globals.game_interface.gui.GlobalsGUI;
+import xtre.globals.game_interface.hud.GlobalsHUD;
 import xtre.graphics.sprites.SpriteEntity;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceBackgroundStar;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,7 +18,7 @@ public class Stars {
 	
 	private final int worldSize, density, depth;
 	
-	private HUDManager hud;
+	private GameInterfaceManager gim;
 	
 	private Random r = new Random();
 	
@@ -33,8 +31,8 @@ public class Stars {
 	
 	public int selectedStar = -1, hoveredStar = -1;
 	
-	public Stars(HUDManager hud, int worldSize, int density, int depth){
-		this.hud = hud;
+	public Stars(GameInterfaceManager gim, int worldSize, int density, int depth){
+		this.gim = gim;
 		this.worldSize = worldSize;
 		this.density = density;
 		this.depth = depth;
@@ -63,8 +61,8 @@ public class Stars {
 		this.mouseY = mouseY;
 		this.justPressedLeftMouseButton = justPressedLeftMouseButton;
 		
-		starHighlightDisplaying = hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT);
-		starOptionsDisplaying = hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR);
+		starHighlightDisplaying = gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT);
+		starOptionsDisplaying = gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR);
 
 		updateStars();
 	}
@@ -94,7 +92,7 @@ public class Stars {
 		for(int i = 0; i < stars.length; i++){
 		boolean b = stars[i].clicked(mouseX, mouseY, justPressedLeftMouseButton);
 			
-			if(b && !hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR)){
+			if(b && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR)){
 				selectedStar = i;
 			}
 			

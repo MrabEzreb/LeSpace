@@ -1,10 +1,9 @@
 package xtre.game;
 
-import xtre.game.game_gui.heads_up_display.HUDManager;
-import xtre.game.game_gui.player.PlayerInterface;
+import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.player.Player;
 import xtre.game.space_world.SpaceScene;
-import xtre.globals.hud.GameInputs;
+import xtre.globals.game_interface.hud.GameInputs;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,7 +12,7 @@ public class GameManager {
 	
 	public SpaceScene spaceWorld;
 	
-	private HUDManager hudManager;
+	private GameInterfaceManager gim;
 	
 	private GameInputs inputs = new GameInputs();
 	
@@ -23,8 +22,8 @@ public class GameManager {
 	 */
 
 	public GameManager(){
-		hudManager = new HUDManager();
-		spaceWorld = new SpaceScene(hudManager);
+		gim = new GameInterfaceManager();
+		spaceWorld = new SpaceScene(gim);
 	}
 	
 	public Player getPlayer(int playerID){
@@ -33,7 +32,7 @@ public class GameManager {
 
 	public void render(SpriteBatch batch, float dt) {
 		spaceWorld.render(batch);
-		hudManager.render(batch);
+		gim.render(batch);
 	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY){
@@ -42,7 +41,7 @@ public class GameManager {
 		if(inputs.mouseJustClicked(Buttons.LEFT))
 			justPressedLeftMouseButton = true;
 		
-		hudManager.update(mouseX, mouseY, justPressedLeftMouseButton);
+		gim.update(mouseX, mouseY, justPressedLeftMouseButton);
 		spaceWorld.update(camX, camY, mouseX, mouseY, justPressedLeftMouseButton);
 	}
 	
@@ -52,6 +51,6 @@ public class GameManager {
 	
 	public void dispose(){
 		spaceWorld.dispose();
-		hudManager.dispose();
+		gim.dispose();
 	}
 }

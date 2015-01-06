@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
-import xtre.globals.hud.Glbls;
+import xtre.globals.game_interface.GlobalsInterface;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -50,11 +50,11 @@ public class GameMenu {
 	}
 	
 	public void addButton(GameButton button, float buttonX, float buttonY){
-		if(button.width < menuBarWidth)
+		if(button.sprite.getWidth() < menuBarWidth)
 			button.setPosition(buttonX, buttonY);
 		else
-			button.setPosition(menuBarX+(menuBarWidth+(button.width-menuBarWidth)), menuBarY);
-		button.setPosition(button.x, button.y-(buttons.size()*button.height));
+			button.setPosition(menuBarX+(menuBarWidth+(button.sprite.getWidth()-menuBarWidth)), menuBarY);
+		button.setPosition(button.sprite.getX(), button.sprite.getY()-(buttons.size()*button.sprite.getHeight()));
 		buttons.add(button);
 	}
 	
@@ -75,7 +75,7 @@ public class GameMenu {
 		else
 			isMenuBarOpen = false;
 		
-		boolean hovers = Glbls.withinSquareBounds(mouseX, mouseY, menuBarX, menuBarY, menuBarWidth, menuBarHeight);
+		boolean hovers = GlobalsInterface.withinSquareBounds(mouseX, mouseY, menuBarX, menuBarY, menuBarWidth, menuBarHeight);
 		if(checkIfShouldDoAction(hovers, justPressedL)){
 			isMenuBarProcessable = true;
 		}else if(justPressedL && isMenuBarProcessable)

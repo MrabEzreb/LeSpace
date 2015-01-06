@@ -1,6 +1,7 @@
 package xtre.game.game_gui.heads_up_display.hud_parts;
 
-import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
+
+import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
 import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
@@ -9,21 +10,21 @@ import xtre.graphics.font.HUDFont;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class HUDBox extends HeadsUpDisplay {
+public class HUDBox extends GraphicsUserInterface {
+	
+	private Sprite[] graphics;
+	private GameMenu[] gameMenus;
 	
 	/**
 	 * Add new custom BoxHUD.
 	 * Sprites must be in an order of {@code TM, BM, LM, RM, M, TL, TR, BR, BL}
 	 *  
-	 * @param int globalID
+	 * @param int GUI_ID
 	 * @param int boxX
 	 * @param int boxY
 	 * @param int boxWidth
@@ -32,16 +33,20 @@ public class HUDBox extends HeadsUpDisplay {
 	 * @param int amountOfMenus 
 	 */
 	
-	public HUDBox(int globalID, int boxX, int boxY, int boxWidth, int boxHeight, Sprite[] panelGraphics, int amountOfMenus){
-		super("I am a BoxHUD", globalID, boxX, boxY, boxWidth*16, boxHeight*16);
+	public HUDBox(int GUI_ID, int boxX, int boxY, int boxWidth, int boxHeight, Sprite[] panelGraphics, int amountOfMenus){
+		super(GUI_ID, boxX, boxY, panelGraphics[0].getWidth()*boxWidth, panelGraphics[0].getHeight()*boxHeight);
+		//super("I am a BoxHUD", GUI_ID, boxX, boxY, boxWidth*16, boxHeight*16);
+		
+		System.out.println("x"+boxX + " y"+boxY + " width" + panelGraphics[0].getWidth()*boxWidth + " height" + panelGraphics[0].getHeight()*boxHeight);
 		
 		/**
 		 * Accounts for width by height, the sides of top and bottom, left and right and then four corners.
-		 * The width and height only account for the size of the middle as to always have the requested space,
+		 * The width and height only account for the size of the middle, as to always have the requested space
 		 * without going into the side panels.
 		 */
 		graphics = new Sprite[(boxWidth*boxHeight) + (boxWidth*2) + (boxHeight*2)+4];
-
+		gameMenus = new GameMenu[0];
+		
 		setupTM(boxX, boxY, boxWidth, boxHeight, panelGraphics[0]);
 		setupBM(boxX, boxY, boxWidth, boxHeight, panelGraphics[1]);
 		setupLM(boxX, boxY, boxWidth, boxHeight, panelGraphics[2]);
@@ -85,7 +90,7 @@ public class HUDBox extends HeadsUpDisplay {
 		GameMenu menu = new GameMenu(x+menuX, y+menuY, menuBarSprite.getWidth(), menuBarSprite.getHeight(), menuBarSprite);
 		menu.setBitmapFont(menuFont, x+menuX+20, y+menuY+26, "View");
 	
-		GameButton menuButtonOne = new GameButton(0, 0, this, new Sprite(buttonSprite), new GameButtonAction(){
+		GameButton menuButtonOne = new GameButton(new Sprite(buttonSprite), new GameButtonAction(){
 			public void doAction(){
 				System.out.println("menuButtonOne was pressed");
 			}
@@ -93,7 +98,7 @@ public class HUDBox extends HeadsUpDisplay {
 		menuButtonOne.setLabel(x+menuX+menuBarSprite.getWidth()+46, y+menuY+21, "Ok", buttonFont);
 		menu.addButton(menuButtonOne, x+menuX+(menuBarSprite.getWidth()+(menuBarSprite.getWidth()-buttonSprite.getWidth())), y+menuY);
 
-		GameButton menuButtonTwo = new GameButton(0, 0, this, new Sprite(buttonSprite), new GameButtonAction(){
+		GameButton menuButtonTwo = new GameButton(new Sprite(buttonSprite), new GameButtonAction(){
 			public void doAction(){
 				System.out.println("menuButtonTwo was pressed");
 			}
@@ -130,16 +135,45 @@ public class HUDBox extends HeadsUpDisplay {
 		addMenu(menu);
 	}
 
-	public void setHUDPosition(float x, float y){
-		this.x = x;
-		this.y = y;
+	public void addMenu(GameMenu menu) {
+		disposable.add(menu.menuBarSprite.getTexture());
+		disposable.add(menu.font);
+		
+		for(GameButton b:menu.getButtons())
+			disposable.add(b.sprite.getTexture());
+		
+		//
+		
+		GameMenu[] l = gameMenus;
+		gameMenus = new GameMenu[l.length+1];
+		
+		//Rebuild menu with new menu
+		gameMenus[gameMenus.length-1] = menu;
+		for(int i = 0; i < gameMenus.length-1; i++){
+			gameMenus[i] = l[i];
+		}
 	}
-
+	
+	public boolean checkIfShouldClose() {
+		for(GameMenu gm:gameMenus)
+			if(mouseOutOfBounds()&&!gm.isMenuBarOpen)
+			return true;
+		else
+			return false;
+		System.out.println("Mistake: (HUDBox.java:163) checkIfShouldClose");
+		return false;
+	}
+	
+	
+	@Override
+	public void dispose() {
+	}
+	
 	////// Box creation below only
 	
 	private void setupRM(int x, int y, int width, int height, Sprite sprite){
 		Sprite[] mrPaneling = new Sprite[height];
-		
+
 		for(int i = 0; i < mrPaneling.length; i++){
 			mrPaneling[i] = new Sprite(sprite);
 			mrPaneling[i].setPosition(x+(width*16), y+(i*16));
@@ -196,20 +230,19 @@ public class HUDBox extends HeadsUpDisplay {
 	}
 	
 	private void setupCorners(int x, int y, int width, int height, Sprite[] sprite){
-			graphics[0+step] = new Sprite(sprite[0]);
-			graphics[0+step].setPosition(x-16, y+(height*16));
-	
-			graphics[1+step] = new Sprite(sprite[1]);
-			graphics[1+step].setPosition(x+(width*16), y+(height*16));
-	
-			graphics[2+step] = new Sprite(sprite[2]);
-			graphics[2+step].setPosition(x-16, y-16);
-	
-			graphics[3+step] = new Sprite(sprite[3]);
-			graphics[3+step].setPosition(x+(width*16), y-16);
-			
-			step();
+		graphics[0+step] = new Sprite(sprite[0]);
+		graphics[0+step].setPosition(x-16, y+(height*16));
+
+		graphics[1+step] = new Sprite(sprite[1]);
+		graphics[1+step].setPosition(x+(width*16), y+(height*16));
+
+		graphics[2+step] = new Sprite(sprite[2]);
+		graphics[2+step].setPosition(x-16, y-16);
+
+		graphics[3+step] = new Sprite(sprite[3]);
+		graphics[3+step].setPosition(x+(width*16), y-16);
 		
+		step();
 	}
 	
 	private void setupCenter(int x, int y, int width, int height, Sprite sprite){
@@ -229,5 +262,15 @@ public class HUDBox extends HeadsUpDisplay {
 			graphics[i+step] = centerPaneling[i];
 		}
 		step();
+	}
+	
+	public int step = 0;
+	public void step(){
+		for(int i = 0; i < graphics.length; i++){
+			if(graphics[i] == null){
+				step = i;
+				return;
+			}
+		}
 	}
 }

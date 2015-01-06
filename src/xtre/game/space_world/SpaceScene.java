@@ -1,15 +1,15 @@
 package xtre.game.space_world;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import xtre.game.game_gui.heads_up_display.HUDManager;
+import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.heads_up_display.hud_parts.HUDBox;
 import xtre.game.physics_objects.player.SpaceRock;
 import xtre.game.player.Player;
 import xtre.globals.ScreenGlobals;
-import xtre.globals.hud.HUDGlobals;
+import xtre.globals.game_interface.gui.GlobalsGUI;
+import xtre.globals.game_interface.hud.GlobalsHUD;
 import xtre.graphics.sprites.SpriteEntity;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
@@ -28,7 +28,7 @@ public class SpaceScene {
 
 	public World world;
 	
-	private HUDManager hud;
+	private GameInterfaceManager gim;
 		
 	SpriteEntity se = new SpriteEntity();
 	
@@ -42,18 +42,18 @@ public class SpaceScene {
 	public final float timeStep = 1f/30f;
 	public final int velocityIterations = 80, positionIterations = 30;
 	
-	public SpaceScene(HUDManager hud){
-		this.hud = hud;
+	public SpaceScene(GameInterfaceManager gim){
+		this.gim = gim;
 		world = new World(new Vector2(0, 0f), true);
 		
-		stars = new Stars(hud, 15000, 1, 10);
+		stars = new Stars(gim, 15000, 1, 10);
 		
 		Sprite playerSprite = new Sprite(se.getSprite(SpritesSpaceGame.player_ship));
 		player = new Player[1];
 		
 		float playerwp = (0), playerhp = (0);
 		for(int i = 0; i < player.length; i++){
-			player[i] = new Player(playerwp, playerhp, playerSprite, world, hud);
+			player[i] = new Player(playerwp, playerhp, playerSprite, world, gim);
 		}
 
 		rock = new SpaceRock[4];		
@@ -89,26 +89,26 @@ public class SpaceScene {
 	public void render(SpriteBatch batch){
 		stars.render(batch, camX, camY);
 		
-		for(int i = 0; i < player.length; i++)
-			player[i].render(batch);
-		
 		for(int i = 0; i < rock.length; i++){
 			rock[i].render(batch);
 		}
+
+		for(int i = 0; i < player.length; i++)
+			player[i].render(batch);
 	}
 	
 	private void starHighlight(){
-		if(!hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR) && stars.hoveredStar != -1 && !hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT)){
+		if(!gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR) && stars.hoveredStar != -1 && !gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT)){
 			Sprite highlight = stars.getStar(stars.hoveredStar).sprite;
-			hud.requestStarHighlight(HUDGlobals.STAR_HIGHLIGHT, (highlight.getX()-(48/2))+(highlight.getWidth()/2), (highlight.getY()-(48/2))+(highlight.getWidth()/2), 1, 1);
-		}else if(hud.hudDisplaying(HUDGlobals.STAR_HIGHLIGHT) && stars.hoveredStar == -1){
-			hud.closeHud(HUDGlobals.STAR_HIGHLIGHT);
+			gim.requestStarHighlight(GlobalsHUD.STAR_HIGHLIGHT, (highlight.getX()-(48/2))+(highlight.getWidth()/2), (highlight.getY()-(48/2))+(highlight.getWidth()/2), 1, 1);
+		}else if(gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT) && stars.hoveredStar == -1){
+			gim.closeHUD(GlobalsHUD.STAR_HIGHLIGHT);
 		}
 	}
 	
 	private void starOptions() {
 		if(justPressedLeftMouseButton) {
-			if (stars.selectedStar != -1 && !hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR)) {
+			if (stars.selectedStar != -1 && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR)) {
 				Sprite[] boxHUDGraphics = new Sprite[]{
 						
 						se.getSprite(SpritesHeadsUpDisplay.paneling_tm),	//[0]
@@ -124,16 +124,16 @@ public class SpaceScene {
 						se.getSprite(SpritesHeadsUpDisplay.paneling_br),	//[8]
 				};
 				
-				hud.requestBox(HUDGlobals.SPACE_INSPECT_STAR,	stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 16, 8, boxHUDGraphics);
+				gim.requestBox(GlobalsGUI.SPACE_INSPECT_STAR,	stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 16, 8, boxHUDGraphics);
 				for(int i = 0; i < 3; i++)
-					((HUDBox)hud.getHUD(HUDGlobals.SPACE_INSPECT_STAR)).createDropDownMenu(20, (i*40)+6, se.getSprite(SpritesSpaceHudMenu.menu_bar));
+					((HUDBox)gim.getGUI(GlobalsGUI.SPACE_INSPECT_STAR)).createDropDownMenu(20, (i*40)+6, se.getSprite(SpritesSpaceHudMenu.menu_bar));
 				
 				player[0].slowToStop(true);
 				return;
 			}
 
-			if (hud.hudDisplaying(HUDGlobals.SPACE_INSPECT_STAR) && hud.getHUD(HUDGlobals.SPACE_INSPECT_STAR).status()) {
-				hud.closeHud(HUDGlobals.SPACE_INSPECT_STAR);
+			if (gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR) && ((HUDBox)gim.getGUI(GlobalsGUI.SPACE_INSPECT_STAR)).checkIfShouldClose()) {
+				gim.closeGUI(GlobalsGUI.SPACE_INSPECT_STAR);
 				player[0].slowToStop(false);
 				return;
 			}

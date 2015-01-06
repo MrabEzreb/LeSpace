@@ -1,6 +1,6 @@
 package xtre.game.player;
 
-import xtre.game.game_gui.heads_up_display.HUDManager;
+import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.player.PlayerInterface;
 import xtre.game.physics_objects.PhysicsEntity;
 import xtre.game.utils.Timer;
@@ -14,22 +14,29 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Player extends PhysicsEntity {
-	private SpriteEntity se = new SpriteEntity();
-
-	public PlayerStats stats;
+public class Player {
 	
+	public Sprite sprite;
+
+	public Body body;
+	public BodyDef bodyDef;
+	public FixtureDef fixtureDef;
+	
+	private SpriteEntity se = new SpriteEntity();
+	
+	public PlayerStats stats = new PlayerStats();
 	private PlayerInterface playersGUI;
 	
-	public Player(float x, float y, Sprite sprite, World world, HUDManager hudManager) {
+	public Player(float x, float y, Sprite sprite, World world, GameInterfaceManager gim) {
 		System.out.println("player");
-		this.x = x;
-		this.y = y;
+		stats.x = x;
+		stats.y = y;
 		this.sprite = sprite;
 
 		bodyDef = new BodyDef();
@@ -55,23 +62,23 @@ public class Player extends PhysicsEntity {
 		body.getWorldVector(v);
 		shape.dispose();
 		
-		stats = new PlayerStats();
-		playersGUI = new PlayerInterface(hudManager, this);
+		playersGUI = new PlayerInterface(gim, this);
 	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedL){
 		updateFuelLevel(updateMovement(mouseX, mouseY));
 		
-		playersGUI.updateInterface(mouseX, mouseY, justPressedL);
+		playersGUI.update(mouseX, mouseY, justPressedL);
 		if(!playersGUI.setMetreLevel(stats.fuelAmount)){
 			stats.outOfFuel=true;
-			System.out.println("out of fuel");
+			System.out.println("(Player.java:74) out of fuel");
 		}
 	}
 
 	public void render(SpriteBatch batch){
 		sprite.draw(batch);
-		//playersGUI.render(batch);
+		playersGUI.render(batch);		
+
 	}
 	
 	private void updateFuelLevel(boolean usingFuel){
@@ -120,7 +127,7 @@ public class Player extends PhysicsEntity {
 						body.applyForceToCenter(force, true);
 						body.setLinearDamping(0);
 						
-						float sox = (ScreenGlobals.WIDTH/2) + (x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (y-sprite.getWidth()/2);
+						float sox = (ScreenGlobals.WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (stats.y-sprite.getWidth()/2);
 	
 						sprite.setPosition(sox, soy);
 						sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
@@ -136,9 +143,9 @@ public class Player extends PhysicsEntity {
 			}else{
 				body.setLinearDamping(0.50f);
 			}
-	
+
 			//Set sprite position to match body position
-			float sox = (ScreenGlobals.WIDTH/2) + (x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (y-sprite.getWidth()/2);
+			float sox = (ScreenGlobals.WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (stats.y-sprite.getWidth()/2);
 	
 			sprite.setPosition(sox, soy);
 			sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);

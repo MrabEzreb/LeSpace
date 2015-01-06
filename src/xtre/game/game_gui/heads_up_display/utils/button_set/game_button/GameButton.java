@@ -1,7 +1,6 @@
 package xtre.game.game_gui.heads_up_display.utils.button_set.game_button;
 
-import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
-import xtre.globals.hud.Glbls;
+import xtre.globals.game_interface.GlobalsInterface;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,9 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class GameButton {	
 	
 	public Sprite sprite;
-	public float x, y, width, height;
 	
-	protected HeadsUpDisplay hud;
 	protected GameButtonAction buttonAction;
 	
 	private BitmapFont font;
@@ -20,23 +17,12 @@ public class GameButton {
 	private float labelX, labelY;
 	
 	public GameButton(){}	
-	public GameButton(float x, float y, HeadsUpDisplay hud, Sprite sprite, GameButtonAction buttonAction) {
-		this.x = x;
-		this.y = y;
-		this.width = sprite.getWidth();
-		this.height = sprite.getHeight();
-		this.hud = hud;
+	public GameButton(Sprite sprite){
 		this.sprite = sprite;
-		this.sprite.setPosition(x, y);
-		this.buttonAction = buttonAction;
-		
 	}
-	
-	public void setLabel(float labelX, float labelY, String title, BitmapFont font){
-		this.font = font;
-		this.title = title;
-		this.labelX = labelX;
-		this.labelY = labelY;
+	public GameButton(Sprite sprite, GameButtonAction buttonAction) {
+		this.sprite = sprite;
+		this.buttonAction = buttonAction;
 	}
 
 	public final void render(SpriteBatch batch){
@@ -46,26 +32,41 @@ public class GameButton {
 		}
 	}
 	
-	public void setPosition(float x, float y) {
-		sprite.setPosition(x, y);
-		this.x = x;
-		this.y = y;
-	}
-	
 	public void doAction() {
 		buttonAction.doAction();
 	}
 	
 	public boolean isClicked(float mouseX, float mouseY, boolean justPressedL) {
-		if(justPressedL && Glbls.withinSquareBounds(mouseX, mouseY, x, y, width, height))
+		if(justPressedL && GlobalsInterface.withinSquareBounds(mouseX, mouseY, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
 			return true;
 		else
 			return false;
 	}
+	
 	public boolean isWithin(float mouseX, float mouseY) {
-		if(Glbls.withinSquareBounds(mouseX, mouseY, x, y, width, height))
+		if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
 			return true;
 		else
 			return false;
+	}
+	
+	public void setLabel(float labelX, float labelY, String title, BitmapFont font){
+		this.font = font;
+		this.title = title;
+		this.labelX = labelX;
+		this.labelY = labelY;
+	}
+	
+	public void setPosition(float x, float y) {
+		sprite.setPosition(x, y);
+	}
+	
+	public void setAction(GameButtonAction buttonAction) {
+		this.buttonAction = buttonAction;
+	}
+	
+	public void dispose(){
+		sprite.getTexture().dispose();
+		font.dispose();
 	}
 }
