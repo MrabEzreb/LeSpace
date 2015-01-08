@@ -33,7 +33,7 @@ public class HUDBox extends GraphicsUserInterface {
 	 * @param int amountOfMenus 
 	 */
 	
-	public HUDBox(int GUI_ID, int boxX, int boxY, int boxWidth, int boxHeight, Sprite[] panelGraphics, int amountOfMenus){
+	public HUDBox(int GUI_ID, int boxX, int boxY, int boxWidth, int boxHeight, Sprite[] panelGraphics){
 		super(GUI_ID, boxX, boxY, panelGraphics[0].getWidth()*boxWidth, panelGraphics[0].getHeight()*boxHeight);
 		//super("I am a BoxHUD", GUI_ID, boxX, boxY, boxWidth*16, boxHeight*16);
 		
@@ -76,12 +76,10 @@ public class HUDBox extends GraphicsUserInterface {
 	}
 	
 	public void createDropDownMenu(float menuX, float menuY, Sprite menuBarSprite){
-		BitmapFont menuFont = HUDFont.title_font.font;
-		menuFont.setScale(0.48f, 0.44f);
+		BitmapFont menuFont = HUDFont.title_font.largeFont;
 		menuFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		BitmapFont buttonFont = HUDFont.description_font.font;
-		buttonFont.setScale(0.34f, 0.30f);
+		BitmapFont buttonFont = HUDFont.title_font.mediumFont;
 		buttonFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		Sprite buttonSprite = se.getSprite(SpritesSpaceHudMenu.menu_bar_button);
@@ -110,7 +108,7 @@ public class HUDBox extends GraphicsUserInterface {
 	}
 
 	public void setMenuBarAction(int whichMenu, MenuBarAction menuBarAction) {
-		gameMenus[whichMenu].addAction(menuBarAction);
+		gameMenus[whichMenu].setAction(menuBarAction);
 	}
 	
 	
@@ -125,18 +123,16 @@ public class HUDBox extends GraphicsUserInterface {
 	 * @param {@code Sprite menuBarSprite}
 	 */
 	public void createHotbarMenu(float menuBarX, float menuBarY, Sprite menuBarSprite){
-		HUDFont menuFont = HUDFont.title_font;
-		menuFont.font.setScale(0.48f, 0.48f);
-		menuFont.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		BitmapFont menuFont = HUDFont.title_font.mediumFont;
 		
 		GameMenu menu = new GameMenu(menuBarX, menuBarY, menuBarSprite.getWidth(), menuBarSprite.getHeight(), menuBarSprite);
-		menu.setBitmapFont(menuFont.font, menuBarX+20, menuBarY+26, "Inspect");
+		menu.setBitmapFont(menuFont, menuBarX+20, menuBarY+26, "Inspect");
 		
 		addMenu(menu);
 	}
 
 	public void addMenu(GameMenu menu) {
-		disposable.add(menu.menuBarSprite.getTexture());
+		disposable.add(menu.sprite.getTexture());
 		disposable.add(menu.font);
 		
 		for(GameButton b:menu.getButtons())

@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.GameInterfaceManager;
+import xtre.game.game_gui.graphics.UIGraphics;
 import xtre.game.game_gui.heads_up_display.hud_parts.HUDBox;
 import xtre.game.physics_objects.player.SpaceRock;
 import xtre.game.player.Player;
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.gui.GlobalsGUI;
 import xtre.globals.game_interface.hud.GlobalsHUD;
 import xtre.graphics.sprites.SpriteEntity;
@@ -57,10 +58,10 @@ public class SpaceScene {
 		}
 
 		rock = new SpaceRock[4];		
-		rock[0] = new SpaceRock((ScreenGlobals.MPP(300)), (ScreenGlobals.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
-		rock[1] = new SpaceRock((ScreenGlobals.MPP(300)), (ScreenGlobals.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
-		rock[2] = new SpaceRock((ScreenGlobals.MPP(-300)), (ScreenGlobals.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
-		rock[3] = new SpaceRock((ScreenGlobals.MPP(-300)), (ScreenGlobals.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[0] = new SpaceRock((GlobalScreen.MPP(300)), (GlobalScreen.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[1] = new SpaceRock((GlobalScreen.MPP(300)), (GlobalScreen.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[2] = new SpaceRock((GlobalScreen.MPP(-300)), (GlobalScreen.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[3] = new SpaceRock((GlobalScreen.MPP(-300)), (GlobalScreen.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
 
 	}
 
@@ -109,22 +110,8 @@ public class SpaceScene {
 	private void starOptions() {
 		if(justPressedLeftMouseButton) {
 			if (stars.selectedStar != -1 && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR)) {
-				Sprite[] boxHUDGraphics = new Sprite[]{
-						
-						se.getSprite(SpritesHeadsUpDisplay.paneling_tm),	//[0]
-						se.getSprite(SpritesHeadsUpDisplay.paneling_bm),	//[1] 
-						se.getSprite(SpritesHeadsUpDisplay.paneling_lm),	//[2] 
-						se.getSprite(SpritesHeadsUpDisplay.paneling_mr),	//[3]
-						
-						se.getSprite(SpritesHeadsUpDisplay.paneling_mm),	//[4] 
-					
-						se.getSprite(SpritesHeadsUpDisplay.paneling_tl),	//[5] 
-						se.getSprite(SpritesHeadsUpDisplay.paneling_tr),	//[6] 
-						se.getSprite(SpritesHeadsUpDisplay.paneling_bl),	//[7] 
-						se.getSprite(SpritesHeadsUpDisplay.paneling_br),	//[8]
-				};
 				
-				gim.requestBox(GlobalsGUI.SPACE_INSPECT_STAR,	stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 16, 8, boxHUDGraphics);
+				gim.requestBox(GlobalsGUI.SPACE_INSPECT_STAR,	stars.getSelectedStar().sprite.getX(), stars.getSelectedStar().sprite.getY(), 16, 8, UIGraphics.getBoxHUDGraphics(se));
 				for(int i = 0; i < 3; i++)
 					((HUDBox)gim.getGUI(GlobalsGUI.SPACE_INSPECT_STAR)).createDropDownMenu(20, (i*40)+6, se.getSprite(SpritesSpaceHudMenu.menu_bar));
 				
@@ -141,10 +128,10 @@ public class SpaceScene {
 	}
 
 	private void setBounds(float x, float y, float w, float h){
-		x=ScreenGlobals.MPP(x);
-		y=ScreenGlobals.MPP(y);
-		w=ScreenGlobals.MPP(w);
-		h=ScreenGlobals.MPP(h);
+		x=GlobalScreen.MPP(x);
+		y=GlobalScreen.MPP(y);
+		w=GlobalScreen.MPP(w);
+		h=GlobalScreen.MPP(h);
 		BodyDef areaDef = new BodyDef();
 		areaDef.type = BodyType.StaticBody;
 		areaDef.position.set(0, 0);

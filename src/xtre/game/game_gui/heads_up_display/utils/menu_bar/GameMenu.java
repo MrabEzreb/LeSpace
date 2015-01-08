@@ -14,7 +14,7 @@ public class GameMenu {
 	
 	private float menuBarX, menuBarY, menuBarWidth, menuBarHeight;
 
-	public Sprite menuBarSprite;
+	public Sprite sprite;
 	
 	private MenuBarAction menuBarAction;
 	
@@ -28,24 +28,20 @@ public class GameMenu {
 	private List<GameButton> buttons = new ArrayList<>();
 	
 	public GameMenu(){}
-	public GameMenu(float menuBarX, float menuBarY, float menuBarWidth,	float menuBarHeight, Sprite menuBarSprite) {
+	public GameMenu(float menuBarX, float menuBarY, float menuBarWidth, float menuBarHeight, Sprite menuBarSprite) {
 		this.menuBarX = menuBarX;
 		this.menuBarY = menuBarY;
-		this.menuBarWidth = menuBarWidth;
-		this.menuBarHeight = menuBarHeight;
-		this.menuBarSprite = menuBarSprite;
+		this.menuBarWidth = menuBarSprite.getWidth();
+		this.menuBarHeight = menuBarSprite.getHeight();
+		this.sprite = menuBarSprite;
 		
-		this.menuBarSprite.setPosition(menuBarX, menuBarY);
+		this.sprite.setPosition(menuBarX, menuBarY);
 	}
 	
 	public void setBitmapFont(BitmapFont font, float fontPositionOnButtonX, float fontPositionOnButtonY, String menuTitle){
 		this.font = font;
 		this.fontPositionOnButtonX = fontPositionOnButtonX;
 		this.fontPositionOnButtonY = fontPositionOnButtonY;
-		this.menuTitle = menuTitle;
-	}
-	
-	public void setMenuTitle(String menuTitle){
 		this.menuTitle = menuTitle;
 	}
 	
@@ -59,7 +55,7 @@ public class GameMenu {
 	}
 	
 	public void render(SpriteBatch batch){
-		menuBarSprite.draw(batch);
+		sprite.draw(batch);
 		
 		if(font!=null)font.draw(batch, menuTitle, fontPositionOnButtonX, fontPositionOnButtonY);
 		
@@ -105,7 +101,7 @@ public class GameMenu {
 	private boolean checkIfShouldDoAction(boolean hovers, boolean justPressedL){
 		if(justPressedL && hovers){
 			if(menuBarAction!=null){
-				menuBarAction.doAction();
+				menuBarAction.action();
 				if(getButtons().size()>=0)
 					return true;
 				else
@@ -114,11 +110,11 @@ public class GameMenu {
 				return true;
 			
 		}else if(hovers){
-			this.menuBarSprite.setColor(1, 1, 1, 1);
+			this.sprite.setColor(1, 1, 1, 1);
 			return false;
 		}
 		else{
-			menuBarSprite.setColor(.8f,.8f,.8f,.8f);
+			sprite.setColor(.8f,.8f,.8f,.8f);
 			return false;
 		}
 	}
@@ -127,7 +123,7 @@ public class GameMenu {
 		return buttons;
 	}
 	
-	public void addAction(MenuBarAction menuBarAction) {
+	public void setAction(MenuBarAction menuBarAction) {
 		this.menuBarAction = menuBarAction;
 	}
 }

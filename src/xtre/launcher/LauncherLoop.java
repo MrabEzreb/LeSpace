@@ -1,7 +1,7 @@
 package xtre.launcher;
 
 import xtre.Main;
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 import xtre.launcher.menus.utils.Menu;
 import xtre.launcher.menus.utils.MenuButton;
 import xtre.launcher.menus.utils.MenuManager;

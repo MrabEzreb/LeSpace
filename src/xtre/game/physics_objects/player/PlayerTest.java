@@ -3,7 +3,7 @@ package xtre.game.physics_objects.player;
 
 
 import xtre.game.GameLoop;
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -22,8 +22,8 @@ public class PlayerTest extends SpaceObject {
 
 	public PlayerTest() {
 		
-		x = ScreenGlobals.WIDTH / 2;
-		y = ScreenGlobals.HEIGHT / 2;
+		x = GlobalScreen.WIDTH / 2;
+		y = GlobalScreen.HEIGHT / 2;
 		
 		maxSpeed = 300;
 		acceleration = 200;

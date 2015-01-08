@@ -75,7 +75,7 @@ public class GameInterfaceManager {
 		if(id==-1) return -1;
 		int returnedID = id;
 	
-		gi.add(new HUDBox(returnedID, (int)x,(int) y, width, height, panelGraphics, 4));
+		gi.add(new HUDBox(returnedID, (int)x,(int) y, width, height, panelGraphics));
 		
 		System.out.println("requestBox [" + returnedID + "]");
 		return returnedID;

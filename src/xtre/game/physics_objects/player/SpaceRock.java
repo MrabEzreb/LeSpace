@@ -3,7 +3,7 @@ package xtre.game.physics_objects.player;
 import java.util.Random;
 
 import xtre.game.physics_objects.PhysicsEntity;
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -64,10 +64,10 @@ public class SpaceRock extends PhysicsEntity {
 		
 		float mx = Gdx.input.getX(), my = -Gdx.input.getY()+Gdx.graphics.getHeight();
 		
-		float rx = (x + -camX) + (ScreenGlobals.MPP((ScreenGlobals.WIDTH/2)) - ScreenGlobals.MPP(rockSprite.getWidth()/2));
-		float ry = (y + -camY) + ((ScreenGlobals.MPP(ScreenGlobals.HEIGHT/2)) - ScreenGlobals.MPP(rockSprite.getHeight()/2));		
+		float rx = (x + -camX) + (GlobalScreen.MPP((GlobalScreen.WIDTH/2)) - GlobalScreen.MPP(rockSprite.getWidth()/2));
+		float ry = (y + -camY) + ((GlobalScreen.MPP(GlobalScreen.HEIGHT/2)) - GlobalScreen.MPP(rockSprite.getHeight()/2));		
 		
-		rockSprite.setPosition(ScreenGlobals.PPM(rx), ScreenGlobals.PPM(ry));
+		rockSprite.setPosition(GlobalScreen.PPM(rx), GlobalScreen.PPM(ry));
 		rockSprite.setRotation(body.getAngle()*MathUtils.radiansToDegrees);
 		
 	}

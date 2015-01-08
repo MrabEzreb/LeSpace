@@ -1,6 +1,6 @@
 package xtre.game.space_world;
 
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.GlobalsInterface;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

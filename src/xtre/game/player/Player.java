@@ -4,7 +4,7 @@ import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.player.PlayerInterface;
 import xtre.game.physics_objects.PhysicsEntity;
 import xtre.game.utils.Timer;
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 import xtre.graphics.sprites.SpriteEntity;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceGUI;
 
@@ -43,7 +43,7 @@ public class Player {
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 
 		CircleShape shape = new CircleShape();
-		shape.setRadius(ScreenGlobals.MPP(15.5f));
+		shape.setRadius(GlobalScreen.MPP(15.5f));
 		
 //		PolygonShape shape = new PolygonShape();
 //		shape.setAsBox(5,5);
@@ -57,7 +57,7 @@ public class Player {
 
 		body = world.createBody(bodyDef);
 		body.createFixture(fixtureDef);
-		body.setTransform(ScreenGlobals.MPP(x), ScreenGlobals.MPP(y), 0);
+		body.setTransform(GlobalScreen.MPP(x), GlobalScreen.MPP(y), 0);
 		Vector2 v = new Vector2();
 		body.getWorldVector(v);
 		shape.dispose();
@@ -127,7 +127,7 @@ public class Player {
 						body.applyForceToCenter(force, true);
 						body.setLinearDamping(0);
 						
-						float sox = (ScreenGlobals.WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (stats.y-sprite.getWidth()/2);
+						float sox = (GlobalScreen.WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (GlobalScreen.HEIGHT/2) + (stats.y-sprite.getWidth()/2);
 	
 						sprite.setPosition(sox, soy);
 						sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
@@ -145,7 +145,7 @@ public class Player {
 			}
 
 			//Set sprite position to match body position
-			float sox = (ScreenGlobals.WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (ScreenGlobals.HEIGHT/2) + (stats.y-sprite.getWidth()/2);
+			float sox = (GlobalScreen.WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (GlobalScreen.HEIGHT/2) + (stats.y-sprite.getWidth()/2);
 	
 			sprite.setPosition(sox, soy);
 			sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);

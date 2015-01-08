@@ -10,11 +10,13 @@ public class GameButton {
 	
 	public Sprite sprite;
 	
-	protected GameButtonAction buttonAction;
+	public int supraX, supraY;
 	
-	private BitmapFont font;
-	private String title = "";
 	private float labelX, labelY;
+	private String title = "";
+	private BitmapFont font;
+	
+	protected GameButtonAction buttonAction;
 	
 	public GameButton(){}	
 	public GameButton(Sprite sprite){

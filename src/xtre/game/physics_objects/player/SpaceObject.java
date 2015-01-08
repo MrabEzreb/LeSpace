@@ -2,7 +2,7 @@ package xtre.game.physics_objects.player;
 
 
 import xtre.game.GameLoop;
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 
 public class SpaceObject {
 	
@@ -23,10 +23,10 @@ public class SpaceObject {
 	protected float[] shapey;
 	
 	protected void wrap() {
-		if(x < 0) x = ScreenGlobals.WIDTH;
-		if(x > ScreenGlobals.WIDTH) x = 0;
-		if(y < 0) y = ScreenGlobals.HEIGHT;
-		if(y > ScreenGlobals.HEIGHT) y = 0; 
+		if(x < 0) x = GlobalScreen.WIDTH;
+		if(x > GlobalScreen.WIDTH) x = 0;
+		if(y < 0) y = GlobalScreen.HEIGHT;
+		if(y > GlobalScreen.HEIGHT) y = 0; 
 	}
 	
 }

@@ -36,7 +36,6 @@ public abstract class GameInterface {
 	}
 	
 	public boolean mouseOutOfBounds(){
-		System.out.println(mouseX + " " + mouseY + " " + x + " " + y);
 		if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, x, y, width, height))
 			return false;
 		else

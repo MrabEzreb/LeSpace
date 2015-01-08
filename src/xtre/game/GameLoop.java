@@ -1,7 +1,7 @@
 package xtre.game;
 
 import xtre.Main;
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 import xtre.launcher.LauncherLoop;
 
 import com.badlogic.gdx.Gdx;
@@ -31,13 +31,13 @@ public class GameLoop implements Screen {
 	}
 		
 	public void show() {
-		Gdx.graphics.setDisplayMode((int)ScreenGlobals.WIDTH, (int)ScreenGlobals.HEIGHT, false);
+		Gdx.graphics.setDisplayMode((int)GlobalScreen.WIDTH, (int)GlobalScreen.HEIGHT, false);
 		Gdx.graphics.setTitle("LeSpace");
 		gameManager = new GameManager();
 
 		world = gameManager.spaceWorld.world;
 
-		camera = new OrthographicCamera(ScreenGlobals.MPP(ScreenGlobals.WIDTH), ScreenGlobals.MPP(ScreenGlobals.HEIGHT));
+		camera = new OrthographicCamera(GlobalScreen.MPP(GlobalScreen.WIDTH), GlobalScreen.MPP(GlobalScreen.HEIGHT));
 		camera.position.set(new Vector2(0,0), 0);
 		camera.update();
 		
@@ -70,7 +70,7 @@ public class GameLoop implements Screen {
 		
 		//UPDATE					
 
-		gameManager.update(camera.position.x, camera.position.y, Gdx.input.getX(), -Gdx.input.getY()+ScreenGlobals.HEIGHT);
+		gameManager.update(camera.position.x, camera.position.y, Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.HEIGHT);
 
 		camera.position.set((gameManager.getPlayer(0).body.getPosition().x), (gameManager.getPlayer(0).body.getPosition().y), 0);
 		if(Gdx.input.isKeyPressed(Keys.Q)){

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import xtre.game.game_gui.GameInterfaceManager;
-import xtre.globals.ScreenGlobals;
+import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.gui.GlobalsGUI;
 import xtre.globals.game_interface.hud.GlobalsHUD;
 import xtre.graphics.sprites.SpriteEntity;
@@ -68,7 +68,7 @@ public class Stars {
 	}
 	public void render(SpriteBatch batch, float camX, float camY){
 		for(int i = stars.length-1; i > -1; i--){
-			if(stars[i].sprite.getX() < ScreenGlobals.WIDTH && stars[i].sprite.getX() > 0 && stars[i].sprite.getY() < ScreenGlobals.HEIGHT && stars[i].sprite.getY() > 0)
+			if(stars[i].sprite.getX() < GlobalScreen.WIDTH && stars[i].sprite.getX() > 0 && stars[i].sprite.getY() < GlobalScreen.HEIGHT && stars[i].sprite.getY() > 0)
 					stars[i].sprite.draw(batch);
 		}
 	}
