@@ -1,17 +1,18 @@
 package xtre.game.game_gui.heads_up_display.hud_parts;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
 import xtre.graphics.sprites.SpriteEntity;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class HUDHighlight extends HeadsUpDisplay {
 
 	SpriteEntity se = new SpriteEntity();
 	
-	public HUDHighlight(int id, int x, int y, int width, int height){
-		super(id, x, y, width, height);
+	public HUDHighlight(GameInterfaceManager gim, int id, int x, int y, int width, int height){
+		super(gim, id, x, y, width, height);
 		
 		background = se.getSprite(SpritesHeadsUpDisplay.star_highlight);
 		
@@ -20,11 +21,15 @@ public class HUDHighlight extends HeadsUpDisplay {
 	}
 
 	@Override
-	public void updateInterface(float mouseX, float mouseY,
-			boolean justPressedLeftMouseButton) {
+	public void updateInterface(float mouseX, float mouseY,	boolean mouseLeftPress) {
 	}
 	
 	public void renderInterface(SpriteBatch batch){
 		background.draw(batch);
 	}
+	
+	public boolean isActive(float mouseX, float mouseY, boolean mouseLeftPress){
+		return true;
+	}
+	
 }

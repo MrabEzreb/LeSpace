@@ -1,5 +1,6 @@
 package xtre.game.game_gui.heads_up_display.hud_parts;
 
+import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,8 +21,8 @@ public class HUDMetre extends HeadsUpDisplay{
 	 * @param metreWidth
 	 */
 	
-	public HUDMetre(int globalID, int metreWidth, Sprite[] graphics, float maxLevel) {
-		super(globalID, 0, 0, metreWidth*graphics[0].getWidth(), graphics[0].getHeight());
+	public HUDMetre(GameInterfaceManager gim, int globalID, int metreWidth, Sprite[] graphics, float maxLevel) {
+		super(gim, globalID, 0, 0, metreWidth*graphics[0].getWidth(), graphics[0].getHeight());
 		
 		this.graphics = graphics;
 		this.maxLevel = maxLevel;

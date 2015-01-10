@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.GameInterface;
+import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
 import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
 import xtre.globals.game_interface.GlobalsInterface;
@@ -36,8 +37,8 @@ public abstract class HeadsUpDisplay extends GameInterface{
 	 * @param height
 	 */
 	
-	public HeadsUpDisplay(int HUD_ID, float x, float y, float width, float height){
-		super(HUD_ID, TYPE, x, y, width, height);
+	public HeadsUpDisplay(GameInterfaceManager gim, int HUD_ID, float x, float y, float width, float height){
+		super(gim, HUD_ID, TYPE, x, y, width, height);
 
 	}
 
@@ -48,7 +49,7 @@ public abstract class HeadsUpDisplay extends GameInterface{
 		dispose();
 	}
 
-	public final void dispose(){
+	public void dispose(){
 		if(graphics!=null)
 		for(Sprite s : graphics){
 			s.getTexture().dispose();
@@ -66,11 +67,10 @@ public abstract class HeadsUpDisplay extends GameInterface{
 			for(GameMenu gm:gameMenus)
 				if(gm.isMenuBarOpen) 
 					for(GameButton gb:gm.getButtons())
-						if(gb.isClicked(mouseX, mouseY, mouseLeftClicked))
+						if(gb.isClicked(mouseX, mouseY, mouseLeftPress))
 							status = false;
 		}		
 		
 		return status;
 	}
-
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.GameInterface;
+import xtre.game.game_gui.GameInterfaceManager;
 import xtre.globals.game_interface.GlobalsInterface;
 import xtre.graphics.sprites.SpriteEntity;
 
@@ -16,8 +17,16 @@ public abstract class GraphicsUserInterface extends GameInterface {
 	
 	protected List<Disposable> disposable = new ArrayList<>();
 	
-	public GraphicsUserInterface(int GUI_ID, float x, float y, float width, float height){
-		super(GUI_ID, TYPE, x, y, width, height);
+	/**
+	 * 
+	 * @param GUI_ID
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
+	public GraphicsUserInterface(GameInterfaceManager gim, int GUI_ID, float x, float y, float width, float height){
+		super(gim, GUI_ID, TYPE, x, y, width, height);
 	}
 	
 	public final void close(){

@@ -1,4 +1,4 @@
-package xtre.graphics.sprites;
+package xtre.game;
 
 import xtre.graphics.sprites.utils.SpriteData;
 
@@ -6,18 +6,17 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-public class SpriteEntity {	
+public class SpriteEntity_TODO {
 	
-	private AssetManager assets;
-	private TextureAtlas atlas;
+	private static AssetManager assets;
+	private static TextureAtlas atlas;
 	
-	//TODO make static and change constructor to private 
-	public SpriteEntity(){
+	private SpriteEntity_TODO(){
 		assets = new AssetManager();
 
 	}	
 	
-	public Sprite getSprite(SpriteData data){
+	public static Sprite getSprite(SpriteData data){
 		assets.load(data.location, TextureAtlas.class);
 		assets.finishLoading();
 		

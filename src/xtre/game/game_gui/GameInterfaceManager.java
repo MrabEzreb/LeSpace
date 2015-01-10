@@ -4,13 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import xtre.game.game_gui.heads_up_display.HeadsUpDisplay;
-import xtre.game.game_gui.heads_up_display.hud_parts.HUDBox;
-import xtre.game.game_gui.heads_up_display.hud_parts.HUDHighlight;
 import xtre.globals.game_interface.GlobalsInterface;
-import xtre.globals.game_interface.gui.GlobalsGUI;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameInterfaceManager {
@@ -20,20 +15,35 @@ public class GameInterfaceManager {
 	public GameInterfaceManager(){
 
 	}
-	
-	public void update(float mouseX, float mouseY, boolean justPressedLeftMouseButton){
+	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
+
+			for(int i = 0; i < gi.size(); i++){
+				if(gi.get(i).isActive(mouseX, mouseY, mouseLeftPress)){
+					for(int j = 0; j < gi.size(); j++)
+						gi.get(j).selected = false;
+					gi.get(i).selected = true;
+					break;
+				}
+				
+			}
+			
 		for(int i = 0; i < gi.size(); i++){
-			if(gi.get(i)!=null){
-				gi.get(i).update(mouseX, mouseY, justPressedLeftMouseButton);
+			if(gi.get(i).selected){
+				System.out.println(" IN_ACTION "+ gi.get(i).getClass().getSimpleName());
+				gi.get(i).update(mouseX, mouseY, mouseLeftPress);
+			}
+		}
+		
+		for(int i = 0; i < gi.size(); i++){
+			if(gi.get(i).closed){
+				gi.remove(i);
 			}
 		}
 	}
 	
 	public void render(SpriteBatch batch){
 		for(GameInterface gi:gi){
-			if(gi!=null){
-				gi.render(batch);
-			}		
+			gi.render(batch);
 		}
 	}
 	
@@ -71,44 +81,45 @@ public class GameInterfaceManager {
 	 * @param Sprite[] panelGraphics 
 	 * @param int amountOfMenus 
 	 */
-	public int requestBox(int id, float x, float y, int width, int height, Sprite[] panelGraphics) {
-		if(id==-1) return -1;
-		int returnedID = id;
-	
-		gi.add(new HUDBox(returnedID, (int)x,(int) y, width, height, panelGraphics));
-		
-		System.out.println("requestBox [" + returnedID + "]");
-		return returnedID;
-	}
+//	public int requestBox(int id, float x, float y, int width, int height, Sprite[] panelGraphics) {
+//		if(id==-1) return -1;
+//		int returnedID = id;
+//	
+//		gi.add(new HUDBox(this, returnedID, (int)x,(int) y, width, height, panelGraphics));
+//		
+//		System.out.println("requestBox [" + returnedID + "]");
+//		return returnedID;
+//	}
 	
 	/**
 	 * Adds an already created HUD-type to the current HUD being displayed.
  	 *
 	 * @param hudType
 	 */
-	public int addHUD(HeadsUpDisplay hudType) {
-		if(hudType.GI_ID==-1) return -1;
-		int returnedID = hudType.GI_ID;
 	
-		gi.add(hudType);
+	public int add(GameInterface gi){
+		if(gi.GI_ID == -1) return -1;
+		int returnedID = gi.GI_ID;
 		
-		System.out.println("addHUD [" + returnedID + "]");
+		this.gi.add(gi);
+		
+		System.out.println("added [" + returnedID + "]");
 		return returnedID;
 	}
 	
-	public int requestStarHighlight(int id, float x, float y, int width, int height) {
-		if(id == -1) return -1;
-		int returnedID = id;
-
-		gi.add(new HUDHighlight(returnedID, (int)x,(int) y, width, height));
-		return returnedID;
-	}
+//	public int requestStarHighlight(int id, float x, float y, int width, int height) {
+//		if(id == -1) return -1;
+//		int returnedID = id;
+//
+//		gi.add(new HUDHighlight(this, returnedID, (int)x,(int) y, width, height));
+//		return returnedID;
+//	}
 	
 	public void closeHUD(int HUD_ID){
 		System.out.println("closing hud " + HUD_ID);
 		for(int i = 0; i < gi.size(); i++){
 			if(gi.get(i).GI_ID == HUD_ID && gi.get(i).TYPE == GlobalsInterface.HUD_TYPE){
-				gi.remove(i);
+				gi.get(i).closed = true;
 			}
 		}
 	}
@@ -117,7 +128,7 @@ public class GameInterfaceManager {
 		System.out.println("closing gui " + GUI_ID);
 		for(int i = 0; i < gi.size(); i++){
 			if(gi.get(i).GI_ID == GUI_ID && gi.get(i).TYPE == GlobalsInterface.GUI_TYPE){
-				gi.remove(i);
+				gi.get(i).closed = true;
 			}
 		}
 	}

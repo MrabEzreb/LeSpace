@@ -6,8 +6,9 @@ public class GlobalsGUI {
  */
 	
 	public static final int HOTBAR = 0;
-	public static final int SPACE_INSPECT_STAR = 1;
+	public static final int SPACE_INSPECT_STAR_OPTION = 1;
 	public static final int SPACE_OPTIONS = 2;
 	public static final int SPACE_DROP_MENU = 3;
+	public static final int SHIP_INVENTORY = 4;
 
 }

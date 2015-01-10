@@ -13,7 +13,7 @@ public class UIGraphics {
 		se.getSprite(SpritesHeadsUpDisplay.paneling_tm), //[0]
 				se.getSprite(SpritesHeadsUpDisplay.paneling_bm), //[1] 
 				se.getSprite(SpritesHeadsUpDisplay.paneling_lm), //[2] 
-				se.getSprite(SpritesHeadsUpDisplay.paneling_mr), //[3]
+				se.getSprite(SpritesHeadsUpDisplay.paneling_rm), //[3]
 
 				se.getSprite(SpritesHeadsUpDisplay.paneling_mm), //[4] 
 

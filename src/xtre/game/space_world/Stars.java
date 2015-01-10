@@ -62,7 +62,7 @@ public class Stars {
 		this.justPressedLeftMouseButton = justPressedLeftMouseButton;
 		
 		starHighlightDisplaying = gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT);
-		starOptionsDisplaying = gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR);
+		starOptionsDisplaying = gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION);
 
 		updateStars();
 	}
@@ -92,7 +92,7 @@ public class Stars {
 		for(int i = 0; i < stars.length; i++){
 		boolean b = stars[i].clicked(mouseX, mouseY, justPressedLeftMouseButton);
 			
-			if(b && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR)){
+			if(b && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION)){
 				selectedStar = i;
 			}
 			

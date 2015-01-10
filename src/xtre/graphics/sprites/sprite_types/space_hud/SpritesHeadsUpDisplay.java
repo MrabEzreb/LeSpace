@@ -9,7 +9,7 @@ public class SpritesHeadsUpDisplay {
 	
 	public final static SpriteData paneling_lm = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_lm");
 	public final static SpriteData paneling_mm = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_m");
-	public final static SpriteData paneling_mr = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_mr");
+	public final static SpriteData paneling_rm = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_mr");
 	
 	public final static SpriteData paneling_bl = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_bl");
 	public final static SpriteData paneling_bm = new SpriteData("output/game_sprites/hud_sprites/hud_sprites.pack", "paneling_bm");
