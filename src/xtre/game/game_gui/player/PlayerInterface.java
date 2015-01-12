@@ -4,16 +4,16 @@ import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.gui_parts.DropMenu;
 import xtre.game.game_gui.graphics_user_interface.gui_parts.GUIHotBar;
 import xtre.game.game_gui.heads_up_display.hud_parts.HUDMetre;
+import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
 import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
-import xtre.game.game_gui.heads_up_display.utils.menu_bar.MenuBarAction;
 import xtre.game.player.Player;
 import xtre.game.player.ship.Inventory;
 import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.gui.GlobalsGUI;
 import xtre.globals.game_interface.hud.GlobalsHUD;
+import xtre.graphics.font.FontEntity;
 import xtre.graphics.font.HUDFont;
 import xtre.graphics.sprites.SpriteEntity;
-import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceGUI;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 
@@ -50,9 +50,11 @@ public class PlayerInterface {
 	}
 	
 	public void update(float mouseX, float mouseY, boolean leftMousePress){
+		//spaceOptions.updateInterface(mouseX, mouseY, leftMousePress);
 	}
 	
 	public void render(SpriteBatch batch){
+		//spaceOptions.renderInterface(batch);
 	}
 	
 	public boolean setMetreLevel(float level){
@@ -86,48 +88,49 @@ public class PlayerInterface {
 		BitmapFont spaceOptionsSupraMenuFont = HUDFont.title_font.mediumFont;
 		BitmapFont spaceOptionsSubMenuFont = HUDFont.title_font.smallFont;
 		
-		GameMenu spaceOptionsMenu = new GameMenu(sOX+(dropMenuSprite.getWidth()/2)+(dropMenuSprite.getWidth()/4), sOY-(dropMenuSprite.getHeight()), 200, 100, se.getSprite(SpritesSpaceHudMenu.menu_bar_button));
-			spaceOptionsMenu.setBitmapFont(spaceOptionsSubMenuFont, spaceOptionsMenu.sprite.getX()+24, spaceOptionsMenu.sprite.getY() +19, "Goto Ship");
-		GameMenu spaceOptionsMenu1 = new GameMenu(sOX+(dropMenuSprite.getWidth()/2)+(dropMenuSprite.getWidth()/4), sOY-(dropMenuSprite.getHeight())-30, 200, 100, se.getSprite(SpritesSpaceHudMenu.menu_bar_button));
-		GameMenu spaceOptionsMenu2 = new GameMenu(sOX+(dropMenuSprite.getWidth()/2)+(dropMenuSprite.getWidth()/4), sOY-(dropMenuSprite.getHeight())-60, 200, 100, se.getSprite(SpritesSpaceHudMenu.menu_bar_button));
-		GameMenu spaceOptionsMenu3 = new GameMenu(sOX+(dropMenuSprite.getWidth()/2)+(dropMenuSprite.getWidth()/4), sOY-(dropMenuSprite.getHeight())-90, 200, 100, se.getSprite(SpritesSpaceHudMenu.menu_bar_button));
-		GameMenu spaceOptionsMenu4 = new GameMenu(sOX+(dropMenuSprite.getWidth()/2)+(dropMenuSprite.getWidth()/4), sOY-(dropMenuSprite.getHeight())-120, 200, 100, se.getSprite(SpritesSpaceHudMenu.menu_bar_button));
+//		GameMenu spaceOptionsMenu = new GameMenu();
+//			spaceOptionsMenu.setBitmapFont(spaceOptionsSubMenuFont, spaceOptionsMenu.sprite.getX()+24, spaceOptionsMenu.sprite.getY() +19, "Goto Ship");
+//		GameMenu spaceOptionsMenu1 = new GameMenu();
+//		GameMenu spaceOptionsMenu2 = new GameMenu();
+//		GameMenu spaceOptionsMenu3 = new GameMenu();
+//		GameMenu spaceOptionsMenu4 = new GameMenu();
 		
-		spaceOptionsMenu.setAction(new MenuBarAction(){
-			public void action(){
-				System.out.println("player interface actions");
-			}
-		});
-		
-		spaceOptionsMenu1.setAction(new MenuBarAction(){
-			public void action(){
-				System.out.println("player interface actions1");
-			}
-		});
-		
-		spaceOptionsMenu2.setAction(new MenuBarAction(){
-			public void action(){
-				System.out.println("player interface actions2");
-			}
-		});
-		
-		spaceOptionsMenu3.setAction(new MenuBarAction(){
-			public void action(){
-				System.out.println("player interface actions3");
-			}
-		});
-		
-		spaceOptionsMenu4.setAction(new MenuBarAction(){
-			public void action(){
-				System.out.println("player interface actions4");
-			}
-		});
-		
-		spaceOptions = new DropMenu(gim, GlobalsGUI.SPACE_DROP_MENU, sOX, sOY, dropMenuSprite, "Menu", spaceOptionsSupraMenuFont);
-		spaceOptions.addSubMenu(spaceOptionsMenu);
-		spaceOptions.addSubMenu(spaceOptionsMenu1);
-		spaceOptions.addSubMenu(spaceOptionsMenu2);
-		spaceOptions.addSubMenu(spaceOptionsMenu3);
-		spaceOptions.addSubMenu(spaceOptionsMenu4);
+//		spaceOptions = new DropMenu(sOX, sOY, dropMenuSprite, new FontEntity("Menu", spaceOptionsSupraMenuFont));
+//
+//		spaceOptions.addSubMenu(sOX+(dropMenuSprite.getWidth()/2)+(dropMenuSprite.getWidth()/4), sOY-(dropMenuSprite.getHeight()), 200, 100, se.getSprite(SpritesSpaceHudMenu.menu_bar_button), new FontEntity("", null));
+//		spaceOptions.setSubMenuButtonAction(0, 0, new GameButtonAction(){
+//			public void doAction(){
+//				System.out.println("player interface actions");
+//			}
+//		});
+//		spaceOptions.setSubMenuButtonAction(0, 1, new GameButtonAction(){
+//			public void doAction(){
+//				System.out.println("player interface actions1");
+//			}
+//		});
+//		
+//		spaceOptions.addSubMenu(sOX+(dropMenuSprite.getWidth()/2)+(dropMenuSprite.getWidth()/4), sOY-(dropMenuSprite.getHeight())-30, 200, 100, se.getSprite(SpritesSpaceHudMenu.menu_bar_button), new FontEntity("", null));
+//		spaceOptions.setSubMenuButtonAction(1, 0, new GameButtonAction(){
+//			public void doAction(){
+//				System.out.println("player interface actions2");
+//			}
+//		});
+//		spaceOptions.setSubMenuButtonAction(1, 1, new GameButtonAction(){
+//			public void doAction(){
+//				System.out.println("player interface actions3");
+//			}
+//		});
+//		
+//		spaceOptions.addSubMenu(sOX+(dropMenuSprite.getWidth()/2)+(dropMenuSprite.getWidth()/4), sOY-(dropMenuSprite.getHeight())-120, 200, 100, se.getSprite(SpritesSpaceHudMenu.menu_bar_button), new FontEntity("", null));
+//		spaceOptions.setSubMenuButtonAction(2, 0, new GameButtonAction(){
+//			public void doAction(){
+//				System.out.println("player interface actions4");
+//			}
+//		});
+//		spaceOptions.setSubMenuButtonAction(2, 1, new GameButtonAction(){
+//			public void doAction(){
+//				System.out.println("player interface actions4");
+//			}
+//		});
 	}
 }

@@ -1,0 +1,112 @@
+package xtre.game.space_world;
+
+import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
+import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
+import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
+import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
+import xtre.globals.game_interface.GlobalsInterface;
+import xtre.graphics.font.FontEntity;
+import xtre.graphics.font.HUDFont;
+import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+public class ViewStarOptions {
+
+	private SpriteEntity se = new SpriteEntity();
+	
+	private GameMenu[] menus;
+	private BackPanel panel;
+
+	private float mouseX, mouseY;
+	
+	public ViewStarOptions(BackPanel panel) {
+		this.panel = panel;
+		
+		Sprite s = se.getSprite(SpritesSpaceHudMenu.menu_bar);
+		
+		menus = new GameMenu[]{
+				new GameMenu(new Sprite(s)),
+				new GameMenu(new Sprite(s)),
+				new GameMenu(new Sprite(s)),
+		};
+		
+		menus[0].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, 10);
+		menus[0].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, -22);
+		menus[0].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, -54);
+		menus[0].setActionToButton(0, new GameButtonAction(){
+			public void doAction(){
+				System.out.println("Button view doing its thing");
+			}
+		});
+		menus[0].setActionToButton(1, new GameButtonAction(){
+			public void doAction(){
+				System.out.println("Button view doing its thing");
+			}
+		});
+		menus[0].setActionToButton(2, new GameButtonAction(){
+			public void doAction(){
+				System.out.println("Button view doing its thing");
+			}
+		});
+		
+		menus[1].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, 10);
+		menus[1].setActionToButton(0, new GameButtonAction(){
+			public void doAction(){
+				System.out.println("Button one doing its thing");
+			}
+		});
+		
+		menus[2].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, 10);
+		menus[2].setActionToButton(0, new GameButtonAction(){
+			public void doAction(){
+				System.out.println("Button two doing its thing");
+			}
+		});
+		
+		menus[0].setFont(new FontEntity("View", HUDFont.title_font.largeFont), 32, 27);
+		menus[1].setFont(new FontEntity("one", HUDFont.title_font.largeFont), 38, 27);
+		menus[2].setFont(new FontEntity("two", HUDFont.title_font.largeFont), 38, 27);
+		
+	}
+
+	public void dispose() {
+	}
+
+	public void update(float mouseX, float mouseY, boolean leftMousePress) {
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
+		
+		panel.update(mouseX, mouseY, leftMousePress);
+		for(GameMenu gm:menus){
+			gm.update(mouseX, mouseY, leftMousePress);
+		}
+	}
+
+	public void render(SpriteBatch batch) {
+		panel.render(batch);
+		for(GameMenu gm:menus){
+			gm.render(batch);
+		}
+	}
+
+	public void setPosition(float x, float y) {
+		panel.setPosition(x, y);
+		
+		for(int i = 0; i < menus.length; i++)
+			menus[i].setPosition(x, y - (i*42) + 88);
+	}
+
+	public boolean isClosable() {
+		for(GameMenu gm:menus)
+			if(gm.isMenuBarOpen) return false;
+
+		if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, panel.x, panel.y, panel.width, panel.height)){
+			return false;
+		}
+		
+		return true;
+	}
+}

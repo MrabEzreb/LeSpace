@@ -10,5 +10,6 @@ public class GlobalsGUI {
 	public static final int SPACE_OPTIONS = 2;
 	public static final int SPACE_DROP_MENU = 3;
 	public static final int SHIP_INVENTORY = 4;
+	public static final int SPACE_STAR_HIGHLIGHT = 5;
 
 }

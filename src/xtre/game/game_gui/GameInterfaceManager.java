@@ -11,27 +11,37 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameInterfaceManager {
 
 	private List<GameInterface> gi = new ArrayList<>();
-	
+
 	public GameInterfaceManager(){
 
 	}
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
+		//TODO logic
+		for(GameInterface gi:gi){
+			gi.selected = false;
+			gi.hidden = false;
+		}
+		for(GameInterface gi:gi){
+			if(gi.isActive(mouseX, mouseY, mouseLeftPress) &! gi.isAlwaysActive){
+				System.out.println(" IN_ACTION "+ gi.getClass().getSimpleName());
+				gi.update(mouseX, mouseY, mouseLeftPress);
+				break;
+			} else if(gi.isAlwaysActive &! gi.hidden){
+					System.out.println(" IN_ACTION "+gi.getClass().getSimpleName());
+					gi.update(mouseX, mouseY, mouseLeftPress);
+			}
+		}
 
-			for(int i = 0; i < gi.size(); i++){
-				if(gi.get(i).isActive(mouseX, mouseY, mouseLeftPress)){
-					for(int j = 0; j < gi.size(); j++)
-						gi.get(j).selected = false;
-					gi.get(i).selected = true;
-					break;
-				}
-				
-			}
-			
 		for(int i = 0; i < gi.size(); i++){
-			if(gi.get(i).selected){
-				System.out.println(" IN_ACTION "+ gi.get(i).getClass().getSimpleName());
-				gi.get(i).update(mouseX, mouseY, mouseLeftPress);
+			for(int j = 0; j < gi.size(); j++){
+				if(gi.get(i).isActive(mouseX, mouseY, mouseLeftPress) && gi.get(i).isAlwaysActive && gi.get(j).isActive(mouseX, mouseY, mouseLeftPress) && i!=j){
+					gi.get(i).hidden = true;
+				}
 			}
+			if(gi.get(i).hidden)
+				gi.get(i).tintColor(.8f,.8f,.8f,.1f);
+			else
+				gi.get(i).tintColor(.8f,.8f,.8f,.1f);
 		}
 		
 		for(int i = 0; i < gi.size(); i++){
@@ -68,7 +78,6 @@ public class GameInterfaceManager {
 	}
 
 	Random r = new Random();
-	
 	/**
 	 * Requests a new BoxHUD.
  	 * Sprites must be in an order of {@code TM, BM, LM, RM, M, TL, TR, BR, BL}

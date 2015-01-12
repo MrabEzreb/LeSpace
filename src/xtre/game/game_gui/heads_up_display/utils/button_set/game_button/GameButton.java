@@ -10,10 +10,12 @@ public class GameButton {
 	
 	public Sprite sprite;
 	
-	public int supraX, supraY;
+	public float supraX, supraY;
+	
+	private float x=0, y=0;
 	
 	private float labelX, labelY;
-	private String title = "";
+	public String title = "";
 	private BitmapFont font;
 	
 	protected GameButtonAction buttonAction;
@@ -21,10 +23,6 @@ public class GameButton {
 	public GameButton(){}	
 	public GameButton(Sprite sprite){
 		this.sprite = sprite;
-	}
-	public GameButton(Sprite sprite, GameButtonAction buttonAction) {
-		this.sprite = sprite;
-		this.buttonAction = buttonAction;
 	}
 
 	public final void render(SpriteBatch batch){
@@ -38,8 +36,8 @@ public class GameButton {
 		buttonAction.doAction();
 	}
 	
-	public boolean isClicked(float mouseX, float mouseY, boolean justPressedL) {
-		if(justPressedL && GlobalsInterface.withinSquareBounds(mouseX, mouseY, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
+	public boolean isClicked(float mouseX, float mouseY, boolean mouseLeftPress) {
+		if(mouseLeftPress && GlobalsInterface.withinSquareBounds(mouseX, mouseY, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
 			return true;
 		else
 			return false;
@@ -60,7 +58,9 @@ public class GameButton {
 	}
 	
 	public void setPosition(float x, float y) {
-		sprite.setPosition(x, y);
+		this.x = x;
+		this.y = y;
+		sprite.setPosition(this.x, this.y);
 	}
 	
 	public void setAction(GameButtonAction buttonAction) {
@@ -70,5 +70,8 @@ public class GameButton {
 	public void dispose(){
 		sprite.getTexture().dispose();
 		font.dispose();
+	}
+	public void setOffset(float x, float y) {
+		sprite.setPosition(this.x + x, this.y + y);
 	}
 }

@@ -6,11 +6,14 @@ import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class UIGraphics {
-
-	public static final Sprite[] getBoxHUDGraphics(SpriteEntity se) {
+	
+	private static SpriteEntity se = new SpriteEntity();
+	
+	private UIGraphics(){}
+	
+	public static final Sprite[] getBoxHUDGraphics() {
 		Sprite[] boxHUDGraphics = new Sprite[] {
-
-		se.getSprite(SpritesHeadsUpDisplay.paneling_tm), //[0]
+				se.getSprite(SpritesHeadsUpDisplay.paneling_tm), //[0]
 				se.getSprite(SpritesHeadsUpDisplay.paneling_bm), //[1] 
 				se.getSprite(SpritesHeadsUpDisplay.paneling_lm), //[2] 
 				se.getSprite(SpritesHeadsUpDisplay.paneling_rm), //[3]

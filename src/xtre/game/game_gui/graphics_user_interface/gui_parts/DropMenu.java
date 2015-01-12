@@ -3,16 +3,20 @@ package xtre.game.game_gui.graphics_user_interface.gui_parts;
 import java.util.ArrayList;
 import java.util.List;
 
-import xtre.game.game_gui.GameInterfaceManager;
-import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
+import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
+import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
 import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
-import xtre.globals.GlobalScreen;
+import xtre.globals.game_interface.GlobalsInterface;
+import xtre.graphics.font.FontEntity;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class DropMenu extends GraphicsUserInterface {
+public class DropMenu {
+	
+	private float x, y, width, height, mouseX, mouseY;
+	private boolean mouseLeftPress;
 	
 	private Sprite mainButton;
 	private BitmapFont font;
@@ -22,43 +26,58 @@ public class DropMenu extends GraphicsUserInterface {
 	private boolean showingSubMenus = false;
 	
 	/**
-	 * 
-	 * @param GI_ID
 	 * @param mainButton
 	 * @param mainButtonTitle
 	 * @param subMenuButtons
 	 * @param font
 	 */
 	
-	public DropMenu(GameInterfaceManager gim, int GI_ID, float x, float y, Sprite mainButton, String mainButtonTitle, BitmapFont font){
-		super(gim, GI_ID, x, y, mainButton.getWidth(), mainButton.getHeight());
+	public DropMenu(float x, float y, Sprite mainButton, FontEntity font){
+		//super(gim, GI_ID, x, y, mainButton.getWidth(), mainButton.getHeight());
+		
+		this.x = x;
+		this.y = y;
+		this.width = mainButton.getWidth();
+		this.height = mainButton.getHeight();
 		
 		mainButton.setPosition(x, y);
 		
 		this.mainButton = mainButton;
-		this.mainButtonTitle = mainButtonTitle;
-		this.font = font;
+		this.mainButtonTitle = font.text;
+		this.font = font.font;
 		
 	}
 
-	public void addSubMenu(GameMenu subMenu) {
-		subMenus.add(subMenu);
+	public void addSubMenu(int titleX, int titleY, float menuBarWidth, float menuBarHeight, Sprite menuBarSprite, FontEntity font) {
+		GameMenu gm = new GameMenu(menuBarSprite);
+		gm.setFont(font, titleX, titleY);
+		subMenus.add(gm);
 	}
 	
-	@Override
-	public void updateInterface(float mouseX, float mouseY, boolean mouseLeftClicked) {
+	public void addButtonToSubMenu(int i, Sprite button, int x, int y){
+		subMenus.get(i).addButton(new GameButton(button), x, y);
+	}
+	
+	public void setSubMenuButtonAction(int i, int j, GameButtonAction gba){
+		subMenus.get(i).setActionToButton(j, gba);
+	}
+	
+	public void updateInterface(float mouseX, float mouseY, boolean leftMousePress) {
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
+		this.mouseLeftPress = leftMousePress;
+		
 		if(showingSubMenus)
 			for(GameMenu gm:subMenus)
-				gm.update(mouseX, mouseY, mouseLeftClicked);
+				gm.update(mouseX, mouseY, leftMousePress);
 		
-		if(mouseLeftClicked && !mouseOutOfBounds())
+		if(leftMousePress && GlobalsInterface.withinSquareBounds(mouseX, mouseY, x, y, width, height))
 			showingSubMenus = true;
-		else if(mouseLeftClicked)
+		else if(leftMousePress)
 			showingSubMenus = false;
 		
 	}
 
-	@Override
 	public void renderInterface(SpriteBatch batch) {
 		if(showingSubMenus)
 			for(GameMenu gm:subMenus){
@@ -68,23 +87,22 @@ public class DropMenu extends GraphicsUserInterface {
 		font.draw(batch, mainButtonTitle, mainButton.getX()+(mainButton.getWidth()/2) - 20, mainButton.getY() + (mainButton.getHeight()/2) + 5);
 		mainButton.draw(batch);
 	}
-	
-	public boolean isActive(float mouseX, float mouseY, boolean mouseLeftPress){
-		this.mouseX = mouseX;
-		this.mouseY = mouseY;
-		
-		boolean active = false;
 
-		if(showingSubMenus)
-			active = true;
-		
-		if(!mouseOutOfBounds())
-			active = true;
-		
-		return active;
-	}
+//	public boolean isActive(float mouseX, float mouseY, boolean mouseLeftPress){
+//		this.mouseX = mouseX;
+//		this.mouseY = mouseY;
+//		
+//		boolean active = false;
+//
+//		if(showingSubMenus)
+//			active = true;
+//		
+//		if(!mouseOutOfBounds())
+//			active = true;
+//		
+//		return active;
+//	}
 	
-	@Override
 	public void dispose() {
 	}
 }

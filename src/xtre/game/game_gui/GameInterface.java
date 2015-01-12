@@ -1,8 +1,9 @@
 package xtre.game.game_gui;
 
-import xtre.game.game_gui.heads_up_display.hud_parts.BackPannel;
+import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
 import xtre.globals.game_interface.GlobalsInterface;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class GameInterface {
@@ -10,20 +11,20 @@ public abstract class GameInterface {
 	public float mouseX, mouseY;
 	public boolean mouseLeftPress = false;
 	
-	public final float x, y, width, height;
+	public float x, y, width, height;
 	
 	public final int GI_ID;
 	public final int TYPE;
-	public boolean selected = false;
+	public boolean selected = false, isAlwaysActive = false, hidden = false;
 	
 	public final GameInterfaceManager gim;
 	public boolean closed = false;
 	
-	public BackPannel frame;
+	public BackPanel frame;
 	
-	public GameInterface(GameInterfaceManager gim, int GI_ID, int GAME_INTERFACE_TYPE, float x, float y, float width, float height){
+	public GameInterface(GameInterfaceManager gim, int GI_COMPONENT_ID, int GAME_INTERFACE_TYPE, float x, float y, float width, float height){
 		this.gim = gim;
-		this.GI_ID = GI_ID;
+		this.GI_ID = GI_COMPONENT_ID;
 		this.TYPE = GAME_INTERFACE_TYPE;
 		this.x = x;
 		this.y = y;
@@ -68,4 +69,8 @@ public abstract class GameInterface {
 	public abstract void updateInterface(float mouseX, float mouseY, boolean mouseLeftClicked);
 	public abstract void renderInterface(SpriteBatch batch);
 	public abstract void dispose();
+
+	public void tintColor(float r, float g, float b, float a) {
+		if(frame!=null)frame.tint(r,g,b,a);
+	}
 }

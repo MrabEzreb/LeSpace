@@ -2,7 +2,7 @@ package xtre.game.player.ship;
 
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
-import xtre.game.game_gui.heads_up_display.hud_parts.BackPannel;
+import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
 import xtre.game.game_item.GameItem;
 import xtre.game.game_item.utils.ItemEmptySlot;
 import xtre.globals.game_interface.gui.GlobalsGUI;
@@ -44,7 +44,7 @@ public class Inventory extends GraphicsUserInterface{
 		
 		System.out.println("\n length:" + slots.length);
 		
-		frame = new BackPannel(gim, 200-8, 400-8, 7, 7, graphics);
+		frame = new BackPanel(200-8, 400-8, 7, 7, graphics);
 	}
 	
 	public void put(GameItem item, int slot){

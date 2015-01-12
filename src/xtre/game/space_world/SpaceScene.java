@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.GameInterfaceManager;
-import xtre.game.game_gui.graphics.UIGraphics;
-import xtre.game.game_gui.heads_up_display.hud_parts.BackPannel;
-import xtre.game.game_gui.heads_up_display.hud_parts.HUDHighlight;
 import xtre.game.physics_objects.player.SpaceRock;
 import xtre.game.player.Player;
 import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.gui.GlobalsGUI;
-import xtre.globals.game_interface.hud.GlobalsHUD;
 import xtre.graphics.sprites.SpriteEntity;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
-import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,11 +23,13 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class SpaceScene {
 
+	SpriteEntity se = new SpriteEntity();
+	
 	public World world;
 	
 	private GameInterfaceManager gim;
-		
-	SpriteEntity se = new SpriteEntity();
+
+	private ViewStarOptions viewStarOptions;
 	
 	public Player[] player;
 	public SpaceRock[] rock;
@@ -64,6 +61,7 @@ public class SpaceScene {
 		rock[2] = new SpaceRock((GlobalScreen.MPP(-300)), (GlobalScreen.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
 		rock[3] = new SpaceRock((GlobalScreen.MPP(-300)), (GlobalScreen.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
 
+		new GUIStarSelection(gim, GlobalsGUI.SPACE_STAR_HIGHLIGHT, se.getSprite(SpritesHeadsUpDisplay.star_highlight), stars);
 	}
 
 	List<String> starOptions = new ArrayList<>();
@@ -82,9 +80,6 @@ public class SpaceScene {
 			rock[i].update(camX, camY);
 		}
 		
-		starHighlight();
-		starOptions();
-
 		world.step(timeStep, velocityIterations, positionIterations);
 	}
 	
@@ -97,35 +92,6 @@ public class SpaceScene {
 
 		for(int i = 0; i < player.length; i++)
 			player[i].render(batch);
-	}
-	
-	private void starHighlight(){
-		if(!gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION) && stars.hoveredStar != -1 && !gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT)){
-			Sprite highlight = stars.getStar(stars.hoveredStar).sprite;
-			new HUDHighlight(gim, GlobalsHUD.STAR_HIGHLIGHT, (int)((highlight.getX()-(48/2))+(highlight.getWidth()/2)), (int)((highlight.getY()-(48/2))+(highlight.getWidth()/2)), 1, 1);
-		}else if(gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT) && stars.hoveredStar == -1){
-			gim.closeHUD(GlobalsHUD.STAR_HIGHLIGHT);
-		}
-	}
-	
-	private void starOptions() {
-		if(justPressedLeftMouseButton) {
-			if (stars.selectedStar != -1 && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION)) {
-				
-				new BackPannel(gim, (int)(stars.getSelectedStar().sprite.getX()), (int)(stars.getSelectedStar().sprite.getY()), 16, 8, UIGraphics.getBoxHUDGraphics(se));
-//	TODO			for(int i = 0; i < 3; i++)
-//					((HUDBox)gim.getGUI(GlobalsGUI.SPACE_INSPECT_STAR)).createDropDownMenu(20, (i*40)+6, se.getSprite(SpritesSpaceHudMenu.menu_bar));
-				
-				player[0].ship.slowToStop(true);
-				return;
-			}
-
-			if (gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION)) {
-				gim.closeGUI(GlobalsGUI.SPACE_INSPECT_STAR_OPTION);
-				player[0].ship.slowToStop(false);
-				return;
-			}
-		}
 	}
 
 	private void setBounds(float x, float y, float w, float h){
@@ -170,3 +136,34 @@ public class SpaceScene {
 	}
 	
 }
+
+/*
+	private void starHighlight(){
+	if(!gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION) && stars.hoveredStar != -1 && !gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT)){
+		Sprite highlight = stars.getStar(stars.hoveredStar).sprite;
+		new HUDHighlight(gim, GlobalsHUD.STAR_HIGHLIGHT, (int)((highlight.getX()-(48/2))+(highlight.getWidth()/2)), (int)((highlight.getY()-(48/2))+(highlight.getWidth()/2)), 1, 1);
+	}else if(gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT) && stars.hoveredStar == -1){
+		gim.closeHUD(GlobalsHUD.STAR_HIGHLIGHT);
+	}
+	}
+	
+	private void starOptions() {
+	if(justPressedLeftMouseButton) {
+		if (stars.selectedStar != -1 && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION)) {	
+			viewStarOptions = new GUIViewStarOptions(gim, GlobalsGUI.SPACE_INSPECT_STAR_OPTION, (int)(stars.getSelectedStar().sprite.getX()), (int)(stars.getSelectedStar().sprite.getY()), 16*16, 8*16);
+	
+	//TODO			for(int i = 0; i < 3; i++)
+	//			((HUDBox)gim.getGUI(GlobalsGUI.SPACE_INSPECT_STAR)).createDropDownMenu(20, (i*40)+6, se.getSprite(SpritesSpaceHudMenu.menu_bar));
+			
+			player[0].ship.slowToStop(true);
+			return;
+		}
+	
+		if (viewStarOptions != null && viewStarOptions.mouseOutOfBounds()) {
+			gim.closeGUI(GlobalsGUI.SPACE_INSPECT_STAR_OPTION);
+			player[0].ship.slowToStop(false);
+			return;
+		}
+	}
+	}
+*/

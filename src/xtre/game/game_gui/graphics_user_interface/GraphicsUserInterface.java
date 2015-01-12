@@ -5,6 +5,7 @@ import java.util.List;
 
 import xtre.game.game_gui.GameInterface;
 import xtre.game.game_gui.GameInterfaceManager;
+import xtre.game.game_gui.graphics.UIGraphics;
 import xtre.globals.game_interface.GlobalsInterface;
 import xtre.graphics.sprites.SpriteEntity;
 
@@ -18,7 +19,6 @@ public abstract class GraphicsUserInterface extends GameInterface {
 	protected List<Disposable> disposable = new ArrayList<>();
 	
 	/**
-	 * 
 	 * @param GUI_ID
 	 * @param x
 	 * @param y

@@ -16,6 +16,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Stars {
 	
+	public final int length;
+
 	private final int worldSize, density, depth;
 	
 	private GameInterfaceManager gim;
@@ -26,10 +28,10 @@ public class Stars {
 	private Float[] depths;
 	
 	private float camX, camY, mouseX, mouseY;
-	private boolean starHighlightDisplaying = false, starOptionsDisplaying = false;
+//	private boolean starHighlightDisplaying = false, starOptionsDisplaying = false;
 	private boolean justPressedLeftMouseButton = false;
 	
-	public int selectedStar = -1, hoveredStar = -1;
+//	public int selectedStar = -1, hoveredStar = -1;
 	
 	public Stars(GameInterfaceManager gim, int worldSize, int density, int depth){
 		this.gim = gim;
@@ -40,19 +42,19 @@ public class Stars {
 		stars = new Star[(worldSize)];
 		createDepth(depth);
 		createStars();
-		
+		length = stars.length;
 	}
 	
 	public void moveStars(float x, float y){
 		
 	}
 	
-	public Star getSelectedStar(){
-		if(selectedStar!=-1)
-			return stars[selectedStar];
-		else
-			return null;
-	}
+//	public Star getSelectedStar(){
+//		if(selectedStar!=-1)
+//			return stars[selectedStar];
+//		else
+//			return null;
+//	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedLeftMouseButton){
 		this.camX = camX;
@@ -61,8 +63,8 @@ public class Stars {
 		this.mouseY = mouseY;
 		this.justPressedLeftMouseButton = justPressedLeftMouseButton;
 		
-		starHighlightDisplaying = gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT);
-		starOptionsDisplaying = gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION);
+//		starHighlightDisplaying = gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT);
+//		starOptionsDisplaying = gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION);
 
 		updateStars();
 	}
@@ -81,43 +83,48 @@ public class Stars {
 //			starOptionsInteraction(i);
 //		}
 		//if(selectedStar!=-1 && stars[selectedStar].clicked(mouseX, mouseY, mouseButtonLeft)) selectedStar = -1;
-			
-		for(int i = 0; i < stars.length; i++){
-			stars[i].updatePosition(camX, camY);	
-		}
-		updateHighlightedStar();
 		
-		if(justPressedLeftMouseButton)
-		//select a star
 		for(int i = 0; i < stars.length; i++){
-		boolean b = stars[i].clicked(mouseX, mouseY, justPressedLeftMouseButton);
-			
-			if(b && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION)){
-				selectedStar = i;
-			}
-			
-			if(!b && selectedStar == i) selectedStar =-1;
-			
+			stars[i].updatePosition(camX, camY);
+			if(stars[i].getX() > 0 && stars[i].getX() < GlobalScreen.WIDTH && stars[i].getY() > 0 && stars[i].getY() < GlobalScreen.HEIGHT) 
+				stars[i].onScreen = true;
+			else
+				stars[i].onScreen = false;
 		}
+		
+//		updateHighlightedStar();
+//		
+//		if(justPressedLeftMouseButton)
+//		//select a star
+//		for(int i = 0; i < stars.length; i++){
+//		boolean b = stars[i].clicked(mouseX, mouseY, justPressedLeftMouseButton);
+//			
+//			if(b && !gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION)){
+//				selectedStar = i;
+//			}
+//			
+//			if(!b && selectedStar == i) selectedStar =-1;
+//			
+//		}
 		
 		///
 	}
 	
-	private void starOptionsInteraction(int i){
-		
-	}
-	
-	private void updateHighlightedStar() {
-		for (int i = 0; i < stars.length; i++) {
-			boolean hovering = stars[i].hovered(mouseX, mouseY);
-
-			if (hovering) {
-				hoveredStar = i;
-			} else if (hoveredStar == i) {
-				hoveredStar = -1;
-			}
-		}
-	}
+//	private void starOptionsInteraction(int i){
+//		
+//	}
+//	
+//	private void updateHighlightedStar() {
+//		for (int i = 0; i < stars.length; i++) {
+//			boolean hovering = stars[i].hovered(mouseX, mouseY);
+//
+//			if (hovering) {
+//				hoveredStar = i;
+//			} else if (hoveredStar == i) {
+//				hoveredStar = -1;
+//			}
+//		}
+//	}
 
 	private void createStars(){
 		float z = 0;
@@ -184,9 +191,9 @@ public class Stars {
 		return stars[i];
 	}
 
-	public void unselectStar(int i){
-		getStar(selectedStar).selected = false;
-		selectedStar = -1;
-	}
-	
+//	public void unselectStar(int i){
+//		getStar(selectedStar).selected = false;
+//		selectedStar = -1;
+//	}
+//	
 }

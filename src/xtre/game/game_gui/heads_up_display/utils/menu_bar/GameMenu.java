@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
+import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
 import xtre.globals.game_interface.GlobalsInterface;
+import xtre.graphics.font.FontEntity;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,15 +14,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameMenu {
 	
-	private float menuBarX, menuBarY, menuBarWidth, menuBarHeight;
-
+	
 	public Sprite sprite;
-	
-	private MenuBarAction menuBarAction;
-	
 	public BitmapFont font;
-	private String menuTitle="";
-	private float fontPositionOnButtonX, fontPositionOnButtonY;
+	private String title="";
+	private GameButtonAction menuBarAction;
+	private float fontPositionOnButtonX, fontPositionOnButtonY, titleFontOffsetX, titleFontOffsetY;
 	
 	public boolean isMenuBarOpen=false;
 	private boolean isMenuBarProcessable=false;
@@ -28,36 +27,19 @@ public class GameMenu {
 	private List<GameButton> buttons = new ArrayList<>();
 	
 	public GameMenu(){}
-	public GameMenu(float menuBarX, float menuBarY, float menuBarWidth, float menuBarHeight, Sprite menuBarSprite) {
-		this.menuBarX = menuBarX;
-		this.menuBarY = menuBarY;
-		this.menuBarWidth = menuBarSprite.getWidth();
-		this.menuBarHeight = menuBarSprite.getHeight();
+	public GameMenu(Sprite menuBarSprite) {
 		this.sprite = menuBarSprite;
-		
-		this.sprite.setPosition(menuBarX, menuBarY);
 	}
 	
-	public void setBitmapFont(BitmapFont font, float fontPositionOnButtonX, float fontPositionOnButtonY, String menuTitle){
-		this.font = font;
-		this.fontPositionOnButtonX = fontPositionOnButtonX;
-		this.fontPositionOnButtonY = fontPositionOnButtonY;
-		this.menuTitle = menuTitle;
-	}
-	
-	public void addButton(GameButton button, float buttonX, float buttonY){
-		if(button.sprite.getWidth() < menuBarWidth)
-			button.setPosition(buttonX, buttonY);
-		else
-			button.setPosition(menuBarX+(menuBarWidth+(button.sprite.getWidth()-menuBarWidth)), menuBarY);
-		button.setPosition(button.sprite.getX(), button.sprite.getY()-(buttons.size()*button.sprite.getHeight()));
+	public void addButton(GameButton button, int x, int y){
+		button.setPosition(sprite.getX() + x, sprite.getY() + y);
 		buttons.add(button);
 	}
 	
 	public void render(SpriteBatch batch){
 		sprite.draw(batch);
 		
-		if(font!=null)font.draw(batch, menuTitle, fontPositionOnButtonX, fontPositionOnButtonY);
+		if(font!=null)font.draw(batch, title, fontPositionOnButtonX + titleFontOffsetX, fontPositionOnButtonY + titleFontOffsetY);
 		
 		if(isMenuBarProcessable){
 			for(GameButton b:buttons)
@@ -65,28 +47,27 @@ public class GameMenu {
 		}
 	}
 	
-	public void update(float mouseX, float mouseY, boolean justPressedL){
+	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
+		if(isMenuBarProcessable){
+			checkOpenMenu(mouseX, mouseY, mouseLeftPress);
+		}	
+		
 		if(isMenuBarProcessable)
 			isMenuBarOpen = true;
 		else
 			isMenuBarOpen = false;
 		
-		boolean hovers = GlobalsInterface.withinSquareBounds(mouseX, mouseY, menuBarX, menuBarY, menuBarWidth, menuBarHeight);
-		if(checkIfShouldDoAction(hovers, justPressedL)){
+		boolean hovers = GlobalsInterface.withinSquareBounds(mouseX, mouseY, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+		if(checkIfShouldDoAction(hovers, mouseLeftPress)){
 			isMenuBarProcessable = true;
-		}else if(justPressedL && isMenuBarProcessable)
+		}else if(mouseLeftPress && isMenuBarProcessable)
 			isMenuBarProcessable = false;
-		
-		if(isMenuBarProcessable){
-			checkOpenMenu(mouseX, mouseY, justPressedL);
-		}	
 	}
 	
-	private void checkOpenMenu(float mouseX, float mouseY, boolean justPressedL){
+	private void checkOpenMenu(float mouseX, float mouseY, boolean mouseLeftPress){
 		for(GameButton b:buttons){
-			if(b.isClicked(mouseX, mouseY, justPressedL)){
+			if(b.isClicked(mouseX, mouseY, mouseLeftPress)){
 				b.doAction();
-				
 				isMenuBarProcessable = false;
 			}
 			else if(b.isWithin(mouseX, mouseY)){
@@ -98,10 +79,10 @@ public class GameMenu {
 		}
 	}
 	
-	private boolean checkIfShouldDoAction(boolean hovers, boolean justPressedL){
-		if(justPressedL && hovers){
+	private boolean checkIfShouldDoAction(boolean hovers, boolean mouseLeftPress){
+		if(mouseLeftPress && hovers){
 			if(menuBarAction!=null){
-				menuBarAction.action();
+				menuBarAction.doAction();
 				if(getButtons().size()>=0)
 					return true;
 				else
@@ -123,7 +104,28 @@ public class GameMenu {
 		return buttons;
 	}
 	
-	public void setAction(MenuBarAction menuBarAction) {
+	public void setAction(GameButtonAction menuBarAction) {
 		this.menuBarAction = menuBarAction;
+	}
+	
+	public void setActionToButton(int i, GameButtonAction gba) {
+		buttons.get(i).setAction(gba);
+	}
+	
+	public void setPosition(float x, float y) {
+		sprite.setPosition(x, y);
+		fontPositionOnButtonX = sprite.getX(); 
+		fontPositionOnButtonY = sprite.getY();
+
+		for(GameButton gb:buttons){
+			gb.setOffset(x, y);
+		}
+	}
+	
+	public void setFont(FontEntity font, float x, float y){
+		this.font = font.font;
+		title = font.text;
+		titleFontOffsetX = x;
+		titleFontOffsetY = y;
 	}
 }
