@@ -29,22 +29,12 @@ public class HUDMetre extends HeadsUpDisplay{
 		levelL = graphics[0].getWidth();
 		levelM = maxLevel;
 		levelR = graphics[2].getWidth();
-		
-//		Sprite[] full_fuel_bar = new Sprite[]{
-//				graphics[0],
-//				graphics[1],
-//				graphics[2],
-//		};
-//		
-//		Sprite[] empty_fuel_bar = new Sprite[]{
-//				graphics[3],
-//				graphics[4],
-//				graphics[5],
-//		};
 	}
 	
+	@Override
 	public void updateInterface(float mouseX, float mouseY, boolean justPressed){}
-	
+
+	@Override
 	public void renderInterface(SpriteBatch batch){
 		batch.draw(graphics[3], 100, 100, graphics[0].getWidth(), graphics[0].getHeight());
 		batch.draw(graphics[4], 100+graphics[0].getWidth(), 100, maxLevel, graphics[1].getHeight());
@@ -53,6 +43,10 @@ public class HUDMetre extends HeadsUpDisplay{
 		batch.draw(graphics[0], 100, 100, levelL, graphics[0].getHeight());
 		batch.draw(graphics[1], 100+levelL, 100, levelM, graphics[1].getHeight());
 		batch.draw(graphics[2], 100+levelM+levelL, 100, levelR, graphics[2].getHeight());
+	}
+	
+	@Override
+	public void setPosition(float x, float y) {
 	}
 
 	public boolean setLevel(float level){

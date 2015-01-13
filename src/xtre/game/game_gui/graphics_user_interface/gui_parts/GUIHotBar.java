@@ -53,4 +53,8 @@ public class GUIHotBar extends GraphicsUserInterface{
 			b.dispose();
 		}
 	}
+
+	@Override
+	public void setPosition(float x, float y) {
+	}
 }

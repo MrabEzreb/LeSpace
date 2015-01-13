@@ -56,9 +56,7 @@ public abstract class Menu {
 		renderScreen(batch);
 	}
 	
-	public void renderScreen(SpriteBatch batch){
-		
-	}
+	public abstract void renderScreen(SpriteBatch batch);
 	
 	public void addButton(MenuButton btn){
 		buttons.add(btn);

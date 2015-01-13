@@ -3,6 +3,7 @@ package xtre.launcher.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import xtre.launcher.menus.utils.Menu;
 import xtre.launcher.menus.utils.MenuButton;
@@ -36,5 +37,9 @@ public class MenuOptions extends Menu{
 		if(buttonPressed.equals("Back")){
 			manager.setMenu(new MenuStartGame(manager));
 		}		
+	}
+
+	@Override
+	public void renderScreen(SpriteBatch batch) {
 	}
 }

@@ -23,21 +23,15 @@ public class GUIStarSelection extends GraphicsUserInterface {
 	
 	private ViewStarOptions menu;
 	
-	private boolean menuJustOpened = false, menuActive = false;
-	
 	public GUIStarSelection(GameInterfaceManager gim, int GI_ID, Sprite highlight, Stars stars) {
-		super(gim, GI_ID, 0, 0, 15*16, 8*16);
+		super(gim, GI_ID, 0, 0, 16, 16);
 		
 		this.highlight = highlight;
 		this.stars = stars;		
 		
 		this.isAlwaysActive = true;
 		
-		menu = new ViewStarOptions(new BackPanel(0, 0, 15, 8, UIGraphics.getBoxHUDGraphics()));
-	}
-
-	@Override
-	public void dispose() {
+		menu = new ViewStarOptions(gim, GI_ID, new BackPanel(0, 0, 15, 8, UIGraphics.getBoxHUDGraphics()));
 	}
 
 	@Override
@@ -45,54 +39,50 @@ public class GUIStarSelection extends GraphicsUserInterface {
 		selectedStar = -1;
 		for(int i = 0; i < stars.length; i++){
 			if(stars.getStar(i).onScreen){
-				if(GlobalsInterface.isWithin(mouseX, mouseY, stars.getStar(i).getX(), stars.getStar(i).getY(), 32)){
+				if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
 					selectedStar = i;
 					break;
 				}
 			}
 		}
-		
-		if(selectedStar>-1 &! menuActive){
-			highlight.setPosition(stars.getStar(selectedStar).getX(), stars.getStar(selectedStar).getY());
-		
-			if(mouseLeftPress)
-				menuJustOpened = true;
-		}else if(mouseLeftPress){
-			menuJustOpened = false;
-			menuActive = !menu.isClosable();
-			
-		}
 
-		if(menuJustOpened){
+		if(selectedStar>-1){
+			if(!menu.isActive)
+			highlight.setPosition(stars.getStar(selectedStar).getX()-22, stars.getStar(selectedStar).getY()-21);
+			
+		}else if(selectedStar>-1 && mouseLeftPress){
 			menu.setPosition(stars.getStar(selectedStar).getX(), stars.getStar(selectedStar).getY());
 			super.x = stars.getStar(selectedStar).getX();
 			super.y = stars.getStar(selectedStar).getY();
-			menuJustOpened = false;
-			menuActive = true;
-		}
-		
-		if(menuActive){
-			menu.update(mouseX, mouseY, mouseLeftPress);
+			menu.isActive = true;
+		}else if(mouseLeftPress){
+			menu.isActive = false;
 		}
 	}
 
 	@Override
 	public void renderInterface(SpriteBatch batch) {
-		if(selectedStar>-1 &! menuActive)
+		if(selectedStar>-1)
 			highlight.draw(batch);
-
-		if(menuActive){
-			menu.render(batch);
-		}
 	}
 	
 	public boolean isActive(float mouseX, float mouseY, boolean mouseLeftPressed){
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
-		if(!mouseOutOfBounds()){
+		if(!mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
 			return true;
 		}
 		else
 			return false;
 	}
+
+	@Override
+	public void setPosition(float x, float y) {
+		menu.setPosition(x, y);
+	}
+
+	@Override
+	public void dispose() {
+	}
 }
+

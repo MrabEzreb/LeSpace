@@ -1,5 +1,7 @@
 package xtre.game.space_world;
 
+import xtre.game.game_gui.GameInterfaceManager;
+import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
 import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
@@ -13,17 +15,19 @@ import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ViewStarOptions {
+public class ViewStarOptions extends GraphicsUserInterface{
 
 	private SpriteEntity se = new SpriteEntity();
 	
 	private GameMenu[] menus;
-	private BackPanel panel;
 
 	private float mouseX, mouseY;
+
+	public boolean isActive = false;
 	
-	public ViewStarOptions(BackPanel panel) {
-		this.panel = panel;
+	public ViewStarOptions(GameInterfaceManager gim, int GI_ID, BackPanel frame) {
+		super(gim, GI_ID, frame.y, frame.x, frame.width, frame.height);
+		this.frame = frame;
 		
 		Sprite s = se.getSprite(SpritesSpaceHudMenu.menu_bar);
 		
@@ -75,38 +79,40 @@ public class ViewStarOptions {
 	public void dispose() {
 	}
 
-	public void update(float mouseX, float mouseY, boolean leftMousePress) {
+	public void updateInterface(float mouseX, float mouseY, boolean leftMousePress) {
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
 		
-		panel.update(mouseX, mouseY, leftMousePress);
-		for(GameMenu gm:menus){
-			gm.update(mouseX, mouseY, leftMousePress);
-		}
+		if(isActive)
+			for(GameMenu gm:menus){
+				gm.update(mouseX, mouseY, leftMousePress);
+			}
 	}
 
-	public void render(SpriteBatch batch) {
-		panel.render(batch);
-		for(GameMenu gm:menus){
-			gm.render(batch);
-		}
+	public void renderInterface(SpriteBatch batch) {
+		if(isActive)
+			for(GameMenu gm:menus){
+				gm.render(batch);
+			}
 	}
 
 	public void setPosition(float x, float y) {
-		panel.setPosition(x, y);
-		
+		frame.setPosition(x, y);
 		for(int i = 0; i < menus.length; i++)
 			menus[i].setPosition(x, y - (i*42) + 88);
 	}
 
+	/**
+	 * Checks if there are any menus open. If so DO NOT close the whole thing.
+	 * @return
+	 */
 	public boolean isClosable() {
 		for(GameMenu gm:menus)
 			if(gm.isMenuBarOpen) return false;
 
-		if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, panel.x, panel.y, panel.width, panel.height)){
+		if(!mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
 			return false;
 		}
-		
 		return true;
 	}
 }

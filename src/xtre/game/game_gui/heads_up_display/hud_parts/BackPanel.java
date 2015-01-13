@@ -83,8 +83,17 @@ public class BackPanel {
 	public void dispose() {
 		for(int i = 0; i < graphics.length; i++){
 			graphics[i].tile.getTexture().dispose();
-			
 		}
+	}
+	
+	public boolean dragging(){
+		if(mouseLeftPress && GlobalsInterface.withinSquareBounds(mouseX, mouseY, x, y, width, height)){
+			this.x = mouseX-x;
+			this.y = mouseY-y;
+			return true;
+		}
+		else
+			return false;
 	}
 
 	public void setPosition(float x, float y) {

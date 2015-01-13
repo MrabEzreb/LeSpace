@@ -8,6 +8,7 @@ import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.gui.GlobalsGUI;
 import xtre.globals.game_interface.hud.GlobalsHUD;
 import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.sprite_types.space.SpriteSpacePlanets;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceBackgroundStar;
 
 import com.badlogic.gdx.graphics.Color;
@@ -76,7 +77,6 @@ public class Stars {
 	}
 	
 	private void updateStars(){
-		
 //		for(int i = 0; i < stars.length; i++){
 //			stars[i].updatePosition(camX, camY);	
 //			updateHighlightedStar(i);
@@ -138,7 +138,7 @@ public class Stars {
 
 		};
 		
-		for(int i = 0; i < stars.length; i++){
+		for(int i = 1; i < stars.length; i++){
 			
 //			int dark = r.nextInt(2)+1;
 //			int red =   (255 - r.nextInt(220)) / dark;
@@ -170,6 +170,8 @@ public class Stars {
 					s                           //star sprite
 			);
 		}
+		
+		stars[0] = new Star(1000, 1000, 1, 0, se.getSprite(SpriteSpacePlanets.earth_like));
 	}
 
 	private void createDepth(int depth){

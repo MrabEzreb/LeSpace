@@ -2,6 +2,7 @@ package xtre.launcher.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import xtre.launcher.menus.utils.Menu;
 import xtre.launcher.menus.utils.MenuButton;
@@ -35,5 +36,9 @@ public class MenuMultiplayer extends Menu{
 			dispose();
 			manager.setMenu(new MenuStartGame(manager));
 		}
+	}
+
+	@Override
+	public void renderScreen(SpriteBatch batch) {
 	}
 }

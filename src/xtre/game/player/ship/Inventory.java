@@ -19,14 +19,13 @@ public class Inventory extends GraphicsUserInterface{
 	private GameItem[] slots;
 	
 	/**
-	 * 
 	 * @param slotsHorizontal
 	 * @param slotsVirtical
 	 * @param graphics
 	 */
 	public Inventory(GameInterfaceManager gim, int slotsHorizontal, int slotsVirtical, Sprite[] graphics){
 		super(gim, GlobalsGUI.SHIP_INVENTORY, 200, 400, slotsHorizontal*32, slotsVirtical*32);
-		System.out.println(width + ": inv :" + height);
+		
 		slots = new GameItem[slotsHorizontal*slotsVirtical];
 		int xx=0, yy=0;
 		for(int i = 0; i < slots.length; i++){
@@ -60,13 +59,17 @@ public class Inventory extends GraphicsUserInterface{
 	}
 
 	@Override
-	public void updateInterface(float mouseX, float mouseY, boolean mouseLeftClicked) {
+	public void updateInterface(float mouseX, float mouseY, boolean mouseLeftPress) {
 	}
 
 	@Override
 	public void renderInterface(SpriteBatch batch) {
 		for(int i = 0; i < slots.length; i++){
 			slots[i].render(batch);
-		}	
+		}
+	}
+
+	@Override
+	public void setPosition(float x, float y) {
 	}
 }

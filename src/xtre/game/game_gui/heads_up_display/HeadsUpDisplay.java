@@ -62,7 +62,7 @@ public abstract class HeadsUpDisplay extends GameInterface{
 	
 	public final boolean status(){
 		boolean status = false;
-		if(mouseOutOfBounds()){
+		if(mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
 			status = true;
 			for(GameMenu gm:gameMenus)
 				if(gm.isMenuBarOpen) 

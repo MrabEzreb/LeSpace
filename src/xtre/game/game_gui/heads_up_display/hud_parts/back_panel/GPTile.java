@@ -19,6 +19,5 @@ public class GPTile {
 	
 	public void tint(float r, float g, float b, float a){
 		tile.setColor(r,g,b,a);
-		//TODO color not applying
 	}
 }
