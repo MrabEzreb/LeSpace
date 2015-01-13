@@ -15,7 +15,7 @@ public abstract class GameInterface{
 	
 	public final int GI_ID;
 	public final int TYPE;
-	public boolean selected = false, isAlwaysActive = false;
+	public boolean isActive = false, isAlwaysActive = false;
 	
 	public final GameInterfaceManager gim;
 	public boolean closed = false;
@@ -35,18 +35,7 @@ public abstract class GameInterface{
 		gim.add(this);
 	}
 	
-	public boolean shouldUpdate(float mouseX, float mouseY, boolean mouseLeftPress) {
-		if(isAlwaysActive || !mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
-			selected = true;
-			return true;
-		}else{
-			selected = false;
-			return false;
-		}
-	}
-	
 	public final void render(SpriteBatch batch){
-		if(frame!=null)frame.render(batch);
 		renderInterface(batch);
 	}
 	
@@ -54,21 +43,21 @@ public abstract class GameInterface{
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
 		this.mouseLeftPress = mouseLeftPress;
-
-		if(frame!=null)frame.update(mouseX, mouseY, mouseLeftPress);
 		
-		updateInterface(mouseX, mouseY, mouseLeftPress);
-		dragging();
+		if(isActive || isAlwaysActive){
+			if(frame!=null) frame.update(mouseX, mouseY, mouseLeftPress);
+			updateInterface(mouseX, mouseY, mouseLeftPress);
+			//dragging();
+		}
+		isActive(mouseX, mouseY, mouseLeftPress);
+
 	}
 	
-	public boolean isActive(float mouseX, float mouseY, boolean mouseLeftPress){
-		this.mouseX = mouseX;
-		this.mouseY = mouseY;
-		if(!mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
-			return true;
-		}
+	public void isActive(float mouseX, float mouseY, boolean mouseLeftPress){
+		if(!mouseOutOfBounds(mouseX, mouseY, mouseLeftPress))
+			isActive = true;
 		else
-			return false;
+			isActive = false;
 	}
 	
 	public boolean mouseOutOfBounds(float mouseX, float mouseY, boolean mouseLeftPress){
@@ -83,7 +72,7 @@ public abstract class GameInterface{
 			System.out.println(this.getClass().getSimpleName());
 			this.x = mouseX-x;
 			this.y = mouseY-y;
-			setPosition(x, y);
+			//setPosition(x, y);
 			return true;
 		}
 		else

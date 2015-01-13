@@ -21,59 +21,45 @@ public class GUIStarSelection extends GraphicsUserInterface {
 	private Stars stars;
 	private int selectedStar =-1;
 	
-	private ViewStarOptions menu;
+	private GUIViewStarOptions menu;
 	
 	public GUIStarSelection(GameInterfaceManager gim, int GI_ID, Sprite highlight, Stars stars) {
-		super(gim, GI_ID, 0, 0, 16, 16);
+		super(gim, GI_ID, 0, 0, 1300, 800);
 		
 		this.highlight = highlight;
 		this.stars = stars;		
 		
 		this.isAlwaysActive = true;
 		
-		menu = new ViewStarOptions(gim, GI_ID, new BackPanel(0, 0, 15, 8, UIGraphics.getBoxHUDGraphics()));
+		menu = new GUIViewStarOptions(gim, GI_ID, new BackPanel(0, 0, 15, 8, UIGraphics.getBoxHUDGraphics()));
 	}
 
 	@Override
-	public void updateInterface(float mouseX, float mouseY, boolean mouseLeftPress) {
-		selectedStar = -1;
-		for(int i = 0; i < stars.length; i++){
-			if(stars.getStar(i).onScreen){
-				if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
-					selectedStar = i;
-					break;
+	public void updateInterface(float mouseX, float mouseY, boolean mouseLeftPress) {		
+		if(mouseLeftPress){
+			if(menu.mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
+				if(menu.isClosable()){
+					menu.active = false;
+					System.out.println("Set menu active to false");
+				}
+			}
+			if(!menu.active)
+			for(int i = 0; i < stars.length; i++){
+				if(stars.getStar(i).onScreen){
+					if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
+						menu.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
+						menu.active = true;
+						break;
+					}				
 				}
 			}
 		}
-
-		if(selectedStar>-1){
-			if(!menu.isActive)
-			highlight.setPosition(stars.getStar(selectedStar).getX()-22, stars.getStar(selectedStar).getY()-21);
-			
-		}else if(selectedStar>-1 && mouseLeftPress){
-			menu.setPosition(stars.getStar(selectedStar).getX(), stars.getStar(selectedStar).getY());
-			super.x = stars.getStar(selectedStar).getX();
-			super.y = stars.getStar(selectedStar).getY();
-			menu.isActive = true;
-		}else if(mouseLeftPress){
-			menu.isActive = false;
-		}
 	}
-
+	
 	@Override
 	public void renderInterface(SpriteBatch batch) {
 		if(selectedStar>-1)
 			highlight.draw(batch);
-	}
-	
-	public boolean isActive(float mouseX, float mouseY, boolean mouseLeftPressed){
-		this.mouseX = mouseX;
-		this.mouseY = mouseY;
-		if(!mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
-			return true;
-		}
-		else
-			return false;
 	}
 
 	@Override

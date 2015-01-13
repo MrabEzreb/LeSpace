@@ -18,9 +18,7 @@ public class GameInterfaceManager {
 	
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
 		for(int i = 0; i < gi.size(); i++){
-			if(gi.get(i).shouldUpdate(mouseX, mouseY, mouseLeftPress)){
-				gi.get(i).update(mouseX, mouseY, mouseLeftPress);
-			}
+			gi.get(i).update(mouseX, mouseY, mouseLeftPress);
 		}
 		
 //		//TODO logic

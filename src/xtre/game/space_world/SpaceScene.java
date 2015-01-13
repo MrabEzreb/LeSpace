@@ -29,7 +29,7 @@ public class SpaceScene {
 	
 	private GameInterfaceManager gim;
 
-	private ViewStarOptions viewStarOptions;
+	private GUIViewStarOptions viewStarOptions;
 	
 	public Player[] player;
 	public SpaceRock[] rock;
