@@ -19,7 +19,7 @@ public class GUIStarSelection extends GraphicsUserInterface {
 	
 	private Sprite highlight;
 	private Stars stars;
-	private int selectedStar =-1;
+	private Star selectedStar;
 	
 	private GUIViewStarOptions menu;
 	
@@ -50,15 +50,30 @@ public class GUIStarSelection extends GraphicsUserInterface {
 						menu.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
 						menu.active = true;
 						break;
-					}				
+					}
 				}
 			}
+		}
+
+		selectedStar = null;
+		if(selectedStar==null && !menu.isActive){
+			for(int i = 0; i < stars.length; i++){
+				if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
+					highlight.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
+					selectedStar = stars.getStar(i);
+					break;
+				}
+			}
+		}
+		
+		if(selectedStar!=null){
+			highlight.setPosition(selectedStar.getX()-(highlight.getWidth()/2)+(selectedStar.sprite.getWidth()/2), selectedStar.getY()-(highlight.getHeight()/2)+(selectedStar.sprite.getHeight()/2));
 		}
 	}
 	
 	@Override
 	public void renderInterface(SpriteBatch batch) {
-		if(selectedStar>-1)
+		if(selectedStar!=null)
 			highlight.draw(batch);
 	}
 

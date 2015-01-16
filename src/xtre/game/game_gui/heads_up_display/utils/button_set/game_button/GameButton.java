@@ -69,7 +69,8 @@ public class GameButton {
 	
 	public void dispose(){
 		sprite.getTexture().dispose();
-		font.dispose();
+		if(font!=null)
+			font.dispose();
 	}
 	public void setOffset(float x, float y) {
 		sprite.setPosition(this.x + x, this.y + y);

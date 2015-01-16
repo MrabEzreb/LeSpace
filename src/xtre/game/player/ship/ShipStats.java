@@ -1,5 +1,7 @@
 package xtre.game.player.ship;
 
+import xtre.game.player.ship.scene.inside_ship.graphics.ShipTile;
+
 public class ShipStats {
 	
 	public float x=0, y=0;
@@ -10,5 +12,6 @@ public class ShipStats {
 	public float fuelEfficiency = .005f;
 
 	public boolean outOfFuel;
-
+	
+	ShipTile[] shipTiles;
 }

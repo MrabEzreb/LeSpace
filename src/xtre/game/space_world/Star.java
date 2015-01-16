@@ -18,8 +18,8 @@ public class Star {
 		this.size = size;
 		this.height = size;
 		this.width = size;
-		this.placeX=placeX-(sprite.getWidth()/2);
-		this.placeY=placeY-(sprite.getHeight()/2);
+		this.placeX=placeX;
+		this.placeY=placeY;
 		this.depth=depth;
 		this.sprite = sprite;
 		
@@ -42,7 +42,7 @@ public class Star {
 	}
 
 	public void updatePosition(float px, float py) {
-		sprite.setPosition((placeX-(px/depth)), placeY-(py/depth));
+		sprite.setPosition( ((placeX)-(px/depth)), (placeY)-(py/depth) );
 	}
 	public float getX() {
 		return sprite.getX();

@@ -1,6 +1,7 @@
 package xtre.game;
 
 import xtre.Main;
+import xtre.game.scene_manager.GameManager;
 import xtre.globals.GlobalScreen;
 import xtre.launcher.LauncherLoop;
 
@@ -21,8 +22,6 @@ public class GameLoop implements Screen {
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer debugRenderer;
 	
-	private World world;
-	
 	private GameManager gameManager;
 
 	public GameLoop(Main main){
@@ -34,8 +33,6 @@ public class GameLoop implements Screen {
 		Gdx.graphics.setDisplayMode((int)GlobalScreen.WIDTH, (int)GlobalScreen.HEIGHT, false);
 		Gdx.graphics.setTitle("LeSpace");
 		gameManager = new GameManager();
-
-		world = gameManager.spaceWorld.world;
 
 		camera = new OrthographicCamera(GlobalScreen.MPP(GlobalScreen.WIDTH), GlobalScreen.MPP(GlobalScreen.HEIGHT));
 		camera.position.set(new Vector2(0,0), 0);

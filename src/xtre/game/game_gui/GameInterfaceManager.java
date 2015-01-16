@@ -2,18 +2,21 @@ package xtre.game.game_gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import xtre.game.scene_manager.GameManager;
+import xtre.game.scene_manager.GameScene;
 import xtre.globals.game_interface.GlobalsInterface;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameInterfaceManager {
 
+	private GameManager gm;
+	
 	private List<GameInterface> gi = new ArrayList<>();
 
-	public GameInterfaceManager(){
-
+	public GameInterfaceManager(GameManager gm){
+		this.gm = gm;
 	}
 	
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
@@ -59,6 +62,16 @@ public class GameInterfaceManager {
 			gi.render(batch);
 		}
 	}
+
+	public void setScene(GameScene scene) {
+		gm.setScene(scene);
+	}
+	
+	public void closeFrames() {
+		for(GameInterface gi:gi){
+			gi.dispose();
+		}
+	}
 	
 	public GameInterface getHUD(int id){
 		System.out.println("Getting HUD " + id);
@@ -80,7 +93,6 @@ public class GameInterfaceManager {
 		return null;
 	}
 
-	Random r = new Random();
 	/**
 	 * Requests a new BoxHUD.
  	 * Sprites must be in an order of {@code TM, BM, LM, RM, M, TL, TR, BR, BL}
@@ -146,8 +158,9 @@ public class GameInterfaceManager {
 	}
 	
 	public void dispose(){
-		for(GameInterface gi:gi){
-			gi.dispose();
+		for(int i = 0; i < gi.size(); i++){
+			gi.get(i).dispose();
+			gi.remove(i);
 		}
 	}
 
@@ -184,5 +197,13 @@ public class GameInterfaceManager {
 			}
 		}
 		return gUIAlreadyDisplaying;
+	}
+
+	public GameManager getGameManager() {
+		return gm;
+	}
+
+	public void reset() {
+		dispose();
 	}
 }

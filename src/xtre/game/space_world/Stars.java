@@ -162,9 +162,10 @@ public class Stars {
 			
 			Sprite s = new Sprite(ss[r.nextInt(ss.length-1)]);
 			s.setColor(red, green, blue, .5f);
+			System.out.println(s.getWidth()/2 + " " + s.getHeight()/2);
 			stars[i] = new Star(
-					x+(650-worldSize/2),							//x
-					y+(400-worldSize/2),							//y
+					(x+(650-worldSize/2)),		//x
+					(y+(400-worldSize/2)),    //y
 					z,							//z
 					r.nextInt(starMaxSize)+1,	//size
 					s                           //star sprite

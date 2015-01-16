@@ -6,6 +6,7 @@ import java.util.List;
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.physics_objects.player.SpaceRock;
 import xtre.game.player.Player;
+import xtre.game.scene_manager.GameScene;
 import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.gui.GlobalsGUI;
 import xtre.graphics.sprites.SpriteEntity;
@@ -21,39 +22,23 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class SpaceScene {
+public class SpaceScene extends GameScene{
 
 	SpriteEntity se = new SpriteEntity();
-	
-	public World world;
-	
-	private GameInterfaceManager gim;
-
-	private GUIViewStarOptions viewStarOptions;
-	
-	public Player[] player;
+		
 	public SpaceRock[] rock;
 	public Stars stars;
 	
 	private float camX=0, camY=0;
-	private boolean justPressedLeftMouseButton = false;
 
 	public final float timeStep = 1f/30f;
 	public final int velocityIterations = 80, positionIterations = 30;
 	
-	public SpaceScene(GameInterfaceManager gim){
+	public SpaceScene(GameInterfaceManager gim, World world, Player player){
+		super(world, player);
 		this.gim = gim;
-		world = new World(new Vector2(0, 0f), true);
 		
 		stars = new Stars(gim, 15000, 1, 10);
-		
-		Sprite playerSprite = new Sprite(se.getSprite(SpritesSpaceGame.player_ship));
-		player = new Player[1];
-		
-		float playerwp = (0), playerhp = (0);
-		for(int i = 0; i < player.length; i++){
-			player[i] = new Player(playerwp, playerhp, playerSprite, world, gim);
-		}
 
 		rock = new SpaceRock[4];		
 		rock[0] = new SpaceRock((GlobalScreen.MPP(300)), (GlobalScreen.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
@@ -66,15 +51,13 @@ public class SpaceScene {
 
 	List<String> starOptions = new ArrayList<>();
 	
-	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedLeftMouseButton) {
+	public void update(float camX, float camY, float mouseX, float mouseY, boolean mouseLeftPress) {
 		this.camX = camX;
 		this.camY = camY;
-		this.justPressedLeftMouseButton = justPressedLeftMouseButton;
 		
-		stars.update(camX, camY, mouseX, mouseY, justPressedLeftMouseButton);
+		stars.update(camX, camY, mouseX, mouseY, mouseLeftPress);
 		
-		for(int i = 0; i < player.length; i++)
-			player[0].update(camX, camY, mouseX, mouseY, justPressedLeftMouseButton);
+		player.update(camX, camY, mouseX, mouseY, mouseLeftPress);
 		
 		for(int i = 0; i < rock.length; i++){
 			rock[i].update(camX, camY);
@@ -90,11 +73,10 @@ public class SpaceScene {
 			rock[i].render(batch);
 		}
 
-		for(int i = 0; i < player.length; i++)
-			player[i].render(batch);
+			player.render(batch);
 	}
 
-	private void setBounds(float x, float y, float w, float h){
+	private void createBounds(float x, float y, float w, float h){
 		x=GlobalScreen.MPP(x);
 		y=GlobalScreen.MPP(y);
 		w=GlobalScreen.MPP(w);
@@ -132,7 +114,7 @@ public class SpaceScene {
 	
 	public void dispose(){
 		world.dispose();
-		player[0].ship.dispose();
+		player.ship.dispose();
 	}
 	
 }

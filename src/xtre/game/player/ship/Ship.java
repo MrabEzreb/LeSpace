@@ -22,7 +22,7 @@ public class Ship {
 
 	private SpriteEntity se = new SpriteEntity();
 
-	private Inventory inventory;
+	public Inventory inventory;
 	private GameInterfaceManager gim;
 	
 	private int shipStorageSizeX = 3, shipStorageSizeY = 3;

@@ -42,7 +42,7 @@ public class LauncherLoop implements Screen{
 		//Menus
 		menus = new MenuManager(main);
 		
-		batch = new SpriteBatch();		
+		batch = new SpriteBatch();
 		//
 		
 	}	
