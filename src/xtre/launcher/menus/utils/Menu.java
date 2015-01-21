@@ -28,11 +28,18 @@ public abstract class Menu {
 	protected boolean isDialogBoxOpen = false;
 	private boolean mouseReleased = true, activateChecks = false;
 	
+	public float mouseX=0, mouseY=0;
+	public boolean mouseLeftPress=false;
+	
 	public Menu(MenuManager manager){
 		this.manager = manager;
 	}
 	
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
+		this.mouseLeftPress = mouseLeftPress;
+		
 		if(mouseLeftPress) {
 			mouseReleased = false;
 			activateChecks = true;
@@ -41,7 +48,7 @@ public abstract class Menu {
 		
 		if(!mouseLeftPress && mouseReleased && activateChecks){
 			checkAndDoButton();
-			processButtons();
+			process();
 			updateDialogBox(mouseX, mouseY);
 			mouseReleased = false;
 			activateChecks = false;
@@ -94,7 +101,7 @@ public abstract class Menu {
 		return "";
 	}
 	
-	public abstract void processButtons();
+	public abstract void process();
 	
 	public void dispose(){
 		for(MenuButton b : buttons){

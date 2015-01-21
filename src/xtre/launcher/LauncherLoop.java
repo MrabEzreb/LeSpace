@@ -1,6 +1,7 @@
 package xtre.launcher;
 
 import xtre.Main;
+import xtre.globals.GlobalScreen;
 import xtre.launcher.menus.utils.MenuManager;
 
 import com.badlogic.gdx.Gdx;
@@ -19,7 +20,7 @@ public class LauncherLoop implements Screen {
 
 	private MenuManager menus;
 	
-	public static final int WIDTH = 1152, HEIGHT = 648;
+	public static final int WIDTH = GlobalScreen.LAUNCHER_WIDTH, HEIGHT = 648;
 		
 	public LauncherLoop(Main main){
 		this.main = main;
@@ -38,7 +39,6 @@ public class LauncherLoop implements Screen {
 		
 		batch = new SpriteBatch();
 		//
-		
 	}	
 	
 	public void render(float delta){
@@ -52,7 +52,7 @@ public class LauncherLoop implements Screen {
 		batch.setProjectionMatrix(cam.combined);
 		cam.update();		
 		moveCameraAround();
-		menus.update(Gdx.input.getX(), Gdx.input.getY(), Gdx.input.isButtonPressed(Buttons.LEFT));
+		menus.update(Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.LAUNCHER_HEIGHT, Gdx.input.isButtonPressed(Buttons.LEFT));
 	}
 	
 	private void moveCameraAround(){

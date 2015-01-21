@@ -5,6 +5,7 @@ import xtre.graphics.font.HUDFont;
 import xtre.launcher.menus.utils.Menu;
 import xtre.launcher.menus.utils.MenuButton;
 import xtre.launcher.menus.utils.MenuManager;
+import xtre.ship_forge.ShipForge;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,6 +16,8 @@ public class MenuShipForge extends Menu {
 	private BitmapFont titleFont;
 	private float titleX, titleY;
 	private String title;
+	
+	private ShipForge forge = new ShipForge();
 	
 	public MenuShipForge(MenuManager manager) {
 		super(manager);
@@ -29,22 +32,24 @@ public class MenuShipForge extends Menu {
 		titleFont = HUDFont.title_font.largeFont;
 		titleFont.setColor(.8f, .8f, 1.0f, 1f);
 		title = "Are you sure?";
-		titleX = (int)(GlobalScreen.WIDTH/2)-128;
-		titleY = (GlobalScreen.HEIGHT/2)-4;
-		
+		titleX = (int)(GlobalScreen.GAME_WIDTH/2)-128;
+		titleY = (GlobalScreen.GAME_HEIGHT/2)-4;
 	}
 
 	@Override
 	public void renderScreen(SpriteBatch batch) {
 		if(isDialogBoxOpen)
-		titleFont.draw(batch, title, titleX, titleY);
+			titleFont.draw(batch, title, titleX, titleY);
+		forge.render(batch);
 	}
 
 	@Override
-	public void processButtons() {
+	public void process() {
+		forge.update(mouseX, mouseY, mouseLeftPress);
+		
 		if(buttonPressed.equals("Back") && !isDialogBoxOpen){
-			float x=GlobalScreen.WIDTH/2;
-			float y=GlobalScreen.HEIGHT/2;
+			float x=GlobalScreen.GAME_WIDTH/2;
+			float y=GlobalScreen.GAME_HEIGHT/2;
 			float width=256;
 			float height=128;
 			
@@ -63,5 +68,10 @@ public class MenuShipForge extends Menu {
 				manager.setMenu(new MenuStartGame(manager));
 			}
 		}
+	}
+	
+	public void dispose(){
+		forge.dispose();
+		titleFont.dispose();
 	}
 }

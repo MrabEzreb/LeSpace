@@ -78,7 +78,7 @@ public class PlayerInterface {
 	}
 	
 	private void createSpaceOptionsMenu(){
-		float sOX = 130, sOY = GlobalScreen.HEIGHT-65;
+		float sOX = 130, sOY = GlobalScreen.GAME_HEIGHT-65;
 		Sprite dropMenuSprite = GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar);
 		BitmapFont spaceOptionsSupraMenuFont = HUDFont.title_font.mediumFont;
 		BitmapFont spaceOptionsSubMenuFont = HUDFont.title_font.smallFont;

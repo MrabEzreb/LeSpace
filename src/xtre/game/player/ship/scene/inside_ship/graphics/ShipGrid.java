@@ -16,8 +16,8 @@ public class ShipGrid {
 	
 	public ShipGrid(int gridSize){
 		this.gridSize = gridSize;
-		gridWidth = GlobalScreen.WIDTH/gridSize;
-		gridHeight = GlobalScreen.HEIGHT/gridSize;
+		gridWidth = GlobalScreen.GAME_WIDTH/gridSize;
+		gridHeight = GlobalScreen.GAME_HEIGHT/gridSize;
 	}
 	
 	public void setPosition(int x, int y){

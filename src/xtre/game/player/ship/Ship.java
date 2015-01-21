@@ -119,7 +119,7 @@ public class Ship {
 						body.applyForceToCenter(force, true);
 						body.setLinearDamping(0);
 						
-						float sox = (GlobalScreen.WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (GlobalScreen.HEIGHT/2) + (stats.y-sprite.getWidth()/2);
+						float sox = (GlobalScreen.GAME_WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (GlobalScreen.GAME_HEIGHT/2) + (stats.y-sprite.getWidth()/2);
 	
 						sprite.setPosition(sox, soy);
 						sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);
@@ -137,7 +137,7 @@ public class Ship {
 			}
 
 			//Set sprite position to match body position
-			float sox = (GlobalScreen.WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (GlobalScreen.HEIGHT/2) + (stats.y-sprite.getWidth()/2);
+			float sox = (GlobalScreen.GAME_WIDTH/2) + (stats.x-sprite.getHeight()/2), soy = (GlobalScreen.GAME_HEIGHT/2) + (stats.y-sprite.getWidth()/2);
 	
 			sprite.setPosition(sox, soy);
 			sprite.setRotation((body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees);

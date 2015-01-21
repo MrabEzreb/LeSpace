@@ -29,11 +29,11 @@ public class GameLoop implements Screen {
 	}
 		
 	public void show() {
-		Gdx.graphics.setDisplayMode((int)GlobalScreen.WIDTH, (int)GlobalScreen.HEIGHT, false);
+		Gdx.graphics.setDisplayMode((int)GlobalScreen.GAME_WIDTH, (int)GlobalScreen.GAME_HEIGHT, false);
 		Gdx.graphics.setTitle("Awake in Space");
 		gameManager = new GameManager();
 
-		camera = new OrthographicCamera(GlobalScreen.MPP(GlobalScreen.WIDTH), GlobalScreen.MPP(GlobalScreen.HEIGHT));
+		camera = new OrthographicCamera(GlobalScreen.MPP(GlobalScreen.GAME_WIDTH), GlobalScreen.MPP(GlobalScreen.GAME_HEIGHT));
 		camera.position.set(new Vector2(0,0), 0);
 		camera.update();
 		
@@ -66,7 +66,7 @@ public class GameLoop implements Screen {
 		
 		//UPDATE
 
-		gameManager.update(camera.position.x, camera.position.y, Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.HEIGHT);
+		gameManager.update(camera.position.x, camera.position.y, Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.GAME_HEIGHT);
 
 		camera.position.set((gameManager.getPlayer(0).ship.body.getPosition().x), (gameManager.getPlayer(0).ship.body.getPosition().y), 0);
 		if(Gdx.input.isKeyPressed(Keys.Q)){
@@ -83,6 +83,8 @@ public class GameLoop implements Screen {
 	
 	public void resize(int width, int height) {
 		System.out.println("GameLoop resize");
+		GlobalScreen.GAME_WIDTH = Gdx.graphics.getWidth();
+		GlobalScreen.GAME_HEIGHT = Gdx.graphics.getHeight();
 	}
 	
 	public void hide() {

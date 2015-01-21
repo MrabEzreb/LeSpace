@@ -22,8 +22,8 @@ public class PlayerTest extends SpaceObject {
 
 	public PlayerTest() {
 		
-		x = GlobalScreen.WIDTH / 2;
-		y = GlobalScreen.HEIGHT / 2;
+		x = GlobalScreen.GAME_WIDTH / 2;
+		y = GlobalScreen.GAME_HEIGHT / 2;
 		
 		maxSpeed = 300;
 		acceleration = 200;

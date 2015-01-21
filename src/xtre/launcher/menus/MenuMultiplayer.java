@@ -23,7 +23,7 @@ public class MenuMultiplayer extends Menu{
 	}
 
 	@Override
-	public void processButtons() {
+	public void process() {
 		if(buttonPressed.equals("Join Server")){
 
 		}

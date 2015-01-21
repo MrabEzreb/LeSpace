@@ -14,7 +14,7 @@ public class MenuBlank extends Menu{
 	}
 
 	@Override
-	public void processButtons() {
+	public void process() {
 	}
 
 	@Override

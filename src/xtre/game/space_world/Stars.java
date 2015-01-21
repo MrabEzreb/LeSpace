@@ -69,7 +69,7 @@ public class Stars {
 	}
 	public void render(SpriteBatch batch, float camX, float camY){
 		for(int i = stars.length-1; i > -1; i--){
-			if(stars[i].sprite.getX() < GlobalScreen.WIDTH && stars[i].sprite.getX() > 0 && stars[i].sprite.getY() < GlobalScreen.HEIGHT && stars[i].sprite.getY() > 0)
+			if(stars[i].sprite.getX() < GlobalScreen.GAME_WIDTH && stars[i].sprite.getX() > 0 && stars[i].sprite.getY() < GlobalScreen.GAME_HEIGHT && stars[i].sprite.getY() > 0)
 					stars[i].sprite.draw(batch);
 		}
 	}
@@ -84,7 +84,7 @@ public class Stars {
 		
 		for(int i = 0; i < stars.length; i++){
 			stars[i].updatePosition(camX, camY);
-			if(stars[i].getX() > 0 && stars[i].getX() < GlobalScreen.WIDTH && stars[i].getY() > 0 && stars[i].getY() < GlobalScreen.HEIGHT) 
+			if(stars[i].getX() > 0 && stars[i].getX() < GlobalScreen.GAME_WIDTH && stars[i].getY() > 0 && stars[i].getY() < GlobalScreen.GAME_HEIGHT) 
 				stars[i].onScreen = true;
 			else
 				stars[i].onScreen = false;

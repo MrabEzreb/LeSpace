@@ -23,10 +23,10 @@ public class SpaceObject {
 	protected float[] shapey;
 	
 	protected void wrap() {
-		if(x < 0) x = GlobalScreen.WIDTH;
-		if(x > GlobalScreen.WIDTH) x = 0;
-		if(y < 0) y = GlobalScreen.HEIGHT;
-		if(y > GlobalScreen.HEIGHT) y = 0; 
+		if(x < 0) x = GlobalScreen.GAME_WIDTH;
+		if(x > GlobalScreen.GAME_WIDTH) x = 0;
+		if(y < 0) y = GlobalScreen.GAME_HEIGHT;
+		if(y > GlobalScreen.GAME_HEIGHT) y = 0; 
 	}
 	
 }

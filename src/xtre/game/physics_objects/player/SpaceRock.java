@@ -64,8 +64,8 @@ public class SpaceRock extends PhysicsEntity {
 		
 		float mx = Gdx.input.getX(), my = -Gdx.input.getY()+Gdx.graphics.getHeight();
 		
-		float rx = (x + -camX) + (GlobalScreen.MPP((GlobalScreen.WIDTH/2)) - GlobalScreen.MPP(rockSprite.getWidth()/2));
-		float ry = (y + -camY) + ((GlobalScreen.MPP(GlobalScreen.HEIGHT/2)) - GlobalScreen.MPP(rockSprite.getHeight()/2));		
+		float rx = (x + -camX) + (GlobalScreen.MPP((GlobalScreen.GAME_WIDTH/2)) - GlobalScreen.MPP(rockSprite.getWidth()/2));
+		float ry = (y + -camY) + ((GlobalScreen.MPP(GlobalScreen.GAME_HEIGHT/2)) - GlobalScreen.MPP(rockSprite.getHeight()/2));		
 		
 		rockSprite.setPosition(GlobalScreen.PPM(rx), GlobalScreen.PPM(ry));
 		rockSprite.setRotation(body.getAngle()*MathUtils.radiansToDegrees);
