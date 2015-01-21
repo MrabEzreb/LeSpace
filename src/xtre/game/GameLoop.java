@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class GameLoop implements Screen {
 	
@@ -23,7 +22,7 @@ public class GameLoop implements Screen {
 	private Box2DDebugRenderer debugRenderer;
 	
 	private GameManager gameManager;
-
+	
 	public GameLoop(Main main){
 		this.main = main;
 		
@@ -31,7 +30,7 @@ public class GameLoop implements Screen {
 		
 	public void show() {
 		Gdx.graphics.setDisplayMode((int)GlobalScreen.WIDTH, (int)GlobalScreen.HEIGHT, false);
-		Gdx.graphics.setTitle("LeSpace");
+		Gdx.graphics.setTitle("Awake in Space");
 		gameManager = new GameManager();
 
 		camera = new OrthographicCamera(GlobalScreen.MPP(GlobalScreen.WIDTH), GlobalScreen.MPP(GlobalScreen.HEIGHT));
@@ -65,7 +64,7 @@ public class GameLoop implements Screen {
 		batch.end();
 		//
 		
-		//UPDATE					
+		//UPDATE
 
 		gameManager.update(camera.position.x, camera.position.y, Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.HEIGHT);
 

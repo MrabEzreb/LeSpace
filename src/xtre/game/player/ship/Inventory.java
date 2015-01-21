@@ -6,7 +6,7 @@ import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
 import xtre.game.game_item.GameItem;
 import xtre.game.game_item.utils.ItemEmptySlot;
 import xtre.globals.game_interface.gui.GlobalsGUI;
-import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space_hud.SpriteInventory;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Inventory extends GraphicsUserInterface{
 	
-	private Sprite emptySlot = se.getSprite(SpriteInventory.empty_slot);
+	private Sprite emptySlot = GameSprite.getSprite(SpriteInventory.empty_slot);
 	
 	private GameItem[] slots;
 	

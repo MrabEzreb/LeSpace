@@ -3,14 +3,11 @@ package xtre.game.space_world;
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
 import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
-import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
 import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
-import xtre.game.player.ship.scene.inside_ship.ShipScene;
-import xtre.globals.game_interface.GlobalsInterface;
 import xtre.graphics.font.FontEntity;
 import xtre.graphics.font.HUDFont;
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,8 +15,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GUIViewStarOptions extends GraphicsUserInterface {
 
-	private SpriteEntity se = new SpriteEntity();
-	
 	private GameMenu[] menus;
 
 	private float mouseX, mouseY;
@@ -29,7 +24,7 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 		super(gim, GI_ID, frame.y, frame.x, frame.width, frame.height);
 		this.frame = frame;
 		
-		Sprite s = se.getSprite(SpritesSpaceHudMenu.menu_bar);
+		Sprite s = GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar);
 		
 		menus = new GameMenu[]{
 				new GameMenu(new Sprite(s)),
@@ -37,9 +32,9 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 				new GameMenu(new Sprite(s)),
 		};
 		
-		menus[0].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, 10);
-		menus[0].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, -22);
-		menus[0].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, -54);
+		menus[0].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 10);
+		menus[0].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, -22);
+		menus[0].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, -54);
 		
 		menus[0].setActionToButton(0, new GameButtonAction(){
 			public void doAction(){
@@ -48,9 +43,6 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 		});
 		menus[0].setActionToButton(1, new GameButtonAction(){
 			public void doAction(){
-				System.out.println("Changing scene to interiorShip");
-				isActive = false;
-				gim.getGameManager().setScene().interiorShip();
 			}
 		});
 		menus[0].setActionToButton(2, new GameButtonAction(){
@@ -60,23 +52,23 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 		});
 		
 		
-		menus[1].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, 10);
+		menus[1].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 10);
 		menus[1].setActionToButton(0, new GameButtonAction(){
 			public void doAction(){
-				System.out.println("Button one doing its thing");
+				System.out.println("Changing scene to interiorShip");
+				gim.getGameManager().setScene().interiorShip();
 			}
 		});
 		
-		
-		menus[2].addButton(new GameButton(se.getSprite(SpritesSpaceHudMenu.menu_bar_button)), 118, 10);
+		menus[2].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 10);
 		menus[2].setActionToButton(0, new GameButtonAction(){
 			public void doAction(){
 				System.out.println("Button two doing its thing");
 			}
 		});
 		
-		
 		menus[0].setFont(new FontEntity("View", HUDFont.title_font.largeFont), 32, 27);
+		menus[0].getButtons().get(0).setLabel(0, 0, "ok", HUDFont.title_font.mediumFont);
 		menus[1].setFont(new FontEntity("Goto Ship", HUDFont.title_font.largeFont), 19, 27);
 		menus[2].setFont(new FontEntity("two", HUDFont.title_font.largeFont), 38, 27);
 		

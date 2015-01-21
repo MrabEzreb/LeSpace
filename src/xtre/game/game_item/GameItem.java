@@ -1,13 +1,10 @@
 package xtre.game.game_item;
 
-import xtre.graphics.sprites.SpriteEntity;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class GameItem {
 	
-	public SpriteEntity se = new SpriteEntity();
 	
 	public Sprite sprite;
 	public float x, y;

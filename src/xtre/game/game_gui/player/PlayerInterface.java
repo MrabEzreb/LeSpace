@@ -4,16 +4,13 @@ import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.gui_parts.DropMenu;
 import xtre.game.game_gui.graphics_user_interface.gui_parts.GUIHotBar;
 import xtre.game.game_gui.heads_up_display.hud_parts.HUDMetre;
-import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
-import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
 import xtre.game.player.Player;
 import xtre.game.player.ship.Inventory;
 import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.gui.GlobalsGUI;
 import xtre.globals.game_interface.hud.GlobalsHUD;
-import xtre.graphics.font.FontEntity;
 import xtre.graphics.font.HUDFont;
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceGUI;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 
@@ -22,8 +19,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PlayerInterface {
-	
-	private SpriteEntity se = new SpriteEntity();
 	
 	private final float fuelAmount;
 	
@@ -65,13 +60,13 @@ public class PlayerInterface {
 	
 	private void createFuelMetre(){
 		Sprite[] graphics = new Sprite[]{
-			se.getSprite(SpritesSpaceGUI.fuel_bar_full_l),
-			se.getSprite(SpritesSpaceGUI.fuel_bar_full_m),
-			se.getSprite(SpritesSpaceGUI.fuel_bar_full_r),
+			GameSprite.getSprite(SpritesSpaceGUI.fuel_bar_full_l),
+			GameSprite.getSprite(SpritesSpaceGUI.fuel_bar_full_m),
+			GameSprite.getSprite(SpritesSpaceGUI.fuel_bar_full_r),
 			
-			se.getSprite(SpritesSpaceGUI.fuel_bar_empty_l),
-			se.getSprite(SpritesSpaceGUI.fuel_bar_empty_m),
-			se.getSprite(SpritesSpaceGUI.fuel_bar_empty_r)
+			GameSprite.getSprite(SpritesSpaceGUI.fuel_bar_empty_l),
+			GameSprite.getSprite(SpritesSpaceGUI.fuel_bar_empty_m),
+			GameSprite.getSprite(SpritesSpaceGUI.fuel_bar_empty_r)
 		};
 		
 		metre = new HUDMetre(gim, GlobalsHUD.SPACE_FUEL_METRE, 1, graphics, (int)fuelAmount);
@@ -79,12 +74,12 @@ public class PlayerInterface {
 	}
 	
 	private void createHotBar(){
-		hotbar = new GUIHotBar(gim, GlobalsGUI.HOTBAR, 8, 1, 3, se.getSprite(SpritesSpaceGUI.hotbar_unselected));
+		hotbar = new GUIHotBar(gim, GlobalsGUI.HOTBAR, 8, 1, 3, GameSprite.getSprite(SpritesSpaceGUI.hotbar_unselected));
 	}
 	
 	private void createSpaceOptionsMenu(){
 		float sOX = 130, sOY = GlobalScreen.HEIGHT-65;
-		Sprite dropMenuSprite = se.getSprite(SpritesSpaceHudMenu.menu_bar);
+		Sprite dropMenuSprite = GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar);
 		BitmapFont spaceOptionsSupraMenuFont = HUDFont.title_font.mediumFont;
 		BitmapFont spaceOptionsSubMenuFont = HUDFont.title_font.smallFont;
 		

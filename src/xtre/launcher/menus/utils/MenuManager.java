@@ -29,8 +29,8 @@ public class MenuManager {
 		return menu;
 	}
 	
-	public void update(Main main){
-		menu.update();
+	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
+		menu.update(mouseX, mouseY, mouseLeftPress);
 	}
 	
 	public void render(SpriteBatch batch){

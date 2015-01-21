@@ -8,7 +8,6 @@ import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
 import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
 import xtre.globals.game_interface.GlobalsInterface;
-import xtre.graphics.sprites.SpriteEntity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,8 +18,6 @@ public abstract class HeadsUpDisplay extends GameInterface{
 	
 	public Sprite[] graphics;
 	public Sprite background;
-	
-	public final SpriteEntity se = new SpriteEntity();
 	
 	public boolean running = true;
 	

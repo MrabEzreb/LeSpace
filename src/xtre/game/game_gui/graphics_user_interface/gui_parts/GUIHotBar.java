@@ -22,7 +22,7 @@ public class GUIHotBar extends GraphicsUserInterface{
 			for(int y = 0; y < height; y++){
 				Sprite s = new Sprite(sprite);
 				s.setPosition((x*s.getWidth()), (y*s.getHeight()));
-				buttonArray.add(new GameButton(new Sprite(s)));
+				buttonArray.add(new GameButton(s));
 			}
 		}
 	}

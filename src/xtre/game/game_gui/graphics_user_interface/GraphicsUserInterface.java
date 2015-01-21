@@ -5,17 +5,13 @@ import java.util.List;
 
 import xtre.game.game_gui.GameInterface;
 import xtre.game.game_gui.GameInterfaceManager;
-import xtre.game.game_gui.graphics.UIGraphics;
 import xtre.globals.game_interface.GlobalsInterface;
-import xtre.graphics.sprites.SpriteEntity;
 
 import com.badlogic.gdx.utils.Disposable;
 
 public abstract class GraphicsUserInterface extends GameInterface {
 	public final static int TYPE=GlobalsInterface.GUI_TYPE;
 
-	public SpriteEntity se = new SpriteEntity();
-	
 	protected List<Disposable> disposable = new ArrayList<>();
 	
 	/**

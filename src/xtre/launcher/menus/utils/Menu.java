@@ -3,12 +3,12 @@ package xtre.launcher.menus.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.UIGraphics;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Menu {
@@ -21,37 +21,38 @@ public abstract class Menu {
 	protected BitmapFont font = new BitmapFont(Gdx.files.internal("font/default_font.fnt"));
 	//TODO remove all sound and font creations from sub classes as this makes them obsolete. (Unless custom)
 	
-	protected SpriteEntity se = new SpriteEntity();
-	
 	protected final MenuManager manager;
 	
 	public List<MenuButton> buttons = new ArrayList<>();
+	private DialogBox dialogBox;
+	protected boolean isDialogBoxOpen = false;
 	private boolean mouseReleased = true, activateChecks = false;
 	
 	public Menu(MenuManager manager){
 		this.manager = manager;
 	}
 	
-	public void update(){
-		boolean mousePressed = Gdx.input.isButtonPressed(Buttons.LEFT);
-		
-		if(mousePressed) {
+	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
+		if(mouseLeftPress) {
 			mouseReleased = false;
 			activateChecks = true;
 		}else
 			mouseReleased = true;
 		
-		if(!mousePressed && mouseReleased && activateChecks){
+		if(!mouseLeftPress && mouseReleased && activateChecks){
 			checkAndDoButton();
 			processButtons();
+			updateDialogBox(mouseX, mouseY);
 			mouseReleased = false;
 			activateChecks = false;
 		}
 	}
-	
 	public void render(SpriteBatch batch){
 		for(int i = 0; i < buttons.size(); i++){
 			buttons.get(i).render(batch);
+		}
+		if(isDialogBoxOpen){
+			dialogBox.render(batch);
 		}
 		renderScreen(batch);
 	}
@@ -60,6 +61,18 @@ public abstract class Menu {
 	
 	public void addButton(MenuButton btn){
 		buttons.add(btn);
+	}
+	
+	public void updateDialogBox(float mouseX, float mouseY){
+		if(isDialogBoxOpen){
+			dialogBox.update(mouseX, mouseY);
+			isDialogBoxOpen = dialogBox.open; 
+		}
+	}
+	
+	public void openDialogBox(float x, float y, float width, float height){
+		dialogBox = new DialogBox(x, y, width, height);
+		isDialogBoxOpen = dialogBox.open = true;
 	}
 
 	public MenuButton getButton(int i) {
@@ -71,7 +84,7 @@ public abstract class Menu {
 	public String checkAndDoButton(){
 		for(int i = 0; i < buttons.size(); i++){
 			if(buttons.get(i).isPressed() && !buttonPressed.equals(buttons.get(i).title)){
-				System.out.println(buttons.get(i).title);
+				System.out.println("(Menu.java:87): "+buttons.get(i).title);
 				buttons.get(i).btnSound.play();
 
 				buttonPressed = buttons.get(i).title;
@@ -79,7 +92,7 @@ public abstract class Menu {
 			}
 		}
 		return "";
-	}	
+	}
 	
 	public abstract void processButtons();
 	

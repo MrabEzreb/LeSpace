@@ -55,7 +55,7 @@ public class DropMenu {
 	}
 	
 	public void addButtonToSubMenu(int i, Sprite button, int x, int y){
-		subMenus.get(i).addButton(new GameButton(button), x, y);
+		subMenus.get(i).addButton(button, x, y);
 	}
 	
 	public void setSubMenuButtonAction(int i, int j, GameButtonAction gba){

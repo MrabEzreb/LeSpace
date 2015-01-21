@@ -1,6 +1,9 @@
 package xtre.launcher.menus;
 
+import java.io.IOException;
+
 import xtre.game.GameLoop;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space.SpriteSpacePlanets;
 import xtre.launcher.menus.utils.Menu;
 import xtre.launcher.menus.utils.MenuButton;
@@ -12,20 +15,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuStartGame extends Menu {
 	
-	private Sprite planet = se.getSprite(SpriteSpacePlanets.earth_like);
+	private Sprite planet = GameSprite.getSprite(SpriteSpacePlanets.earth_like);
 	
 	public MenuStartGame(MenuManager manager){
 		super(manager);
 		
-		for(int i = 0; i < 5; i++){
-			buttons.add(new MenuButton(125, (Gdx.graphics.getHeight()/2)-(i*40), 100, 32, "", font, sound));	//0
+		buttons.add(new MenuButton(0,0, 100, 32, "Single Player", font, sound));
+		buttons.add(new MenuButton(0,0, 100, 32, "Multiplayer", font, sound));
+		buttons.add(new MenuButton(0,0, 100, 32, "Options", font, sound));
+		buttons.add(new MenuButton(0,0, 100, 32, "Credits", font, sound));
+		buttons.add(new MenuButton(0,0, 100, 32, "Exit", font, sound));
+
+		for(int i = 0; i < buttons.size(); i++){
+			buttons.get(i).setPosition(100, (Gdx.graphics.getHeight()/2)-(i*40));
 		}
-		
-		buttons.get(0).setTitle("Single Player");
-		buttons.get(1).setTitle("Multiplayer");
-		buttons.get(2).setTitle("Options");
-		buttons.get(3).setTitle("Credits");
-		buttons.get(4).setTitle("Exit");
 		
 		planet.setPosition(500, 40);
 	}
@@ -59,5 +62,6 @@ public class MenuStartGame extends Menu {
 	@Override
 	public void renderScreen(SpriteBatch batch) {
 		planet.draw(batch);
+
 	}
 }

@@ -4,18 +4,16 @@ import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.player.Player;
 import xtre.game.space_world.SpaceScene;
 import xtre.globals.game_interface.hud.GameInputs;
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;
 
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class GameManager {
-	private SpriteEntity se = new SpriteEntity();
-	
+
 	public GameScene scene;
 	private Player player;
 	private World world = new World(new Vector2(0,0), true);
@@ -34,7 +32,7 @@ public class GameManager {
 	public GameManager(){
 		gim = new GameInterfaceManager(this);
 		
-		player = new Player(0, 0, new Sprite(se.getSprite(SpritesSpaceGame.player_ship)), world, gim);
+		player = new Player(0, 0, GameSprite.getSprite(SpritesSpaceGame.player_ship), world, gim);
 		
 		sceneChanger = new SceneChanger(this, gim, world, player);
 		scene = new SpaceScene(gim, world, player);

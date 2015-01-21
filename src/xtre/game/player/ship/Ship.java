@@ -1,9 +1,8 @@
 package xtre.game.player.ship;
 
 import xtre.game.game_gui.GameInterfaceManager;
-import xtre.game.game_gui.player.PlayerInterface;
 import xtre.globals.GlobalScreen;
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
 
 import com.badlogic.gdx.Gdx;
@@ -20,8 +19,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Ship {
 
-	private SpriteEntity se = new SpriteEntity();
-
 	public Inventory inventory;
 	private GameInterfaceManager gim;
 	
@@ -33,7 +30,7 @@ public class Ship {
 	public BodyDef bodyDef;
 	public FixtureDef fixtureDef;
 	
-	private ShipStats stats = new ShipStats();
+	private ShipStatsDataPack stats = new ShipStatsDataPack();
 	
 	public Ship(GameInterfaceManager gim, float x, float y, Sprite sprite, World world){
 		System.out.println("ship");
@@ -168,23 +165,23 @@ public class Ship {
 	
 	private void createInventory(){
 		Sprite[] s = new Sprite[]{
-				se.getSprite(SpritesHeadsUpDisplay.paneling_tm),
-				se.getSprite(SpritesHeadsUpDisplay.paneling_bm),
-				se.getSprite(SpritesHeadsUpDisplay.paneling_lm),
-				se.getSprite(SpritesHeadsUpDisplay.paneling_rm),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_tm),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_bm),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_lm),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_rm),
 				
-				se.getSprite(SpritesHeadsUpDisplay.paneling_mm),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_mm),
 				
-				se.getSprite(SpritesHeadsUpDisplay.paneling_tl),
-				se.getSprite(SpritesHeadsUpDisplay.paneling_tr),
-				se.getSprite(SpritesHeadsUpDisplay.paneling_bl),
-				se.getSprite(SpritesHeadsUpDisplay.paneling_br),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_tl),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_tr),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_bl),
+				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_br),
 		};
 		
 		inventory = new Inventory(gim, shipStorageSizeX, shipStorageSizeY, s);
 	}
 
-	public ShipStats getStats() {
+	public ShipStatsDataPack getStats() {
 		return stats;
 	}
 }

@@ -10,11 +10,7 @@ public class GameButton {
 	
 	public Sprite sprite;
 	
-	public float supraX, supraY;
-	
-	private float x=0, y=0;
-	
-	private float labelX, labelY;
+	private float labelX, labelY, xPin=0, yPin=0;
 	public String title = "";
 	private BitmapFont font;
 	
@@ -23,12 +19,14 @@ public class GameButton {
 	public GameButton(){}	
 	public GameButton(Sprite sprite){
 		this.sprite = sprite;
+		xPin = sprite.getX();
+		yPin = sprite.getY();
 	}
 
 	public final void render(SpriteBatch batch){
 		sprite.draw(batch);
 		if(font!=null){
-			font.draw(batch, title, labelX, labelY);
+			font.draw(batch, title, sprite.getX()+labelX, sprite.getY()+labelY);
 		}
 	}
 	
@@ -53,14 +51,16 @@ public class GameButton {
 	public void setLabel(float labelX, float labelY, String title, BitmapFont font){
 		this.font = font;
 		this.title = title;
-		this.labelX = labelX;
-		this.labelY = labelY;
+		this.labelX = labelX + sprite.getX();
+		this.labelY = labelY + sprite.getY();
+		
+		System.out.println(this.labelX+ " label position " + this.labelY);
 	}
 	
 	public void setPosition(float x, float y) {
-		this.x = x;
-		this.y = y;
-		sprite.setPosition(this.x, this.y);
+		this.xPin = x;
+		this.yPin = y;
+		sprite.setPosition(this.xPin, this.yPin);
 	}
 	
 	public void setAction(GameButtonAction buttonAction) {
@@ -73,6 +73,6 @@ public class GameButton {
 			font.dispose();
 	}
 	public void setOffset(float x, float y) {
-		sprite.setPosition(this.x + x, this.y + y);
+		sprite.setPosition(this.xPin + x, this.yPin + y);
 	}
 }

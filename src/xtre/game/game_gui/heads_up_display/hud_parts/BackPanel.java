@@ -1,21 +1,15 @@
 package xtre.game.game_gui.heads_up_display.hud_parts;
 
 
-import java.util.HashMap;
-
 import xtre.game.game_gui.heads_up_display.hud_parts.back_panel.GPTile;
-import xtre.game.game_gui.heads_up_display.hud_parts.back_panel.PanelPositioning;
 import xtre.globals.game_interface.GlobalsInterface;
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BackPanel {
-	
-	SpriteEntity se = new SpriteEntity();
 	
 	private float mouseX = 0, mouseY = 0;
 	private boolean mouseLeftPress = false;
@@ -146,7 +140,7 @@ public class BackPanel {
 	
 	private void setupTM(int x, int y, int width, int height, Sprite sprite){
 		GPTile[] tmPaneling = new GPTile[width];
-		se.getSprite(SpritesHeadsUpDisplay.paneling_tm);
+		GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_tm);
 		
 		for(int i = 0; i < tmPaneling.length; i++){
 			tmPaneling[i] = new GPTile(x+(i*16), y+(height*16), new Sprite(sprite));

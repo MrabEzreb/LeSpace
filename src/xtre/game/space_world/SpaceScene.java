@@ -9,7 +9,7 @@ import xtre.game.player.Player;
 import xtre.game.scene_manager.GameScene;
 import xtre.globals.GlobalScreen;
 import xtre.globals.game_interface.gui.GlobalsGUI;
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesHeadsUpDisplay;
 
@@ -24,8 +24,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class SpaceScene extends GameScene{
 
-	SpriteEntity se = new SpriteEntity();
-		
 	public SpaceRock[] rock;
 	public Stars stars;
 	
@@ -41,12 +39,12 @@ public class SpaceScene extends GameScene{
 		stars = new Stars(gim, 15000, 1, 10);
 
 		rock = new SpaceRock[4];		
-		rock[0] = new SpaceRock((GlobalScreen.MPP(300)), (GlobalScreen.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
-		rock[1] = new SpaceRock((GlobalScreen.MPP(300)), (GlobalScreen.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
-		rock[2] = new SpaceRock((GlobalScreen.MPP(-300)), (GlobalScreen.MPP(-300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
-		rock[3] = new SpaceRock((GlobalScreen.MPP(-300)), (GlobalScreen.MPP(300)), new Sprite(se.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[0] = new SpaceRock((GlobalScreen.MPP(300)), (GlobalScreen.MPP(-300)), new Sprite(GameSprite.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[1] = new SpaceRock((GlobalScreen.MPP(300)), (GlobalScreen.MPP(300)), new Sprite(GameSprite.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[2] = new SpaceRock((GlobalScreen.MPP(-300)), (GlobalScreen.MPP(-300)), new Sprite(GameSprite.getSprite(SpritesSpaceGame.space_rock)), world);
+		rock[3] = new SpaceRock((GlobalScreen.MPP(-300)), (GlobalScreen.MPP(300)), new Sprite(GameSprite.getSprite(SpritesSpaceGame.space_rock)), world);
 
-		new GUIStarSelection(gim, GlobalsGUI.SPACE_STAR_HIGHLIGHT, se.getSprite(SpritesHeadsUpDisplay.star_highlight), stars);
+		new GUIStarSelection(gim, GlobalsGUI.SPACE_STAR_HIGHLIGHT, GameSprite.getSprite(SpritesHeadsUpDisplay.star_highlight), stars);
 	}
 
 	List<String> starOptions = new ArrayList<>();

@@ -31,9 +31,10 @@ public class GameMenu {
 		this.sprite = menuBarSprite;
 	}
 	
-	public void addButton(GameButton button, int x, int y){
-		button.setPosition(sprite.getX() + x, sprite.getY() + y);
-		buttons.add(button);
+	public void addButton(Sprite s, int x, int y){
+		s.setPosition(x+sprite.getX(), y+sprite.getY());
+		GameButton gb = new GameButton(s);
+		buttons.add(gb);
 	}
 	
 	public void render(SpriteBatch batch){

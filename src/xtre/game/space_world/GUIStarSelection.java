@@ -1,13 +1,13 @@
 package xtre.game.space_world;
 
 import xtre.game.game_gui.GameInterfaceManager;
-import xtre.game.game_gui.graphics.UIGraphics;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
 import xtre.game.game_gui.graphics_user_interface.gui_parts.DropMenu;
 import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
 import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
 import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
 import xtre.globals.game_interface.GlobalsInterface;
+import xtre.graphics.UIGraphics;
 import xtre.graphics.font.FontEntity;
 import xtre.graphics.font.HUDFont;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;

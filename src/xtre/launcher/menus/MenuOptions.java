@@ -1,26 +1,26 @@
 package xtre.launcher.menus;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import xtre.launcher.menus.utils.Menu;
 import xtre.launcher.menus.utils.MenuButton;
 import xtre.launcher.menus.utils.MenuManager;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuOptions extends Menu{
 
 	public MenuOptions(MenuManager manager, BitmapFont font) {
 		super(manager);
 		
-		for(int i = 0; i < 5; i++){
-			buttons.add(new MenuButton(125, (Gdx.graphics.getHeight()/2)-(i*40), 100, 32, "", font, sound));
+		buttons.add(new MenuButton(0,0, 100, 32, "Audio", font, sound));
+		buttons.add(new MenuButton(0,0, 100, 32, "Ship Forge", font, sound));
+		buttons.add(new MenuButton(0,0, 100, 32, "Controls", font, sound));
+		buttons.add(new MenuButton(0,0, 100, 32, "Back", font, sound));
+
+		for(int i = 0; i < buttons.size(); i++){
+			buttons.get(i).setPosition(125, (Gdx.graphics.getHeight()/2)-(i*40));
 		}
-		
-		buttons.get(0).setTitle("Audio");
-		buttons.get(1).setTitle("Controls");
-		buttons.get(2).setTitle("Back");
 	}
 
 	@Override
@@ -28,6 +28,10 @@ public class MenuOptions extends Menu{
 		
 		if(buttonPressed.equals("Audio")){
 			
+		}
+		
+		if(buttonPressed.equals("Ship Forge")){
+			manager.setMenu(new MenuShipForge(manager));
 		}
 		
 		if(buttonPressed.equals("Controls")){

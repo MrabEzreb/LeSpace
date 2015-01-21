@@ -1,30 +1,23 @@
 package xtre.launcher;
 
 import xtre.Main;
-import xtre.globals.GlobalScreen;
-import xtre.launcher.menus.utils.Menu;
-import xtre.launcher.menus.utils.MenuButton;
 import xtre.launcher.menus.utils.MenuManager;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-
-public class LauncherLoop implements Screen{
-	
+public class LauncherLoop implements Screen {
 	private SpriteBatch batch;
 	public OrthographicCamera cam;
 	
 	private final Main main;
 
-	MenuManager menus;
+	private MenuManager menus;
 	
 	public static final int WIDTH = 1152, HEIGHT = 648;
 		
@@ -38,6 +31,7 @@ public class LauncherLoop implements Screen{
 
 		cam = new OrthographicCamera(WIDTH, HEIGHT);
 		cam.position.set(WIDTH/2, HEIGHT/2, 0);
+		cam.update(); // Set the camera before showing graphics so graphics aren't shown before they are setup.		
 
 		//Menus
 		menus = new MenuManager(main);
@@ -50,13 +44,15 @@ public class LauncherLoop implements Screen{
 	public void render(float delta){
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
 		menus.render(batch);
 		batch.end();
-	    batch.setProjectionMatrix(cam.combined);
+	
+		batch.setProjectionMatrix(cam.combined);
 		cam.update();		
 		moveCameraAround();
-		menus.update(main);
+		menus.update(Gdx.input.getX(), Gdx.input.getY(), Gdx.input.isButtonPressed(Buttons.LEFT));
 	}
 	
 	private void moveCameraAround(){

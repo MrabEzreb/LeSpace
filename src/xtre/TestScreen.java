@@ -3,8 +3,7 @@ package xtre;
 
 import java.util.Random;
 
-import xtre.Main;
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceGame;
 
 import com.badlogic.gdx.Gdx;
@@ -42,8 +41,6 @@ public class TestScreen implements Screen {
 	
 	private Sprite playerSprite;
 	
-	SpriteEntity se = new SpriteEntity();
-
 	public TestScreen(Main main){}
 		
 	public void show() {
@@ -65,7 +62,7 @@ public class TestScreen implements Screen {
 
 			createShape(0, -60 + 0.1f*x);
 		}
-		playerSprite = new Sprite(se.getSprite(SpritesSpaceGame.player_ship));
+		playerSprite = GameSprite.getSprite(SpritesSpaceGame.player_ship);
 		
 		createBounds();
 

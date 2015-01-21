@@ -5,9 +5,7 @@ import java.util.Random;
 
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.globals.GlobalScreen;
-import xtre.globals.game_interface.gui.GlobalsGUI;
-import xtre.globals.game_interface.hud.GlobalsHUD;
-import xtre.graphics.sprites.SpriteEntity;
+import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space.SpriteSpacePlanets;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceBackgroundStar;
 
@@ -129,13 +127,11 @@ public class Stars {
 	private void createStars(){
 		float z = 0;
 		int starMaxSize=0;
-		SpriteEntity se = new SpriteEntity();
 		Sprite[] ss = new Sprite[]{
-				se.getSprite(SpritesSpaceBackgroundStar.alpha_star),
-				se.getSprite(SpritesSpaceBackgroundStar.small_star),
-				se.getSprite(SpritesSpaceBackgroundStar.medium_star),
-				se.getSprite(SpritesSpaceBackgroundStar.large_star),
-
+				GameSprite.getSprite(SpritesSpaceBackgroundStar.alpha_star),
+				GameSprite.getSprite(SpritesSpaceBackgroundStar.small_star),
+				GameSprite.getSprite(SpritesSpaceBackgroundStar.medium_star),
+				GameSprite.getSprite(SpritesSpaceBackgroundStar.large_star),
 		};
 		
 		for(int i = 1; i < stars.length; i++){
@@ -172,7 +168,7 @@ public class Stars {
 			);
 		}
 		
-		stars[0] = new Star(1000, 1000, 1, 0, se.getSprite(SpriteSpacePlanets.earth_like));
+		stars[0] = new Star(1000, 1000, 1, 0, GameSprite.getSprite(SpriteSpacePlanets.earth_like));
 	}
 
 	private void createDepth(int depth){

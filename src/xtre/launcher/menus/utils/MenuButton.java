@@ -31,12 +31,10 @@ public class MenuButton {
 		this.width = width;
 		this.height = height;
 		this.font = font;
-		this.font = new BitmapFont(Gdx.files.internal("font/default_font.fnt"));
 		this.title = title;
 		this.btnSound = btnSound;
-		
-		
 	}
+	public MenuButton(){}
 
 	public void setTitle(String title){
 		this.title = title;
@@ -49,7 +47,7 @@ public class MenuButton {
 	public void setFont(BitmapFont font) {
 		this.font = font;
 	}
-
+	
 	public boolean isPressed() {
 		int mx = Gdx.input.getX(), my = -Gdx.input.getY() + Gdx.graphics.getHeight();
 		if(mx > x && mx < x+width && my > y-height && my < y){
@@ -68,5 +66,10 @@ public class MenuButton {
 			font.setColor(.4f, .4f, .7f, 1f);
 			font.draw(batch, title, x, y);
 		}
+	}
+
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }

@@ -1,5 +1,6 @@
 package xtre.launcher.menus;
 
+import xtre.graphics.sprites.GameSprite;
 import xtre.launcher.menus.utils.Menu;
 import xtre.launcher.menus.utils.MenuButton;
 import xtre.launcher.menus.utils.MenuManager;
@@ -26,11 +27,11 @@ public class MenuControls extends Menu{
 
 		//Graphics Keys
 			Sprite[] graphics_keys = new Sprite[]{
-					new Sprite(se.getSprite(SpritesControlsScreen.key_icon_w)),
-					new Sprite(se.getSprite(SpritesControlsScreen.key_icon_a)),
-					new Sprite(se.getSprite(SpritesControlsScreen.key_icon_s)),
-					new Sprite(se.getSprite(SpritesControlsScreen.key_icon_d)),
-					new Sprite(se.getSprite(SpritesControlsScreen.key_icon_shift))
+					GameSprite.getSprite(SpritesControlsScreen.key_icon_w),
+					GameSprite.getSprite(SpritesControlsScreen.key_icon_a),
+					GameSprite.getSprite(SpritesControlsScreen.key_icon_s),
+					GameSprite.getSprite(SpritesControlsScreen.key_icon_d),
+					GameSprite.getSprite(SpritesControlsScreen.key_icon_shift)
 			};
 
 			graphics_keys[0].setPosition((Gdx.graphics.getWidth()/4)+90, (Gdx.graphics.getHeight()/4)+55);
@@ -65,9 +66,6 @@ public class MenuControls extends Menu{
 		//
 			
 	}
-	ShapeRenderer srLine = new ShapeRenderer();
-	Color col = new Color(0,0,0,0);
-	Color col2 = new Color(.4f,.4f,.8f,.8f);
 	
 	public void renderScreen(SpriteBatch batch){
 		for(KeyIcon ki:keyIcons)
