@@ -17,22 +17,17 @@ public class MenuShipForge extends Menu {
 	private float titleX, titleY;
 	private String title;
 	
-	private ShipForge forge = new ShipForge();
+	private ShipForge shipForge = new ShipForge();
 	
 	public MenuShipForge(MenuManager manager) {
 		super(manager);
 		
-		buttons.add(new MenuButton(0, 0, 100, 32, "SHIP_FORGE", font, sound));
-		buttons.add(new MenuButton(0, 0, 100, 32, "Back", font, sound));
-		
-		for(int i = 0; i < buttons.size(); i++){
-			buttons.get(i).setPosition(125, (Gdx.graphics.getHeight()/2)-(i*40));
-		}
+		buttons.add(new MenuButton(32, GlobalScreen.LAUNCHER_HEIGHT-32, 100, 32, "Back", font, sound));
 		
 		titleFont = HUDFont.title_font.largeFont;
 		titleFont.setColor(.8f, .8f, 1.0f, 1f);
 		title = "Are you sure?";
-		titleX = (int)(GlobalScreen.GAME_WIDTH/2)-128;
+		titleX = (GlobalScreen.GAME_WIDTH/2)-128;
 		titleY = (GlobalScreen.GAME_HEIGHT/2)-4;
 	}
 
@@ -40,12 +35,12 @@ public class MenuShipForge extends Menu {
 	public void renderScreen(SpriteBatch batch) {
 		if(isDialogBoxOpen)
 			titleFont.draw(batch, title, titleX, titleY);
-		forge.render(batch);
+		shipForge.render(batch);
 	}
 
 	@Override
 	public void process() {
-		forge.update(mouseX, mouseY, mouseLeftPress);
+		shipForge.update(mouseX, mouseY, mouseLeftPress);
 		
 		if(buttonPressed.equals("Back") && !isDialogBoxOpen){
 			float x=GlobalScreen.GAME_WIDTH/2;
@@ -71,7 +66,12 @@ public class MenuShipForge extends Menu {
 	}
 	
 	public void dispose(){
-		forge.dispose();
+		shipForge.dispose();
 		titleFont.dispose();
+	}
+
+	@Override
+	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
+		shipForge.checks(mouseX, mouseY, mouseLeftPress);
 	}
 }

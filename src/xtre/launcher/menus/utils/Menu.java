@@ -35,6 +35,8 @@ public abstract class Menu {
 		this.manager = manager;
 	}
 	
+	public abstract void checks(float mouseX, float mouseY, boolean mouseLeftPress);
+	
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
@@ -53,6 +55,7 @@ public abstract class Menu {
 			mouseReleased = false;
 			activateChecks = false;
 		}
+		checks(mouseX, mouseY, mouseLeftPress);
 	}
 	public void render(SpriteBatch batch){
 		for(int i = 0; i < buttons.size(); i++){

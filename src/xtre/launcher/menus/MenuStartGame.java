@@ -64,4 +64,8 @@ public class MenuStartGame extends Menu {
 		planet.draw(batch);
 
 	}
+
+	@Override
+	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
+	}
 }

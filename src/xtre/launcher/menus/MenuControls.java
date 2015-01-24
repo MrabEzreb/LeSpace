@@ -110,4 +110,9 @@ public class MenuControls extends Menu{
 		}
 		
 	}
+
+	@Override
+	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
+	}
+
 }

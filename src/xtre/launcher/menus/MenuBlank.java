@@ -20,4 +20,9 @@ public class MenuBlank extends Menu{
 	@Override
 	public void renderScreen(SpriteBatch batch) {
 	}
+
+	@Override
+	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
+	}
+
 }

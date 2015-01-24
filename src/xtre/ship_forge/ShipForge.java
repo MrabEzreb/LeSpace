@@ -5,61 +5,96 @@ import java.util.List;
 
 import xtre.game.player.ship.scene.inside_ship.graphics.ShipGrid;
 import xtre.globals.GlobalScreen;
-import xtre.ship_forge.menus.ShipForgeButton;
-import xtre.ship_forge.menus.ShipForgeButtonAction;
-import xtre.ship_forge.menus.ShipForgeMenu;
+import xtre.ship_forge.components.ShipForgeMenu;
+import xtre.ship_forge.components.TileSelectionView;
+import xtre.ship_forge.components.button.ShipForgeButton;
+import xtre.ship_forge.components.button.ShipForgeButtonAction;
+import xtre.ship_forge.graphics.ShipForgeTiles;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ShipForge{
+public class ShipForge {
 
 	private List<ShipGrid> grids = new ArrayList<>();
-	private List<ShipForgeMenu> menus = new ArrayList<>();
+	private ShipForgeMenu forgeMenu;
+	
+	private TileSelectionView tileSelectionView;
+	
+	private float mouseX=0, mouseY=0;
+	private boolean mouseLeftPress = false;
+	private Sprite selectedTile;
 		
 	public ShipForge() {
-		ShipForgeMenu main = new ShipForgeMenu((GlobalScreen.GAME_WIDTH-300), 30, 128, 512);
-		menus.add(main);
+		forgeMenu = new ShipForgeMenu((GlobalScreen.GAME_WIDTH-300), 30, 128, 512);
 		setupRightMenu();
-		setupShipTileSelection();
+		
+		int x = (GlobalScreen.LAUNCHER_WIDTH/2);
+		int y = 4;
+		int w = 512;
+		int h = 128;
+		tileSelectionView = new TileSelectionView(x-(w/2), y, w, h);
 	}
 	
 	private void setupRightMenu(){
-		ShipForgeButton tiles1 = new ShipForgeButton(menus.get(0), 0, "tiles");
+		final ShipForgeButton tiles1 = new ShipForgeButton(forgeMenu, 0, "tiles");
 		tiles1.setAction(new ShipForgeButtonAction(){
+
 			public void action(){
-				System.out.println("selected: floor tiles");
+				List<Sprite> s = ShipForgeTiles.getShipFloorTiles();
+				List<Sprite> ss = new ArrayList<>();
+				for(int i = s.size()-1; i > -1; i--)
+					ss.add(s.get(i));
+				
+				tileSelectionView.slide.setTiles(ss);
+				forgeMenu.untoggleButtons();
+				tiles1.toggle = true;
 			}
 		});
-		menus.get(0).addButton(tiles1);
-	
-		ShipForgeButton tiles2 = new ShipForgeButton(menus.get(0), 1, "tiles");
+		forgeMenu.addButton(tiles1);
+
+		final ShipForgeButton tiles2 = new ShipForgeButton(forgeMenu, 1, "tiles");
 		tiles2.setAction(new ShipForgeButtonAction(){
+
 			public void action(){
-				System.out.println("selected: floor tiles");
+				List<Sprite> s = ShipForgeTiles.getShipFloorTiles();
+				tileSelectionView.slide.setTiles(s);
+				forgeMenu.untoggleButtons();
+				tiles2.toggle = true;
 			}
 		});
-		menus.get(0).addButton(tiles2);
+		forgeMenu.addButton(tiles2);
 		
-		for(int i = 2; i < 16; i++){
-			menus.get(0).addButton(new ShipForgeButton(menus.get(0), i, "tiles"));
-		}
+	}
+	
+	public void checks(float mouseX, float mouseY, boolean mouseLeftPress){
+		tileSelectionView.checks(mouseX, mouseY, mouseLeftPress);
 	}
 
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress) {
-		for(ShipForgeMenu m:menus){
-			m.update(mouseX, mouseY, mouseLeftPress);
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
+		this.mouseLeftPress = mouseLeftPress;
+		
+		forgeMenu.update(mouseX, mouseY, mouseLeftPress);
+		tileSelectionView.update(mouseX, mouseY, mouseLeftPress);
+		
+		selectedTile = tileSelectionView.getSelectedSlot();
+		
+		if(selectedTile != null){
+			selectedTile.setPosition(mouseX, mouseY);
 		}
 	}
 
 	public void render(SpriteBatch batch) {
-		for(ShipForgeMenu m:menus){
-			m.render(batch);
+		forgeMenu.render(batch);
+		tileSelectionView.render(batch);
+		if(selectedTile != null){
+			selectedTile.draw(batch);
 		}
 	}
 
 	public void dispose() {
-		for(ShipForgeMenu m:menus){
-			m.dispose();
-		}
+		forgeMenu.dispose();
 	}
 }
