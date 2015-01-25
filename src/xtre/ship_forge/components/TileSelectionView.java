@@ -22,19 +22,11 @@ public class TileSelectionView extends ShipForgeComponent{
 
 	@Override
 	public void updateComponent(float mouseX, float mouseY, boolean mouseLeftPress) {
+
 		slide.update(mouseX, mouseY, mouseLeftPress);
-		processSliderButtons();
 	}
 	
-	private void processSliderButtons(){
-		if(slide.left){
-			slide.left = false;
-			slide.slideLeft(1);
-		}else if(slide.right){
-			slide.right = false;
-			slide.slideRight(1);
-		}
-	}
+
 	
 	@Override
 	public void renderComponent(SpriteBatch batch) {

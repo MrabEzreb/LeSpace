@@ -50,7 +50,7 @@ public abstract class Menu {
 		
 		if(!mouseLeftPress && mouseReleased && activateChecks){
 			checkAndDoButton();
-			process();
+			clicked();
 			updateDialogBox(mouseX, mouseY);
 			mouseReleased = false;
 			activateChecks = false;
@@ -104,7 +104,7 @@ public abstract class Menu {
 		return "";
 	}
 	
-	public abstract void process();
+	public abstract void clicked();
 	
 	public void dispose(){
 		for(MenuButton b : buttons){

@@ -14,7 +14,7 @@ public class MenuBlank extends Menu{
 	}
 
 	@Override
-	public void process() {
+	public void clicked() {
 	}
 
 	@Override

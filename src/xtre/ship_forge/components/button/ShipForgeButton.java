@@ -63,7 +63,7 @@ public class ShipForgeButton {
 	
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
 		hover = GlobalsInterface.withinSquareBounds(mouseX, mouseY, x, y, width, height);
-		if(hover) action();
+		if(hover&&mouseLeftPress) action();
 	}
 	
 	public void setAction(ShipForgeButtonAction action) {

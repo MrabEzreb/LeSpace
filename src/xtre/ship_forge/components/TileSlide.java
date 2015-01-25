@@ -31,8 +31,7 @@ public class TileSlide extends ShipForgeComponent{
 		leftButton = new ShipForgeButton(xx, yy, 96, 112, "leftSlider");
 		leftButton.setAction(new ShipForgeButtonAction(){
 			public void action(){
-				right = false;
-				left = true;
+				slideLeft(1);
 			}
 		});
 		leftButton.setColor(1,1,1,1);
@@ -40,8 +39,7 @@ public class TileSlide extends ShipForgeComponent{
 		rightButton = new ShipForgeButton(xx+400, yy, 96, 112, "rightSlider");
 		rightButton.setAction(new ShipForgeButtonAction(){
 			public void action(){
-				left = false;
-				right = true;
+				slideRight(1);
 			}
 		});
 	}
@@ -57,12 +55,13 @@ public class TileSlide extends ShipForgeComponent{
 			float tileWidth = slots.get(i).tile.getWidth()*slots.get(i).tile.getScaleX();
 			slots.get(i).updateSlider(view.x + (tileWidth-(tileWidth/3) - (tileWidth/12)) + (i*tileWidth), view.y + 56);
 		}
+		System.out.println("tiles loaded into TileSlide");
 	}
 
 	public void slideRight(int n){
 		for(int i = 0; i < slots.size(); i++){
 			if(slots.get(i).slot > 0)
-				slots.get(i).slideLeft(n);
+				slots.get(i).slot--;
 			else{
 				slots.get(i).slot = tiles.size()-1;
 			}
@@ -72,7 +71,7 @@ public class TileSlide extends ShipForgeComponent{
 	public void slideLeft(int n){
 		for(int i = 0; i < slots.size(); i++){
 			if(slots.get(i).slot < tiles.size()-1)
-				slots.get(i).slideRight(n);
+				slots.get(i).slot++;
 			else{
 				slots.get(i).slot = 0;
 			}
@@ -88,6 +87,23 @@ public class TileSlide extends ShipForgeComponent{
 
 	@Override
 	public void updateComponent(float mouseX, float mouseY, boolean mouseLeftPress) {
+		if(slots.size() < 1){
+			try{
+				selectedTile = tiles.get(slots.get(0).slot);			
+			}catch(IndexOutOfBoundsException e){
+				selectedTile = null;
+			}
+		}else if(slots.size() < 2){
+			selectedTile = tiles.get(slots.get(0).slot);
+		}else if(slots.size() < 3){
+			selectedTile = tiles.get(slots.get(1).slot);
+		}else if(slots.size() < 4){
+			selectedTile = tiles.get(slots.get(1).slot);
+		}else if(slots.size() < 5){
+			selectedTile = tiles.get(slots.get(2).slot);
+		}else if(slots.size() < 6){
+			selectedTile = tiles.get(slots.get(2).slot);
+		}
 	}
 
 	@Override
@@ -123,14 +139,6 @@ class Slot{
 	public void updateSlider(float x, float y){
 		this.x = x;
 		this.y = y;
-	}
-
-	public void slideLeft(int n){
-		slot-=n;
-	}
-	
-	public void slideRight(int n){
-		slot+=n;
 	}
 }
 

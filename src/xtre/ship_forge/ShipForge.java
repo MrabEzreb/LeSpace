@@ -55,7 +55,6 @@ public class ShipForge {
 
 		final ShipForgeButton tiles2 = new ShipForgeButton(forgeMenu, 1, "tiles");
 		tiles2.setAction(new ShipForgeButtonAction(){
-
 			public void action(){
 				List<Sprite> s = ShipForgeTiles.getShipFloorTiles();
 				tileSelectionView.slide.setTiles(s);
@@ -64,32 +63,28 @@ public class ShipForge {
 			}
 		});
 		forgeMenu.addButton(tiles2);
-		
 	}
 	
 	public void checks(float mouseX, float mouseY, boolean mouseLeftPress){
-		tileSelectionView.checks(mouseX, mouseY, mouseLeftPress);
-	}
-
-	public void update(float mouseX, float mouseY, boolean mouseLeftPress) {
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
 		this.mouseLeftPress = mouseLeftPress;
 		
-		forgeMenu.update(mouseX, mouseY, mouseLeftPress);
-		tileSelectionView.update(mouseX, mouseY, mouseLeftPress);
-		
+		tileSelectionView.checks(mouseX, mouseY, mouseLeftPress);
 		selectedTile = tileSelectionView.getSelectedSlot();
-		
-		if(selectedTile != null){
-			selectedTile.setPosition(mouseX, mouseY);
-		}
+		forgeMenu.update(mouseX, mouseY, mouseLeftPress);
 	}
 
-	public void render(SpriteBatch batch) {
+	public void update(float mouseX, float mouseY, boolean mouseLeftPress) {
+		tileSelectionView.update(mouseX, mouseY, mouseLeftPress);
+	}
+
+	public void render(SpriteBatch batch) {	
 		forgeMenu.render(batch);
 		tileSelectionView.render(batch);
+
 		if(selectedTile != null){
+			selectedTile.setPosition(mouseX, mouseY);
 			selectedTile.draw(batch);
 		}
 	}

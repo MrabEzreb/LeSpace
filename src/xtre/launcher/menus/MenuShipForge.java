@@ -39,7 +39,7 @@ public class MenuShipForge extends Menu {
 	}
 
 	@Override
-	public void process() {
+	public void clicked() {
 		shipForge.update(mouseX, mouseY, mouseLeftPress);
 		
 		if(buttonPressed.equals("Back") && !isDialogBoxOpen){

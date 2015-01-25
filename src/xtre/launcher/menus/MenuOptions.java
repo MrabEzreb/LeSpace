@@ -24,7 +24,7 @@ public class MenuOptions extends Menu{
 	}
 
 	@Override
-	public void process() {
+	public void clicked() {
 		
 		if(buttonPressed.equals("Audio")){
 			

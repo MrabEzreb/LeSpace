@@ -92,7 +92,7 @@ public class MenuControls extends Menu{
 	}
 	
 	@Override
-	public void process(){
+	public void clicked(){
 		if(buttonPressed.equals("Back")){
 			manager.setMenu(new MenuOptions(manager, font));
 		}

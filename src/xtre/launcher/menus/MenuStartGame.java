@@ -34,7 +34,7 @@ public class MenuStartGame extends Menu {
 	}
 
 	@Override
-	public void process() {
+	public void clicked() {
 		if(buttonPressed.equals("Single Player")){
 			manager.main.setScreen(new GameLoop(manager.main));
 			dispose();
