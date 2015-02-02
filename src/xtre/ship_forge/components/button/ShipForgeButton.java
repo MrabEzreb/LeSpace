@@ -24,13 +24,20 @@ public class ShipForgeButton {
 	public ShipForgeButton(){}
 	public ShipForgeButton(ShipForgeMenu menu, float row, String title) {
 		this.title = new TitleString(menu.x, menu.y, title);
-		width = menu.width;
-		height = 18;
-		x = menu.x;
-		y = (menu.y+(menu.height-height)) - row*height;
-		
+		if(!menu.horizontal){
+			width = menu.width;
+			height = menu.height;
+			x = menu.x;
+			y = (menu.y+(menu.height-height)) - row*height;
+		}else{
+			width = menu.width;
+			height = menu.height;
+			x = (menu.x+(menu.width-width)) - row*width;
+			y = menu.y;
+		}
 		sprite.setPosition(x, y);
 		sprite.setSize(width, height);
+		
 	}
 	public ShipForgeButton(float x, float y, float width, float height, String title){
 		this.title = new TitleString(x, y, title);
@@ -72,7 +79,12 @@ public class ShipForgeButton {
 	public void dispose() {
 		sprite.getTexture().dispose();
 	}
-	public void setColor(int r, int g, int b, int a) {
-		col = new Color(r,g,b,a);
+	public void setColor(float f, float g, float h, float i) {
+		col = new Color(f,g,h,i);
+	}
+	public void setPosition(float x, float y) {
+		this.x = x;
+		this.y = y;
+		sprite.setPosition(x, y);
 	}
 }

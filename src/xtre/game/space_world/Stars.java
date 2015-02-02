@@ -17,7 +17,7 @@ public class Stars {
 	
 	public final int length;
 
-	private final int worldSize, density, depth;
+	private final int worldSize, depth;
 	
 	private GameInterfaceManager gim;
 	
@@ -34,8 +34,7 @@ public class Stars {
 	
 	public Stars(GameInterfaceManager gim, int worldSize, int density, int depth){
 		this.gim = gim;
-		this.worldSize = worldSize;
-		this.density = density;
+		this.worldSize = worldSize/density;
 		this.depth = depth;
 		
 		stars = new Star[(worldSize)];
@@ -144,9 +143,9 @@ public class Stars {
 			float dark = r.nextFloat();
 			if(dark > .3f)dark-=.3f;
 			
-			float red = r.nextFloat();
-			float green = r.nextFloat();
-			float blue = r.nextFloat();
+			float red = 1 - r.nextFloat()/2;
+			float green = 1 - r.nextFloat()/2;
+			float blue = 1 - r.nextFloat()/2;
 			
 			int x = (r.nextInt(worldSize));
 			int y = (r.nextInt(worldSize));

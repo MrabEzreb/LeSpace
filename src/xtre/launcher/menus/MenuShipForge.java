@@ -26,7 +26,7 @@ public class MenuShipForge extends Menu {
 		
 		titleFont = HUDFont.title_font.largeFont;
 		titleFont.setColor(.8f, .8f, 1.0f, 1f);
-		title = "Are you sure?";
+		title = "Save, exit?";
 		titleX = (GlobalScreen.GAME_WIDTH/2)-128;
 		titleY = (GlobalScreen.GAME_HEIGHT/2)-4;
 	}
@@ -48,19 +48,20 @@ public class MenuShipForge extends Menu {
 			float width=256;
 			float height=128;
 			
-			openDialogBox(x-(height/2)-128, y-(height/2)-64, width, height);
-			
-			MenuButton saveAndExit = new MenuButton((int)x-164, (int)y-40, 100, 32, "Save and Exit", font, sound);
-			MenuButton exit = new MenuButton((int)x-164, (int)y-80, 100, 32, "Exit", font, sound);
-			buttons.add(saveAndExit);
-			buttons.add(exit);
-		}else if(isDialogBoxOpen){
-			if(buttonPressed.equals("Save and Back")){
-				manager.setMenu(new MenuStartGame(manager));
+			openDialogBox(x-(height/2)-147, y-(height/2)-64, width, height);
+			MenuButton saveAndExit = new MenuButton((int)x-178, (int)y-50, 148, 32, "Save and exit", font, sound);
+			MenuButton exit = new MenuButton((int)x-178, (int)y-85, 100, 32, "Exit", font, sound);
+			addDialogButton(saveAndExit);
+			addDialogButton(exit);
+		}
+		
+		if(isDialogBoxOpen){
+			if(buttonPressed.equals("Save and exit")){
+				manager.setMenu(new MenuOptions(manager));
 			}
 			
 			if(buttonPressed.equals("Exit")){
-				manager.setMenu(new MenuStartGame(manager));
+				manager.setMenu(new MenuOptions(manager));
 			}
 		}
 	}

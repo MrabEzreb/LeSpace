@@ -36,7 +36,7 @@ public class SpaceScene extends GameScene{
 		super(world, player);
 		this.gim = gim;
 		
-		stars = new Stars(gim, 15000, 1, 10);
+		stars = new Stars(gim, 15000, 2, 10);
 
 		rock = new SpaceRock[4];		
 		rock[0] = new SpaceRock((GlobalScreen.MPP(300)), (GlobalScreen.MPP(-300)), new Sprite(GameSprite.getSprite(SpritesSpaceGame.space_rock)), world);

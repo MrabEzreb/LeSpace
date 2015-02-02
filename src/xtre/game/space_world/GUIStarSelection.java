@@ -37,20 +37,19 @@ public class GUIStarSelection extends GraphicsUserInterface {
 	@Override
 	public void updateInterface(float mouseX, float mouseY, boolean mouseLeftPress) {		
 		if(mouseLeftPress){
+			if(!menu.active)
+				for(int i = 0; i < stars.length; i++){
+					if(stars.getStar(i).onScreen){
+						if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
+							menu.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
+							menu.active = true;
+							break;
+						}
+					}
+				}
 			if(menu.mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
 				if(menu.isClosable()){
 					menu.active = false;
-					System.out.println("Set menu active to false");
-				}
-			}
-			if(!menu.active)
-			for(int i = 0; i < stars.length; i++){
-				if(stars.getStar(i).onScreen){
-					if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
-						menu.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
-						menu.active = true;
-						break;
-					}
 				}
 			}
 		}

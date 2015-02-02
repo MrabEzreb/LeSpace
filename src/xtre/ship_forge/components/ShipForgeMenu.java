@@ -11,6 +11,8 @@ import xtre.ship_forge.components.button.ShipForgeButton;
 
 public class ShipForgeMenu extends ShipForgeComponent{
 
+	public boolean horizontal = false;
+	
 	public float x, y, width, height;
 	public TitleString title;
 	private List<ShipForgeButton> buttons = new ArrayList<>();

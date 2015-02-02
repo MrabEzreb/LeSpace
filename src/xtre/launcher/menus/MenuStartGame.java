@@ -45,7 +45,7 @@ public class MenuStartGame extends Menu {
 		}
 		
 		if(buttonPressed.equals("Options")){
-			manager.setMenu(new MenuOptions(manager, font));
+			manager.setMenu(new MenuOptions(manager));
 		}
 		
 		if(buttonPressed.equals("Credits")){
