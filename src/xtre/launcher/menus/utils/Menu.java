@@ -3,12 +3,9 @@ package xtre.launcher.menus.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import xtre.graphics.UIGraphics;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Menu {
@@ -24,6 +21,8 @@ public abstract class Menu {
 	protected final MenuManager manager;
 	
 	public List<MenuButton> buttons = new ArrayList<>();
+	public String buttonPressed = "";
+	
 	private DialogBox dialogBox;
 	protected boolean isDialogBoxOpen = false;
 	private boolean mouseReleased = true, activateChecks = false;
@@ -34,6 +33,8 @@ public abstract class Menu {
 	public Menu(MenuManager manager){
 		this.manager = manager;
 	}
+	
+	public abstract void checks(float mouseX, float mouseY, boolean mouseLeftPress);
 	
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
 		this.mouseX = mouseX;
@@ -48,11 +49,14 @@ public abstract class Menu {
 		
 		if(!mouseLeftPress && mouseReleased && activateChecks){
 			checkAndDoButton();
-			process();
-			updateDialogBox(mouseX, mouseY);
+			clicked();
+			if(isDialogBoxOpen){
+				updateDialogBox(mouseX, mouseY);
+			}
 			mouseReleased = false;
 			activateChecks = false;
 		}
+		checks(mouseX, mouseY, mouseLeftPress);
 	}
 	public void render(SpriteBatch batch){
 		for(int i = 0; i < buttons.size(); i++){
@@ -71,37 +75,45 @@ public abstract class Menu {
 	}
 	
 	public void updateDialogBox(float mouseX, float mouseY){
-		if(isDialogBoxOpen){
-			dialogBox.update(mouseX, mouseY);
-			isDialogBoxOpen = dialogBox.open; 
-		}
+		dialogBox.update(mouseX, mouseY);
+		isDialogBoxOpen = dialogBox.open;
 	}
 	
 	public void openDialogBox(float x, float y, float width, float height){
-		dialogBox = new DialogBox(x, y, width, height);
-		isDialogBoxOpen = dialogBox.open = true;
+		if(!isDialogBoxOpen){
+			dialogBox = new DialogBox(x, y, width, height);
+		}
+		isDialogBoxOpen = true; dialogBox.open = true;
+	}
+	
+	public void addDialogButton(MenuButton button){
+		dialogBox.addButton(button);
 	}
 
 	public MenuButton getButton(int i) {
 		return buttons.get(i);
 	}
 	
-	public String buttonPressed = "";
-	
-	public String checkAndDoButton(){
+	public void checkAndDoButton(){
+		buttonPressed = "";
 		for(int i = 0; i < buttons.size(); i++){
-			if(buttons.get(i).isPressed() && !buttonPressed.equals(buttons.get(i).title)){
-				System.out.println("(Menu.java:87): "+buttons.get(i).title);
+			if(buttons.get(i).isPressed() &! buttonPressed.equals(buttons.get(i).title)){
+				System.out.println("(Menu.java:105): "+buttons.get(i).title);
 				buttons.get(i).btnSound.play();
 
 				buttonPressed = buttons.get(i).title;
-				return buttons.get(i).title;
 			}
 		}
-		return "";
+
+		for(int i = 0; isDialogBoxOpen && i < dialogBox.buttons.size(); i++){
+			if(!dialogBox.isPressed(i).equals("")){
+				buttonPressed = dialogBox.isPressed(i);
+				System.out.println(" :: " + buttonPressed);
+			}
+		}
 	}
 	
-	public abstract void process();
+	public abstract void clicked();
 	
 	public void dispose(){
 		for(MenuButton b : buttons){

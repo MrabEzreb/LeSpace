@@ -2,13 +2,16 @@ package xtre.game.player.ship.scene.inside_ship.graphics;
 
 import java.io.Serializable;
 
+import xtre.globals.GlobalSpriteNumbers;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class ShipTile implements Serializable{
 	private static final long serialVersionUID = 9011373355602576321L;
 	
 	public final int SHIP_VIEW_SPRITE_ID;
-	public float width, height, x, y;
+	public float x, y;
+	public int gridSize;
 	
 	public int gridLocationX, gridLocationY;
 
@@ -18,19 +21,32 @@ public class ShipTile implements Serializable{
 	 * This class is for sending over a network.
 	 * This class has a {@code SHIP_VIEW_SPRITE_ID} for getting the correct sprite on the clients machine.
 	 * 
-	 * @param sprite
 	 * @param spriteID
 	 * @param gridLocationX
 	 * @param gridLocationY
+	 * @param gridSize
 	 */
-	public ShipTile(Sprite sprite, int SHIP_VIEW_SPRITE_ID, int gridLocationX, int gridLocationY){
+	public ShipTile(int SHIP_VIEW_SPRITE_ID, int gridLocationX, int gridLocationY, int gridSize){
 		this.SHIP_VIEW_SPRITE_ID = SHIP_VIEW_SPRITE_ID;
 		this.gridLocationX = gridLocationX;
 		this.gridLocationY = gridLocationY;
 		
-		this.x = sprite.getX();
-		this.y = sprite.getY();
-		this.width = sprite.getWidth();
-		this.height = sprite.getHeight();
+		this.x = gridLocationX+gridSize;
+		this.y = gridLocationY+gridSize;
+		
+		this.gridSize = gridSize;
+	}
+	public ShipTile(int SHIP_VIEW_SPRITE_ID, int gridSize){
+		this.SHIP_VIEW_SPRITE_ID = SHIP_VIEW_SPRITE_ID;
+		this.gridSize = gridSize;
+	}
+
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public Sprite getSprite(){
+		return GlobalSpriteNumbers.getSprite(SHIP_VIEW_SPRITE_ID);
 	}
 }

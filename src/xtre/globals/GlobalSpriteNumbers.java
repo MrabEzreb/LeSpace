@@ -1,6 +1,9 @@
 package xtre.globals;
 
-import xtre.graphics.sprites.utils.SpriteID;
+import xtre.graphics.sprites.GameSprite;
+import xtre.graphics.sprites.sprite_types.space.SpriteInsideShip;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class GlobalSpriteNumbers {
 
@@ -11,4 +14,8 @@ public class GlobalSpriteNumbers {
 	
 	public static final int SPRITE_INSIDE_SHIP_white_panel_edge = 0;
 	
+	public static Sprite getSprite(int id){
+		if(id == 0)return GameSprite.getSprite(SpriteInsideShip.white_panel_edge);
+		return null;
+	}
 }

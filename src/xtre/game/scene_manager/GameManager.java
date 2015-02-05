@@ -48,12 +48,10 @@ public class GameManager {
 	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY){
-		boolean justPressedLeftMouseButton = false;
+		boolean mouseLeftPress = inputs.mouseJustClicked(Buttons.LEFT);
 		
-		justPressedLeftMouseButton = inputs.mouseJustClicked(Buttons.LEFT);
-		
-		gim.update(mouseX, mouseY, justPressedLeftMouseButton);
-		scene.update(camX, camY, mouseX, mouseY, justPressedLeftMouseButton);
+		gim.update(mouseX, mouseY, mouseLeftPress);
+		scene.update(camX, camY, mouseX, mouseY, mouseLeftPress);
 	}
 	
 	public void updateDegugMonitor(int data){

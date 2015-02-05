@@ -23,7 +23,7 @@ public class MenuMultiplayer extends Menu{
 	}
 
 	@Override
-	public void process() {
+	public void clicked() {
 		if(buttonPressed.equals("Join Server")){
 
 		}
@@ -41,4 +41,9 @@ public class MenuMultiplayer extends Menu{
 	@Override
 	public void renderScreen(SpriteBatch batch) {
 	}
+
+	@Override
+	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
+	}
+
 }

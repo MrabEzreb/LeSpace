@@ -34,7 +34,7 @@ public class MenuStartGame extends Menu {
 	}
 
 	@Override
-	public void process() {
+	public void clicked() {
 		if(buttonPressed.equals("Single Player")){
 			manager.main.setScreen(new GameLoop(manager.main));
 			dispose();
@@ -45,7 +45,7 @@ public class MenuStartGame extends Menu {
 		}
 		
 		if(buttonPressed.equals("Options")){
-			manager.setMenu(new MenuOptions(manager, font));
+			manager.setMenu(new MenuOptions(manager));
 		}
 		
 		if(buttonPressed.equals("Credits")){
@@ -63,5 +63,9 @@ public class MenuStartGame extends Menu {
 	public void renderScreen(SpriteBatch batch) {
 		planet.draw(batch);
 
+	}
+
+	@Override
+	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
 	}
 }

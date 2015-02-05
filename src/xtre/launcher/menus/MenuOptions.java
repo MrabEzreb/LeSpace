@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuOptions extends Menu{
 
-	public MenuOptions(MenuManager manager, BitmapFont font) {
+	public MenuOptions(MenuManager manager) {
 		super(manager);
 		
 		buttons.add(new MenuButton(0,0, 100, 32, "Audio", font, sound));
@@ -24,7 +24,7 @@ public class MenuOptions extends Menu{
 	}
 
 	@Override
-	public void process() {
+	public void clicked() {
 		
 		if(buttonPressed.equals("Audio")){
 			
@@ -45,5 +45,9 @@ public class MenuOptions extends Menu{
 
 	@Override
 	public void renderScreen(SpriteBatch batch) {
+	}
+
+	@Override
+	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
 	}
 }
