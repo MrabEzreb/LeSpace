@@ -4,8 +4,9 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import xtre.game.player.ship.scene.inside_ship.graphics.ShipGrid;
+import xtre.launcher.menus.utils.TitleString;
 import xtre.ship_forge.components.button.ShipForgeButton;
-import xtre.ship_forge.components.button.ShipForgeButtonAction;
+import xtre.ship_forge.components.button.Action;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -22,20 +23,9 @@ public class ShipForgeGridLayerView extends ShipForgeComponent {
 	}
 	
 	@Override
-	public void updateComponent(float mouseX, float mouseY, boolean mouseLeftPress) {
-		for(int i = 0; i < layers.size(); i++){
-			if(layers.get(i).bringToFront){
-				layers.get(i).bringToFront = false;
-				GridLayer gl = layers.get(i);
-				layers.remove(i);
-				layers.addLast(gl);
-				break;
-			}
-		}
-		
-		for(int i = layers.size()-1; i >= 0; i--)
-			layers.get(i).update(mouseX, mouseY, mouseLeftPress, i);
-		size = layers.size()-1;
+	public void mouseClick(float mouseX, float mouseY) {
+		for(GridLayer gl:layers)
+			gl.click(mouseX, mouseY, gl.slot);
 	}
 
 	@Override
@@ -52,22 +42,47 @@ public class ShipForgeGridLayerView extends ShipForgeComponent {
 	}
 
 	public void addLayer(ShipGrid sg) {
-		
-//		GridLayer[] gl = new GridLayer[layers.length+1];
-//		for(int i = 0; i < layers.length; i++){
-//			gl[i] = layers[i];
-//		}
-//		
-//		System.out.println(" :: :: " + layers.length + " " + gl.length);
-//		gl[gl.length-1] = new GridLayer(x, y, width+(layers.length*4), 16, layers.length, sg);
-//		layers = gl;
-	
-		layers.push(new GridLayer(x, y, width+(layers.size()*4), height, layers.size(), sg));
+		layers.push(new GridLayer(x, y, width, height, layers.size(), sg));
 	}
 	
+	public ShipGrid getTopLayer() {
+		if(!layers.isEmpty())
+			return layers.get(0).shipGrid;
+		else
+			return null;
+	}
+
+	@Override
+	public void updateComponent(float mouseX, float mouseY, boolean mouseLeftPress) {
+		for(int i = 0; i < layers.size(); i++){
+			if(layers.get(i).button.hover)
+				this.press = true;
+				if(layers.get(i).pressed){
+				layers.get(i).pressed = false;
+				GridLayer gl = layers.get(i);
+				layers.remove(i);
+				layers.addLast(gl);
+				break;
+			}
+		}
+		
+		for(int i = layers.size()-1; i >= 0; i--)
+			layers.get(i).update(mouseX, mouseY, mouseLeftPress);
+		
+		size = layers.size()-1;
+	}
+
+	@Override
+	public void setupMenu(float x, float y, float width, float height) {
+	}
+	
+	@Override
 	public void dispose(){
 		for(GridLayer gl:layers)
 			gl.dispose();
+		menu.dispose();
+		for(ShipForgeButton b:buttons)
+			b.dispose();
 	}
 }
 
@@ -75,47 +90,44 @@ class GridLayer{
 	public ShipGrid shipGrid;
 	public float x, y, width, height;
 	public int slot;
-	public boolean bringToFront = false;
-	private ShipForgeButton button = new ShipForgeButton();
-	public GridLayer(float x, float y, float width, float height, int slot_, ShipGrid shipGrid){
-	 	slot = slot_;
+	public boolean pressed = false;
+	public ShipForgeButton button = new ShipForgeButton();
+	public GridLayer(float x, float y, float width, float height, int slot, ShipGrid shipGrid){
+	 	this.slot = slot;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.shipGrid = shipGrid;
 	
-		button.x = this.x;
-		button.y = this.y;
-		button.width = this.width;
-		button.height = this.height;
-		button.sprite.setPosition(this.x, this.y);
-		button.sprite.setSize(this.width, this.height);
-		ShipForgeButtonAction action = new ShipForgeButtonAction(){
+		button.x = x;
+		button.y = y;
+		button.width = width;
+		button.height = height;
+		button.setPosition(x, y+(slot*height));
+		button.sprite.setSize(width, height);
+		Action action = new Action(){
 			public void action(){
-				bringToFront = true;
+				pressed = true;
 			}
 		};
-		Random r = new Random();
-		button.setColor(r.nextFloat(), r.nextFloat(), r.nextFloat(), 1f);
-		this.button.setAction(action);
+
+		float r=1,g=1,b=1,s=slot+7; s = s/15;
+		r=0.3f; g=s/1.7f; b=s/3.4f;
+		g=g+g/2; b=b+b/2;
+		System.out.println(s + " " + r + " " + g + " " + b);
+		button.setColor(r, g, b, 1);
+		button.setAction(action);
+		button.title = new TitleString(x, y, "gridLayer " + slot);
 	}
-	public void updateStats(float x, float y, float width, float height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		button.x = this.x;
-		button.y = this.y;
-		button.width = this.width;
-		button.height = this.height;
-		button.sprite.setPosition(this.x, this.y);
-		button.sprite.setSize(this.width, this.height);
-	}
-	public void update(float mouseX, float mouseY, boolean mouseLeftPress, int slot) {
-		button.setPosition(x, y+(slot*height));
-		button.update(mouseX, mouseY, mouseLeftPress);
+	public void click(float mouseX, float mouseY, int slot){
 		this.slot = slot;
+		button.setPosition(x, y+(slot*height));
+		button.click(mouseX, mouseY);
+		button.title.title = "gridLayer " + slot;
+	}
+	public void update(float mouseX, float mouseY, boolean mouseLeftPress) {
+		button.update(mouseX, mouseY, mouseLeftPress);
 	}
 	public void render(SpriteBatch batch){
 		button.render(batch);

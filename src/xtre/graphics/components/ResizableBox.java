@@ -43,6 +43,7 @@ public class ResizableBox {
 		float w = sprite.getWidth(), h = sprite.getHeight();
 		sprite.setPosition(x+w, y+h);
 		sprite.setSize(width-sprite.getWidth(), height-sprite.getHeight());
+		sprite.setAlpha(0.8f);
 		graphics.add(sprite);
 	}
 	

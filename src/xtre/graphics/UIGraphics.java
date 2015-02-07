@@ -27,6 +27,7 @@ public class UIGraphics {
 				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_bl), //[7] 
 				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_br), //[8]
 		};
+		
 		return boxHUDGraphics;
 	}
 	

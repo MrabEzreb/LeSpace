@@ -45,7 +45,7 @@ public class GlobalsInterface {
 	}
 
 	public static boolean withinSquareBounds(float mouseX, float mouseY,  float squareX, float squareY, float squareWidth, float squareHeight) {
-		if(mouseX > squareX && mouseX < squareX+squareWidth && mouseY > squareY && mouseY < squareY+squareHeight)
+		if(mouseX >= squareX && mouseX <= squareX+squareWidth && mouseY >= squareY && mouseY <= squareY+squareHeight)
 			return true;
 		else
 			return false;

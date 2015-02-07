@@ -25,22 +25,31 @@ public class MenuShipForge extends Menu {
 		buttons.add(new MenuButton(32, GlobalScreen.LAUNCHER_HEIGHT-32, 100, 32, "Back", font, sound));
 		
 		titleFont = HUDFont.title_font.largeFont;
-		titleFont.setColor(.8f, .8f, 1.0f, 1f);
+		titleFont.setColor(0.8f,0.8f, 1.0f, 1f);
 		title = "Save, exit?";
 		titleX = (GlobalScreen.GAME_WIDTH/2)-128;
 		titleY = (GlobalScreen.GAME_HEIGHT/2)-4;
 	}
 
+	public void render(SpriteBatch batch){
+		renderScreen(batch);
+		for(int i = 0; i < buttons.size(); i++){
+			buttons.get(i).render(batch);
+		}
+		if(isDialogBoxOpen){
+			dialogBox.render(batch);
+			titleFont.draw(batch, title, titleX, titleY);
+		}
+	}
+	
 	@Override
 	public void renderScreen(SpriteBatch batch) {
-		if(isDialogBoxOpen)
-			titleFont.draw(batch, title, titleX, titleY);
 		shipForge.render(batch);
 	}
 
 	@Override
 	public void clicked() {
-		shipForge.update(mouseX, mouseY, mouseLeftPress);
+		shipForge.mouseClick(mouseX, mouseY, mouseLeftPress);
 		
 		if(buttonPressed.equals("Back") && !isDialogBoxOpen){
 			float x=GlobalScreen.GAME_WIDTH/2;
@@ -73,6 +82,6 @@ public class MenuShipForge extends Menu {
 
 	@Override
 	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
-		shipForge.checks(mouseX, mouseY, mouseLeftPress);
+		shipForge.update(mouseX, mouseY, mouseLeftPress);
 	}
 }

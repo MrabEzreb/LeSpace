@@ -21,8 +21,6 @@ public class LauncherLoop implements Screen {
 
 	private MenuManager menus;
 	
-	private GameInputs inputs = new GameInputs();
-	
 	public static final int WIDTH = GlobalScreen.LAUNCHER_WIDTH, HEIGHT = 648;
 		
 	public LauncherLoop(Main main){
@@ -56,7 +54,7 @@ public class LauncherLoop implements Screen {
 		cam.update();		
 		moveCameraAround();
 		
-		menus.update(Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.LAUNCHER_HEIGHT, inputs.mouseJustClicked(Buttons.LEFT));
+		menus.update(Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.LAUNCHER_HEIGHT, GameInputs.mouseJustClicked(Buttons.LEFT));
 	}
 	
 	private void moveCameraAround(){

@@ -36,14 +36,13 @@ public class ShipTile implements Serializable{
 		
 		this.gridSize = gridSize;
 	}
-	public ShipTile(int SHIP_VIEW_SPRITE_ID, int gridSize){
+	public ShipTile(int SHIP_VIEW_SPRITE_ID){
 		this.SHIP_VIEW_SPRITE_ID = SHIP_VIEW_SPRITE_ID;
-		this.gridSize = gridSize;
 	}
 
-	public void setPosition(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public void setPosition(float mouseX, float mouseY) {
+		this.x = mouseX;
+		this.y = mouseY;
 	}
 	
 	public Sprite getSprite(){

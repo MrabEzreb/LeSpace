@@ -12,8 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class ShipGrid {
 
 	public int gridSize;
-	public float gridHeight, gridWidth;
-	List<ShipTile> tiles = new ArrayList<>();
+	private List<ShipTile> tiles = new ArrayList<>();
 	
 	float mouseX, mouseY;
 	boolean mouseLeftPress;
@@ -24,16 +23,9 @@ public class ShipGrid {
 	 */
 	public ShipGrid(int gridSize){
 		this.gridSize = gridSize;
-		gridWidth = GlobalScreen.GAME_WIDTH/gridSize;
-		gridHeight = GlobalScreen.GAME_HEIGHT/gridSize;
 	}
 	
 	public void setPosition(int xx, int yy){
-		for(int x = 0; x < gridWidth; x++){
-			for(int y = 0; y < gridHeight; y++){
-				tiles.get((int)(x+y*gridWidth)).setPosition(x, y);
-			}
-		}
 	}
 	
 	public void addTile(ShipTile tile){
@@ -63,10 +55,8 @@ public class ShipGrid {
 			return null;
 	}
 
-	public void render(SpriteBatch batch) {
+	public List<ShipTile> getTiles(){
+		return tiles;
 	}
-
-	public void setHighlightedTile(int i) {
-		tiles.set(i, new ShipTile(tiles.get(i).SHIP_VIEW_SPRITE_ID, tiles.get(i).gridLocationX, tiles.get(i).gridLocationY, tiles.get(i).gridSize));
-	}
+	
 }

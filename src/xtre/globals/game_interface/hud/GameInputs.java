@@ -2,11 +2,11 @@ package xtre.globals.game_interface.hud;
 
 import com.badlogic.gdx.Gdx;
 
-public class GameInputs {
+public abstract class GameInputs {
 	
-	private boolean leftButton = false;
+	private static boolean leftButton = false;
 	
-	public boolean mouseJustClicked(int button){
+	public static final boolean mouseJustClicked(int button){
 		boolean b = false;
 		boolean on = Gdx.input.isButtonPressed(button);
 		
@@ -18,7 +18,10 @@ public class GameInputs {
 		if(!on){
 			leftButton = false;
 		}
-		
 		return b;
+	}
+	
+	public static final boolean mouseHolding(int button){
+		return Gdx.input.isButtonPressed(button);
 	}
 }

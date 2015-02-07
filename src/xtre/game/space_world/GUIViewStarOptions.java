@@ -63,7 +63,7 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 		menus[2].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 10);
 		menus[2].setActionToButton(0, new GameButtonAction(){
 			public void doAction(){
-				System.out.println("Button two doing its thing");
+				System.out.println("Button two");
 			}
 		});
 		

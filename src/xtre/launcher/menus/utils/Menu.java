@@ -23,7 +23,7 @@ public abstract class Menu {
 	public List<MenuButton> buttons = new ArrayList<>();
 	public String buttonPressed = "";
 	
-	private DialogBox dialogBox;
+	protected DialogBox dialogBox;
 	protected boolean isDialogBoxOpen = false;
 	private boolean mouseReleased = true, activateChecks = false;
 	

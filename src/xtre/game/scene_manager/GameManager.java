@@ -22,8 +22,6 @@ public class GameManager {
 	
 	private GameInterfaceManager gim;
 	
-	private GameInputs inputs = new GameInputs();
-	
 	/**
 	 *  Manages the scene;
 	 *  From either Space or on a planet and then others soon.
@@ -48,7 +46,7 @@ public class GameManager {
 	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY){
-		boolean mouseLeftPress = inputs.mouseJustClicked(Buttons.LEFT);
+		boolean mouseLeftPress = GameInputs.mouseJustClicked(Buttons.LEFT);
 		
 		gim.update(mouseX, mouseY, mouseLeftPress);
 		scene.update(camX, camY, mouseX, mouseY, mouseLeftPress);

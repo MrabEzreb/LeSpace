@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class InsideShip {
-	
+	//TODO all it
 	private List<ShipGrid> grids = new ArrayList<>();
 	private List<Sprite> sprites = new ArrayList<>();
 
@@ -40,8 +40,7 @@ public class InsideShip {
 	}
 
 	public void render(SpriteBatch batch) {
-		for(ShipGrid sg:grids)
-			sg.render(batch);
+
 	}
 	
 	public void loadShip(ShipGrid ship){
