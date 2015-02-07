@@ -1,6 +1,7 @@
 package xtre.game.scene_manager;
 
 import xtre.game.game_gui.GameInterfaceManager;
+import xtre.game.menus.InGameMenu;
 import xtre.game.player.Player;
 import xtre.game.space_world.SpaceScene;
 import xtre.globals.game_interface.hud.GameInputs;
@@ -17,6 +18,7 @@ public class GameManager {
 	public GameScene scene;
 	private Player player;
 	private World world = new World(new Vector2(0,0), true);
+	private InGameMenu gameMenu;
 	
 	private SceneChanger sceneChanger;
 	
@@ -34,24 +36,29 @@ public class GameManager {
 		
 		sceneChanger = new SceneChanger(this, gim, world, player);
 		scene = new SpaceScene(gim, world, player);
+		
+		gameMenu = new InGameMenu();
 	}
 	
 	public Player getPlayer(int playerID){
 		return player;
 	}
-
-	public void render(SpriteBatch batch, float dt) {
-		scene.render(batch);
-		gim.render(batch);
-	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY){
-		boolean mouseLeftPress = GameInputs.mouseJustClicked(Buttons.LEFT);
+		boolean mouseLeftPress = GameInputs.mousePressed(Buttons.LEFT);
 		
-		gim.update(mouseX, mouseY, mouseLeftPress);
+		gameMenu.update(mouseX, mouseY);
+		if(!InGameMenu.open)
+			gim.update(mouseX, mouseY, mouseLeftPress);
 		scene.update(camX, camY, mouseX, mouseY, mouseLeftPress);
 	}
 	
+	public void render(SpriteBatch batch, float dt) {
+		gameMenu.render(batch);
+		scene.render(batch);
+		gim.render(batch);
+	}
+
 	public void updateDegugMonitor(int data){
 		
 	}

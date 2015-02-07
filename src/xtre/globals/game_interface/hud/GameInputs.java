@@ -4,19 +4,22 @@ import com.badlogic.gdx.Gdx;
 
 public abstract class GameInputs {
 	
-	private static boolean leftButton = false;
+	public static boolean keyPressed(int key) {
+		return Gdx.input.isKeyJustPressed(key);
+	}
 	
-	public static final boolean mouseJustClicked(int button){
+	private static boolean mousePressed;
+	public static final boolean mousePressed(int button){
 		boolean b = false;
 		boolean on = Gdx.input.isButtonPressed(button);
 		
-		if(on&&!leftButton){
+		if(on&&!mousePressed){
 			b=true;
-			leftButton=true;
+			mousePressed=true;
 		}
 		
 		if(!on){
-			leftButton = false;
+			mousePressed = false;
 		}
 		return b;
 	}
@@ -24,4 +27,5 @@ public abstract class GameInputs {
 	public static final boolean mouseHolding(int button){
 		return Gdx.input.isButtonPressed(button);
 	}
+
 }

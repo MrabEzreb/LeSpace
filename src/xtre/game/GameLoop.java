@@ -73,11 +73,6 @@ public class GameLoop implements Screen {
 			camera.zoom--;
 		}
 		camera.update();
-		
-		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
-			Gdx.app.exit();
-		}
-		
 		//
 	}
 	

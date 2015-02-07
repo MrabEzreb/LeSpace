@@ -22,8 +22,6 @@ public class Ship {
 	public Inventory inventory;
 	private GameInterfaceManager gim;
 	
-	private int shipStorageSizeX = 3, shipStorageSizeY = 3;
-	
 	public Sprite sprite;
 
 	public Body body;
@@ -31,6 +29,9 @@ public class Ship {
 	public FixtureDef fixtureDef;
 	
 	private ShipStatsDataPack stats = new ShipStatsDataPack();
+	
+	private int shipStorageSizeX = 3, shipStorageSizeY = 3;
+	private boolean usingFuel = false;
 	
 	public Ship(GameInterfaceManager gim, float x, float y, Sprite sprite, World world){
 		System.out.println("ship");
@@ -66,14 +67,15 @@ public class Ship {
 	}
 	
 	public void update(float camX, float camY, float mouseX, float mouseY, boolean mouseLeftPress){
-		updateFuelLevel(updateMovement(mouseX, mouseY));
+		updateMovement(mouseX, mouseY);
+		updateFuelLevel();
 	}
 
 	public void render(SpriteBatch batch){
 		sprite.draw(batch);
 	}
 	
-	private void updateFuelLevel(boolean usingFuel){
+	private void updateFuelLevel(){
 		if(usingFuel) stats.fuelAmount -= stats.fuelEfficiency;
 	}
 	
@@ -81,7 +83,6 @@ public class Ship {
 	private Vector2 mp = new Vector2();
 	
 	private boolean updateMovement(float mouseX, float mouseY){
-		boolean usingFuel = false;
 		if(!stats.outOfFuel){
 			mp.x = mouseX;
 			mp.y = mouseY;

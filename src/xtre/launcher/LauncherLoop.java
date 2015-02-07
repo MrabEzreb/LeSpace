@@ -54,7 +54,7 @@ public class LauncherLoop implements Screen {
 		cam.update();		
 		moveCameraAround();
 		
-		menus.update(Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.LAUNCHER_HEIGHT, GameInputs.mouseJustClicked(Buttons.LEFT));
+		menus.update(Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.LAUNCHER_HEIGHT, GameInputs.mousePressed(Buttons.LEFT));
 	}
 	
 	private void moveCameraAround(){

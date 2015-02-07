@@ -23,38 +23,6 @@ public class GameInterfaceManager {
 		for(int i = 0; i < gi.size(); i++){
 			gi.get(i).update(mouseX, mouseY, mouseLeftPress);
 		}
-		
-//		//TODO logic
-//		for(GameInterface gi:gi){
-//			gi.selected = false;
-//			gi.hidden = false;
-//		}
-//		for(GameInterface gi:gi){
-//			if(gi.isActive(mouseX, mouseY, mouseLeftPress) &! gi.isAlwaysActive){
-//				gi.update(mouseX, mouseY, mouseLeftPress);
-//				break;
-//			} else if(gi.isAlwaysActive &! gi.hidden){
-//					gi.update(mouseX, mouseY, mouseLeftPress);
-//			}
-//		}
-//
-//		for(int i = 0; i < gi.size(); i++){
-//			for(int j = 0; j < gi.size(); j++){
-//				if(gi.get(i).isActive(mouseX, mouseY, mouseLeftPress) && gi.get(i).isAlwaysActive && gi.get(j).isActive(mouseX, mouseY, mouseLeftPress) && i!=j){
-//					gi.get(i).hidden = true;
-//				}
-//			}
-//			if(gi.get(i).hidden)
-//				gi.get(i).tintColor(.8f,.8f,.8f,.1f);
-//			else
-//				gi.get(i).tintColor(.8f,.8f,.8f,.1f);
-//		}
-//		
-//		for(int i = 0; i < gi.size(); i++){
-//			if(gi.get(i).closed){
-//				gi.remove(i);
-//			}
-//		}
 	}
 	
 	public void render(SpriteBatch batch){
@@ -168,7 +136,7 @@ public class GameInterfaceManager {
 		return gi.size();
 	}
 
-	public boolean hudNamseMatches(int i, int id) {
+	public boolean hudNameMatches(int i, int id) {
 		boolean match = false;
 		
 		if(id == gi.get(i).GI_ID){
@@ -179,7 +147,7 @@ public class GameInterfaceManager {
 		return match;
 	}
 
-	public boolean hUDDisplaying(int id){
+	private boolean hUDDisplaying(int id){
 		boolean hUDAlreadyDisplaying = false;
 		for(int i = 0; i < gi.size(); i++){
 			if(gi.get(i).GI_ID == id && gi.get(i).TYPE == GlobalsInterface.HUD_TYPE){
@@ -189,7 +157,7 @@ public class GameInterfaceManager {
 		return hUDAlreadyDisplaying;
 	}
 	
-	public boolean gUIDisplaying(int id){
+	private boolean gUIDisplaying(int id){
 		boolean gUIAlreadyDisplaying = false;
 		for(int i = 0; i < gi.size(); i++){
 			if(gi.get(i).GI_ID == id && gi.get(i).TYPE == GlobalsInterface.GUI_TYPE){

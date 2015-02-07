@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.GameInterfaceManager;
+import xtre.game.menus.InGameMenu;
 import xtre.game.physics_objects.player.SpaceRock;
 import xtre.game.player.Player;
 import xtre.game.scene_manager.GameScene;
@@ -23,7 +24,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class SpaceScene extends GameScene{
-
+	
 	public SpaceRock[] rock;
 	public Stars stars;
 	
@@ -62,6 +63,7 @@ public class SpaceScene extends GameScene{
 		}
 		
 		world.step(timeStep, velocityIterations, positionIterations);
+		
 	}
 	
 	public void render(SpriteBatch batch){
@@ -70,7 +72,6 @@ public class SpaceScene extends GameScene{
 		for(int i = 0; i < rock.length; i++){
 			rock[i].render(batch);
 		}
-
 			player.render(batch);
 	}
 
