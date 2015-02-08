@@ -5,8 +5,8 @@ import java.util.List;
 
 import xtre.game.game_gui.GameInterface;
 import xtre.game.game_gui.GameInterfaceManager;
-import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
-import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
+import xtre.game.game_gui.heads_up_display.button.GameButton;
+import xtre.game.game_gui.heads_up_display.menu.GameMenu;
 import xtre.globals.game_interface.GlobalsInterface;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

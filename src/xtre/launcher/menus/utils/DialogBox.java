@@ -58,9 +58,7 @@ public class DialogBox {
 	}
 	
 	public void dispose(){
-		for(Sprite s:box.graphics){
-			s.getTexture().dispose();
-		}
+		box.dispose();
 	}
 
 	public void addButton(MenuButton button) {

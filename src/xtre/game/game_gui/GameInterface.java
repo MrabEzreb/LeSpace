@@ -1,9 +1,8 @@
 package xtre.game.game_gui;
 
-import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
 import xtre.globals.game_interface.GlobalsInterface;
+import xtre.graphics.components.ResizableBox;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class GameInterface{
@@ -20,7 +19,7 @@ public abstract class GameInterface{
 	public final GameInterfaceManager gim;
 	public boolean closed = false;
 	
-	public BackPanel frame;
+	public ResizableBox frame;
 	public int priority=0;
 	
 	public GameInterface(GameInterfaceManager gim, int GI_COMPONENT_ID, int GAME_INTERFACE_TYPE, float x, float y, float width, float height){
@@ -45,7 +44,6 @@ public abstract class GameInterface{
 		this.mouseLeftPress = mouseLeftPress;
 		
 		if(isActive || isAlwaysActive){
-			if(frame!=null) frame.update(mouseX, mouseY, mouseLeftPress);
 			updateInterface(mouseX, mouseY, mouseLeftPress);
 			//dragging();
 		}
@@ -67,17 +65,17 @@ public abstract class GameInterface{
 			return true;
 	}
 
-	public boolean dragging(){
-		if(frame != null && frame.dragging()){
-			System.out.println(this.getClass().getSimpleName());
-			this.x = mouseX-x;
-			this.y = mouseY-y;
-			//setPosition(x, y);
-			return true;
-		}
-		else
-			return false;
-	}
+//	public boolean dragging(){
+//		if(frame != null && frame.dragging()){
+//			System.out.println(this.getClass().getSimpleName());
+//			this.x = mouseX-x;
+//			this.y = mouseY-y;
+//			//setPosition(x, y);
+//			return true;
+//		}
+//		else
+//			return false;
+//	}
 	
 	public abstract void updateInterface(float mouseX, float mouseY, boolean mouseLeftClicked);
 	public abstract void renderInterface(SpriteBatch batch);

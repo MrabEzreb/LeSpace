@@ -3,9 +3,9 @@ package xtre.game.game_gui.graphics_user_interface.gui_parts;
 import java.util.ArrayList;
 import java.util.List;
 
-import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
-import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
-import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
+import xtre.game.game_gui.heads_up_display.button.GameButton;
+import xtre.game.game_gui.heads_up_display.button.GameButtonAction;
+import xtre.game.game_gui.heads_up_display.menu.GameMenu;
 import xtre.globals.game_interface.GlobalsInterface;
 import xtre.graphics.font.FontEntity;
 

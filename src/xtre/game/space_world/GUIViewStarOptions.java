@@ -2,9 +2,9 @@ package xtre.game.space_world;
 
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
-import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
-import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButtonAction;
-import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
+import xtre.game.game_gui.heads_up_display.button.GameButtonAction;
+import xtre.game.game_gui.heads_up_display.menu.GameMenu;
+import xtre.graphics.components.ResizableBox;
 import xtre.graphics.font.FontEntity;
 import xtre.graphics.font.HUDFont;
 import xtre.graphics.sprites.GameSprite;
@@ -20,8 +20,8 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 	private float mouseX, mouseY;
 	public boolean active = false;
 
-	public GUIViewStarOptions(final GameInterfaceManager gim, int GI_ID, BackPanel frame) {
-		super(gim, GI_ID, frame.y, frame.x, frame.width, frame.height);
+	public GUIViewStarOptions(final GameInterfaceManager gim, int GI_ID, ResizableBox frame) {
+		super(gim, GI_ID, frame.getX(), frame.getY(), frame.getWidth(), frame.getHeight());
 		this.frame = frame;
 		
 		Sprite s = GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar);
@@ -32,10 +32,11 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 				new GameMenu(new Sprite(s)),
 		};
 		
-		menus[0].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 10);
-		menus[0].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, -22);
-		menus[0].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, -54);
-		
+		Sprite viewSubButtonSprite = GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button);
+		menus[0].addButton(new Sprite(viewSubButtonSprite), 118, (-viewSubButtonSprite.getHeight()*1)+32);
+		menus[0].addButton(new Sprite(viewSubButtonSprite), 118, (-viewSubButtonSprite.getHeight()*2)+32);
+		menus[0].addButton(new Sprite(viewSubButtonSprite), 118, (-viewSubButtonSprite.getHeight()*3)+32);
+
 		menus[0].setActionToButton(0, new GameButtonAction(){
 			public void doAction(){
 				System.out.println("Button view doing its thing");
@@ -51,8 +52,7 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 			}
 		});
 		
-		
-		menus[1].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 10);
+		menus[1].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 7);
 		menus[1].setActionToButton(0, new GameButtonAction(){
 			public void doAction(){
 				System.out.println("Changing scene to interiorShip");
@@ -60,21 +60,22 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 			}
 		});
 		
-		menus[2].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 10);
+		menus[2].addButton(GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar_button), 118, 7);
 		menus[2].setActionToButton(0, new GameButtonAction(){
 			public void doAction(){
 				System.out.println("Button two");
 			}
 		});
 		
-		menus[0].setFont(new FontEntity("View", HUDFont.title_font.largeFont), 32, 27);
-		menus[0].getButtons().get(0).setLabel(0, 0, "ok", HUDFont.title_font.mediumFont);
-		menus[1].setFont(new FontEntity("Goto Ship", HUDFont.title_font.largeFont), 19, 27);
-		menus[2].setFont(new FontEntity("two", HUDFont.title_font.largeFont), 38, 27);
+		menus[0].setFont(new FontEntity("View", HUDFont.title_font.largeFont), 32, 28);
+		menus[0].getButtons().get(0).setLabel(-74, -12, "ok", HUDFont.title_font.mediumFont);
 		
-	}
-
-	public void dispose() {
+		menus[1].setFont(new FontEntity("Goto Ship", HUDFont.title_font.largeFont), 8, 28);
+		menus[1].getButtons().get(0).setLabel(-74, -12, "ok", HUDFont.title_font.mediumFont);
+		
+		menus[2].setFont(new FontEntity("twop", HUDFont.title_font.largeFont), 38, 28);
+		menus[2].getButtons().get(0).setLabel(-74, -12, "ok", HUDFont.title_font.mediumFont);
+		
 	}
 	
 	public void updateInterface(float mouseX, float mouseY, boolean leftMousePress) {
@@ -102,7 +103,7 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 		
 		frame.setPosition(x, y);
 		for(int i = 0; i < menus.length; i++)
-			menus[i].setPosition(x, y - (i*42) + 88);
+			menus[i].setPosition(x+16, y - (i*40) + 98);
 	}
 
 	/**
@@ -122,5 +123,11 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 	public void isActive(float mouseX, float mouseY, boolean mouseLeftPress){
 		isActive = active;
 		this.mouseLeftPress = false;
+	}
+	
+	public void dispose() {
+		for(GameMenu gm:menus){
+			gm.dispose();
+		}
 	}
 }

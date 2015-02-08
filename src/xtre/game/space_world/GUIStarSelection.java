@@ -2,15 +2,8 @@ package xtre.game.space_world;
 
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
-import xtre.game.game_gui.graphics_user_interface.gui_parts.DropMenu;
-import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
-import xtre.game.game_gui.heads_up_display.utils.button_set.game_button.GameButton;
-import xtre.game.game_gui.heads_up_display.utils.menu_bar.GameMenu;
 import xtre.globals.game_interface.GlobalsInterface;
-import xtre.graphics.UIGraphics;
-import xtre.graphics.font.FontEntity;
-import xtre.graphics.font.HUDFont;
-import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
+import xtre.graphics.components.ResizableBox;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,7 +24,9 @@ public class GUIStarSelection extends GraphicsUserInterface {
 		
 		this.isAlwaysActive = true;
 		
-		menu = new GUIViewStarOptions(gim, GI_ID, new BackPanel(0, 0, 15, 8, UIGraphics.getBoxHUDGraphics()));
+		ResizableBox box = new ResizableBox(0, 0, 256, 136);
+		box.setGraphicsTo(0);
+		menu = new GUIViewStarOptions(gim, GI_ID, box);
 	}
 
 	@Override

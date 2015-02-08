@@ -27,5 +27,8 @@ public abstract class GameInputs {
 	public static final boolean mouseHolding(int button){
 		return Gdx.input.isButtonPressed(button);
 	}
-
+	
+	public static final boolean keyHolding(int key){
+		return Gdx.input.isKeyPressed(key);
+	}
 }

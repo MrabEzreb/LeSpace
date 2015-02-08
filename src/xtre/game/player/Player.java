@@ -14,7 +14,7 @@ public class Player {
 	private PlayerInterface playersGUI;
 	
 	public Player(float x, float y, Sprite sprite, World world, GameInterfaceManager gim) {
-		ship = new Ship(gim, x, y, sprite, world);
+		ship = new Ship(x, y, sprite, world);
 		playersGUI = new PlayerInterface(gim, this);
 	}
 	
@@ -25,6 +25,7 @@ public class Player {
 			System.out.println("(Player.java:74) out of fuel");
 		}
 		ship.update(camX, camY, mouseX, mouseY, mouseLeftPress);
+		ship.physics.update(mouseX, mouseY);
 	}
 	
 	public void render(SpriteBatch batch){

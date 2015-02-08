@@ -1,19 +1,12 @@
 package xtre.game.game_gui.graphics_user_interface;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import xtre.game.game_gui.GameInterface;
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.globals.game_interface.GlobalsInterface;
 
-import com.badlogic.gdx.utils.Disposable;
-
 public abstract class GraphicsUserInterface extends GameInterface {
 	public final static int TYPE=GlobalsInterface.GUI_TYPE;
 
-	protected List<Disposable> disposable = new ArrayList<>();
-	
 	/**
 	 * @param GUI_ID
 	 * @param x

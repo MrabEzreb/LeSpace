@@ -15,10 +15,8 @@ public class InGameMenu {
 								 * TODO Have an if(!open) on every other gui update so to skip all non InGameMenu interactions.
 								 */
 	public InGameMenu(){
-		
 		float xx = GlobalScreen.GAME_WIDTH/2, yy = (GlobalScreen.GAME_HEIGHT/2), w = 512, h = 372;
 		mainMenu = new GameMenuMain(xx - w/2, yy - h/2, w, h);
-		
 	}
 	
 	public void update(float mouseX, float mouseY){

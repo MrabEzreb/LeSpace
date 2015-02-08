@@ -3,6 +3,7 @@ package xtre.game.game_gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import xtre.game.menus.InGameMenu;
 import xtre.game.scene_manager.GameManager;
 import xtre.game.scene_manager.GameScene;
 import xtre.globals.game_interface.GlobalsInterface;
@@ -20,8 +21,10 @@ public class GameInterfaceManager {
 	}
 	
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
-		for(int i = 0; i < gi.size(); i++){
-			gi.get(i).update(mouseX, mouseY, mouseLeftPress);
+		if(!InGameMenu.open){
+			for(int i = 0; i < gi.size(); i++){
+				gi.get(i).update(mouseX, mouseY, mouseLeftPress);
+			}
 		}
 	}
 	

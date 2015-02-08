@@ -19,5 +19,4 @@ public class SpritesHeadsUpDisplay {
 	
 	public final static SpriteDetails button = new SpriteDetails("output/game_sprites/hud_sprites/hud_sprites.pack", "button");
 
-
 }

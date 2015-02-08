@@ -2,10 +2,8 @@ package xtre.game.player.ship;
 
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
-import xtre.game.game_gui.heads_up_display.hud_parts.BackPanel;
 import xtre.game.game_item.GameItem;
 import xtre.game.game_item.utils.ItemEmptySlot;
-import xtre.globals.game_interface.gui.GlobalsGUI;
 import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space_hud.SpriteInventory;
 
@@ -18,21 +16,28 @@ public class Inventory extends GraphicsUserInterface{
 	
 	private GameItem[] slots;
 	
+	private final float inventoryX, inventoryY;
+	
 	/**
+	 * 
+	 * @param gim
 	 * @param slotsHorizontal
 	 * @param slotsVirtical
 	 * @param graphics
 	 */
-	public Inventory(GameInterfaceManager gim, int slotsHorizontal, int slotsVirtical, Sprite[] graphics){
-		super(gim, GlobalsGUI.SHIP_INVENTORY, 200, 400, slotsHorizontal*32, slotsVirtical*32);
+	public Inventory(GameInterfaceManager gim, int globalID, int slotsHorizontal, int slotsVirtical, Sprite[] graphics){
+		super(gim, globalID, 200, 400, slotsHorizontal*32, slotsVirtical*32);
+		inventoryX = 0;
+		inventoryY = 0;
 		
+		System.out.println(x + " pos " + y);
 		slots = new GameItem[slotsHorizontal*slotsVirtical];
 		int xx=0, yy=0;
 		for(int i = 0; i < slots.length; i++){
 			Sprite s = new Sprite(emptySlot);
 			s.setPosition(x + (xx*32), y + (yy*32));
-			
 			slots[i] = new ItemEmptySlot(s);
+			
 			
 			if(xx<2)xx++;
 			else{
@@ -42,8 +47,6 @@ public class Inventory extends GraphicsUserInterface{
 		}
 		
 		System.out.println("\n length:" + slots.length);
-		
-		frame = new BackPanel(200-8, 400-8, 7, 7, graphics);
 	}
 	
 	public void put(GameItem item, int slot){
@@ -71,5 +74,8 @@ public class Inventory extends GraphicsUserInterface{
 
 	@Override
 	public void setPosition(float x, float y) {
+		for(GameItem gi: slots){
+			gi.sprite.setPosition(inventoryX+x, inventoryY+y);
+		}
 	}
 }

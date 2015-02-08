@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class UIGraphics {
 	
+	/**
+	 * Must not override constructor.
+	 */
 	private UIGraphics(){}
 	
 	/**
