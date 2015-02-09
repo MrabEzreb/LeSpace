@@ -1,20 +1,19 @@
 package xtre.game.space_world;
 
-import xtre.globals.game_interface.GlobalsInterface;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Star {
 	
-	public int size, width, height;
-	private final float placeX, placeY, depth;
+	public float size, width, height;
+	private final float placeX, placeY;
+	final float depth;
 	public Sprite sprite;
 	public boolean onScreen = false;
 //	private final float clickAreaSize = 32;
 	
 //	public boolean selected = false;
 	
-	public Star(float placeX, float placeY, float depth, int size, Sprite sprite){
+	public Star(float placeX, float placeY, float depth, float size, Sprite sprite){
 		this.size = size;
 		this.height = size;
 		this.width = size;
@@ -42,7 +41,7 @@ public class Star {
 	}
 
 	public void updatePosition(float px, float py) {
-		sprite.setPosition( ((placeX)-(px/depth)), (placeY)-(py/depth) );
+		sprite.setPosition( ((placeX)-(px*depth)), (placeY)-(py*depth) );
 	}
 	public float getX() {
 		return sprite.getX();

@@ -70,7 +70,7 @@ public class ShipBodyPhysics {
 		force.x = (xx*MathUtils.radiansToDegrees)/20;
 		force.y = (yy*MathUtils.radiansToDegrees)/20;
 		
-		if(applyForce && Math.abs(body.getLinearVelocity().x+body.getLinearVelocity().y) < 10){
+		if(applyForce && Math.abs(body.getLinearVelocity().x+body.getLinearVelocity().y) < 3){
 			if(Gdx.input.isKeyPressed(Keys.A)) {
 				body.applyTorque(0.7f, true);
 			}
@@ -79,7 +79,7 @@ public class ShipBodyPhysics {
 			}		
 			
 			if(Gdx.input.isKeyPressed(Keys.W)){
-				body.applyForceToCenter(force, true);
+				body.applyForceToCenter(force.x/5, force.y/5, true);
 				
 				if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
 					energyUsage = .05f;

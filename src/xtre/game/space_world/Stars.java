@@ -1,15 +1,18 @@
 package xtre.game.space_world;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.globals.GlobalScreen;
+import xtre.globals.game_interface.hud.GameInputs;
 import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space.SpriteSpacePlanets;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceBackgroundStar;
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -25,13 +28,25 @@ public class Stars {
 	
 	private Star[] stars;
 	private Float[] depths;
+//	private List<Star> warpStars = new ArrayList<>();
 	
 	private float camX, camY, mouseX, mouseY;
 //	private boolean starHighlightDisplaying = false, starOptionsDisplaying = false;
 	private boolean justPressedLeftMouseButton = false;
 	
+	private boolean warping;
+	
 //	public int selectedStar = -1, hoveredStar = -1;
 	
+	public Stars(int worldSize, int density, int depth){
+		this.worldSize = worldSize;
+		this.depth = depth;
+		
+		stars = new Star[(worldSize)];
+		createDepth(depth);
+		createStars();
+		length = stars.length;
+	}
 	public Stars(GameInterfaceManager gim, int worldSize, int density, int depth){
 		this.gim = gim;
 		this.worldSize = worldSize/density;
@@ -67,10 +82,15 @@ public class Stars {
 		updateStars();
 	}
 	public void render(SpriteBatch batch, float camX, float camY){
-		for(int i = stars.length-1; i > -1; i--){
-			if(stars[i].sprite.getX() < GlobalScreen.GAME_WIDTH && stars[i].sprite.getX() > 0 && stars[i].sprite.getY() < GlobalScreen.GAME_HEIGHT && stars[i].sprite.getY() > 0)
+//		if(!warping)
+			for(int i = stars.length-1; i > -1; i--){
+				if(stars[i].sprite.getX() < GlobalScreen.GAME_WIDTH && stars[i].sprite.getX() > 0 && stars[i].sprite.getY() < GlobalScreen.GAME_HEIGHT && stars[i].sprite.getY() > 0)
 					stars[i].sprite.draw(batch);
-		}
+			}
+//		else
+//			for(int i = 0; i < warpStars.size(); i++){
+//				warpStars.get(i).sprite.draw(batch);
+//			}
 	}
 	
 	private void updateStars(){
@@ -81,14 +101,32 @@ public class Stars {
 //		}
 		//if(selectedStar!=-1 && stars[selectedStar].clicked(mouseX, mouseY, mouseButtonLeft)) selectedStar = -1;
 		
+//		if(!warping)
 		for(int i = 0; i < stars.length; i++){
 			stars[i].updatePosition(camX, camY);
-			if(stars[i].getX() > 0 && stars[i].getX() < GlobalScreen.GAME_WIDTH && stars[i].getY() > 0 && stars[i].getY() < GlobalScreen.GAME_HEIGHT) 
+			if(stars[i].getX() > 0 && stars[i].getX() < GlobalScreen.GAME_WIDTH && stars[i].getY() > 0 && stars[i].getY() < GlobalScreen.GAME_HEIGHT){ 
 				stars[i].onScreen = true;
-			else
+			}
+			else{
 				stars[i].onScreen = false;
+			}
 		}
-		
+
+//		if(!warping)
+//		if(GameInputs.keyHolding(Keys.SHIFT_LEFT)){
+//			for(int i = 0; i < stars.length; i++){
+//				if(warping)
+//					if(stars[i].onScreen)
+//						warpStars.add(stars[i]);
+//			}
+//			warping = true;
+//		}
+//		if(warping){
+//			for(int i = 0; i < warpStars.size(); i++){
+//				warpStars.get(i).updatePosition(100, 100);
+//			}
+//		}
+
 //		updateHighlightedStar();
 //		
 //		if(justPressedLeftMouseButton)
@@ -125,7 +163,7 @@ public class Stars {
 
 	private void createStars(){
 		float z = 0;
-		int starMaxSize=0;
+		float starMaxSize=0;
 		Sprite[] ss = new Sprite[]{
 				GameSprite.getSprite(SpritesSpaceBackgroundStar.alpha_star),
 				GameSprite.getSprite(SpritesSpaceBackgroundStar.small_star),
@@ -133,36 +171,31 @@ public class Stars {
 				GameSprite.getSprite(SpritesSpaceBackgroundStar.large_star),
 		};
 		
-		for(int i = 1; i < stars.length; i++){
-			
-//			int dark = r.nextInt(2)+1;
-//			int red =   (255 - r.nextInt(220)) / dark;
-//			int green = (255 - r.nextInt(120)) / dark;
-//			int blue =  (255 - r.nextInt(70))  / dark;
-			
-			float dark = r.nextFloat();
-			if(dark > .3f)dark-=.3f;
-			
-			float red = 1 - r.nextFloat()/2;
-			float green = 1 - r.nextFloat()/2;
-			float blue = 1 - r.nextFloat()/2;
-			
+		for(int i = 1; i < stars.length; i++){	
+//			float dark = r.nextFloat();
+//			if(dark > .3f)dark-=.3f;
+//			float red = 1 - r.nextFloat()/3;
+//			float green = 1 - r.nextFloat()/3;
+//			float blue = 1 - r.nextFloat()/3;
+//			
 			int x = (r.nextInt(worldSize));
 			int y = (r.nextInt(worldSize));
-			Color c = new Color();
 			z = depths[i];
-			starMaxSize = 2;
-			if(r.nextInt(10)==5) starMaxSize = 10;
+			starMaxSize = r.nextFloat();
+		//	if(r.nextInt(10)==5) starMaxSize = 10;
 			//---
 			
+			float size = r.nextFloat()*depth;
 			Sprite s = new Sprite(ss[r.nextInt(ss.length-1)]);
-			s.setColor(red, green, blue, .5f);
+			
+			s.setColor(1, 1, 1, 1.5f);
+			s.setSize(size+(size/2.5f), size+(size/2.5f));
 			System.out.println(s.getWidth()/2 + " " + s.getHeight()/2);
 			stars[i] = new Star(
 					(x+(650-worldSize/2)),		//x
-					(y+(400-worldSize/2)),    //y
+					(y+(400-worldSize/2)),    	//y
 					z,							//z
-					r.nextInt(starMaxSize)+1,	//size
+					starMaxSize+1,	//size
 					s                           //star sprite
 			);
 		}
@@ -173,7 +206,7 @@ public class Stars {
 	private void createDepth(int depth){
 		depths = new Float[stars.length];
 		for(int i = 0; i < depths.length; i++){
-			depths[i] = (r.nextFloat()*r.nextInt(depth))+3;
+			depths[i] = (float) (r.nextFloat()*depth);
 		}
 		
 		Arrays.sort(depths);
