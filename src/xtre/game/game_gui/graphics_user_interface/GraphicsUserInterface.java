@@ -1,12 +1,16 @@
 package xtre.game.game_gui.graphics_user_interface;
 
-import xtre.game.game_gui.GameInterface;
+import xtre.game.game_gui.GameInterfaceComponent;
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.globals.game_interface.GlobalsInterface;
 
-public abstract class GraphicsUserInterface extends GameInterface {
-	public final static int TYPE=GlobalsInterface.GUI_TYPE;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
+public abstract class GraphicsUserInterface extends GameInterfaceComponent {
+	public final static int TYPE=GlobalsInterface.GUI_TYPE;
+	
+	public Sprite[] graphics;
+	
 	/**
 	 * @param GUI_ID
 	 * @param x

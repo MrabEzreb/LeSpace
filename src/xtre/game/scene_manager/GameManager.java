@@ -18,7 +18,7 @@ public class GameManager {
 	public GameScene scene;
 	private Player player;
 	private World world = new World(new Vector2(0,0), true);
-	private InGameMenu gameMenu;
+	private InGameMenu inGameMenu;
 	
 	private SceneChanger sceneChanger;
 	
@@ -37,26 +37,35 @@ public class GameManager {
 		sceneChanger = new SceneChanger(this, gim, world, player);
 		scene = new SpaceScene(gim, world, player);
 		
-		gameMenu = new InGameMenu();
+		inGameMenu = new InGameMenu();
 	}
 	
 	public Player getPlayer(int playerID){
 		return player;
 	}
 	
-	public void update(float camX, float camY, float mouseX, float mouseY){
-		boolean mouseLeftPress = GameInputs.mousePressed(Buttons.LEFT);
-		
-		gameMenu.update(mouseX, mouseY);
-		if(!InGameMenu.open)
-			gim.update(mouseX, mouseY, mouseLeftPress);
-		scene.update(camX, camY, mouseX, mouseY, mouseLeftPress);
+	public void update(float camX, float camY){		
+		inGameMenu.update();
+		if(InGameMenu.open)
+			gim.updateInterfaces();
+		else {
+			gim.updateInteractives();
+			gim.updateInterfaces();
+		}
+		System.out.println(InGameMenu.open);
+			
+		scene.update(camX, camY);
 	}
 	
-	public void render(SpriteBatch batch, float dt) {
-		gameMenu.render(batch);
+	public void render(SpriteBatch batch, float dt){
+		inGameMenu.render(batch);
 		scene.render(batch);
-		gim.render(batch);
+		
+		if(!InGameMenu.open){
+			gim.renderInteractives(batch);
+			gim.renderInterfaces(batch);
+		}else
+			gim.renderInterfaces(batch);
 	}
 
 	public void updateDegugMonitor(int data){

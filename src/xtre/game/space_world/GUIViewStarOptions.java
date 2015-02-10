@@ -17,7 +17,6 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 
 	private GameMenu[] menus;
 
-	private float mouseX, mouseY;
 	public boolean active = false;
 
 	public GUIViewStarOptions(final GameInterfaceManager gim, int GI_ID, ResizableBox frame) {
@@ -78,23 +77,31 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 		
 	}
 	
-	public void updateInterface(float mouseX, float mouseY, boolean leftMousePress) {
-		this.mouseX = mouseX;
-		this.mouseY = mouseY;
-		if(isActive){
+	public void updateInterfaces() {
+		if(active){
 			for(GameMenu gm:menus){
-				gm.update(mouseX, mouseY, leftMousePress);
+				gm.update();
 			}
 		}
 	}
+	
+	@Override
+	public void updateInteractives() {
+	}
 
-	public void renderInterface(SpriteBatch batch) {
-		if(isActive){
+	@Override
+	public void renderInterfaces(SpriteBatch batch) {
+		if(active){
 			frame.render(batch);
 			for(GameMenu gm:menus){
 				gm.render(batch);
 			}
 		}
+	}
+	
+	@Override
+	public void renderInteractives(SpriteBatch batch){
+		
 	}
 
 	public void setPosition(float x, float y) {
@@ -114,15 +121,10 @@ public class GUIViewStarOptions extends GraphicsUserInterface {
 		for(GameMenu gm:menus)
 			if(gm.isMenuBarOpen) return false;
 
-		if(!mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
+		if(!mouseOutOfBounds()){
 			return false;
 		}
 		return true;
-	}
-	
-	public void isActive(float mouseX, float mouseY, boolean mouseLeftPress){
-		isActive = active;
-		this.mouseLeftPress = false;
 	}
 	
 	public void dispose() {

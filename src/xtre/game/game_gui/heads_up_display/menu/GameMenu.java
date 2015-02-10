@@ -6,8 +6,10 @@ import java.util.List;
 import xtre.game.game_gui.heads_up_display.button.GameButton;
 import xtre.game.game_gui.heads_up_display.button.GameButtonAction;
 import xtre.globals.game_interface.GlobalsInterface;
+import xtre.globals.game_interface.hud.GameInputs;
 import xtre.graphics.font.FontEntity;
 
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -48,9 +50,9 @@ public class GameMenu {
 		}
 	}
 	
-	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
+	public void update(){
 		if(isMenuBarProcessable){
-			checkOpenMenu(mouseX, mouseY, mouseLeftPress);
+			checkOpenMenu();
 		}	
 		
 		if(isMenuBarProcessable)
@@ -58,20 +60,20 @@ public class GameMenu {
 		else
 			isMenuBarOpen = false;
 		
-		boolean hovers = GlobalsInterface.withinSquareBounds(mouseX, mouseY, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
-		if(checkIfShouldDoAction(hovers, mouseLeftPress)){
+		boolean hovers = GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+		if(checkIfShouldDoAction(hovers)){
 			isMenuBarProcessable = true;
-		}else if(mouseLeftPress && isMenuBarProcessable)
+		}else if(GameInputs.keyPressed(Buttons.LEFT) && isMenuBarProcessable)
 			isMenuBarProcessable = false;
 	}
 	
-	private void checkOpenMenu(float mouseX, float mouseY, boolean mouseLeftPress){
+	private void checkOpenMenu(){
 		for(GameButton b:buttons){
-			if(b.isClicked(mouseX, mouseY, mouseLeftPress)){
+			if(b.isClicked()){
 				b.doAction();
 				isMenuBarProcessable = false;
 			}
-			else if(b.isWithin(mouseX, mouseY)){
+			else if(b.isWithin()){
 				b.sprite.setColor(1, 1, 1, 1);
 			}
 			else{
@@ -80,8 +82,8 @@ public class GameMenu {
 		}
 	}
 	
-	private boolean checkIfShouldDoAction(boolean hovers, boolean mouseLeftPress){
-		if(mouseLeftPress && hovers){
+	private boolean checkIfShouldDoAction(boolean hovers){
+		if(GameInputs.keyPressed(Buttons.LEFT) && hovers){
 			if(menuBarAction!=null){
 				menuBarAction.doAction();
 				if(getButtons().size()>=0)

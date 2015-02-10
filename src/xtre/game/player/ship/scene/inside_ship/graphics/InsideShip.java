@@ -34,9 +34,9 @@ public class InsideShip {
 			s.getTexture().dispose();
 	}
 
-	public void update(float mouseX, float mouseY, boolean mouseLeftPress) {
+	public void update() {
 		for(ShipGrid sg:grids)
-			sg.update(mouseX, mouseY, mouseLeftPress);
+			sg.update();
 	}
 
 	public void render(SpriteBatch batch) {

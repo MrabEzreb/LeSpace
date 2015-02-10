@@ -14,7 +14,7 @@ public class ShipGUIDataCalculator {
 			stats.outOfFuel = false;
 	}
 	
-	public void update(float mouseX, float mouseY){
+	public void update(){
 
 	}
 	

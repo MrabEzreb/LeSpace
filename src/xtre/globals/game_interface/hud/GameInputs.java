@@ -1,5 +1,7 @@
 package xtre.globals.game_interface.hud;
 
+import xtre.globals.GlobalScreen;
+
 import com.badlogic.gdx.Gdx;
 
 public abstract class GameInputs {
@@ -30,5 +32,13 @@ public abstract class GameInputs {
 	
 	public static final boolean keyHolding(int key){
 		return Gdx.input.isKeyPressed(key);
+	}
+	
+	public static final float getX(){
+		return Gdx.input.getX();
+	}
+	
+	public static final float getY(){
+		return -Gdx.input.getY()+GlobalScreen.GAME_HEIGHT;
 	}
 }

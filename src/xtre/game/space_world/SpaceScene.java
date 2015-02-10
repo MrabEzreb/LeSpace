@@ -50,13 +50,13 @@ public class SpaceScene extends GameScene{
 
 	List<String> starOptions = new ArrayList<>();
 	
-	public void update(float camX, float camY, float mouseX, float mouseY, boolean mouseLeftPress) {
+	public void update(float camX, float camY) {
 		this.camX = camX;
 		this.camY = camY;
 		
-		stars.update(camX, camY, mouseX, mouseY, mouseLeftPress);
+		stars.update(camX, camY);
 		
-		player.update(camX, camY, mouseX, mouseY, mouseLeftPress);
+		player.update(camX, camY);
 		
 		for(int i = 0; i < rock.length; i++){
 			rock[i].update(camX, camY);
@@ -74,7 +74,7 @@ public class SpaceScene extends GameScene{
 		}
 			player.render(batch);
 	}
-
+	
 	private void createBounds(float x, float y, float w, float h){
 		x=GlobalScreen.MPP(x);
 		y=GlobalScreen.MPP(y);
@@ -114,8 +114,7 @@ public class SpaceScene extends GameScene{
 	public void dispose(){
 		world.dispose();
 		player.ship.dispose();
-	}
-	
+	}	
 }
 
 /*

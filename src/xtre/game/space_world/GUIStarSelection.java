@@ -3,8 +3,10 @@ package xtre.game.space_world;
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
 import xtre.globals.game_interface.GlobalsInterface;
+import xtre.globals.game_interface.hud.GameInputs;
 import xtre.graphics.components.ResizableBox;
 
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -22,27 +24,25 @@ public class GUIStarSelection extends GraphicsUserInterface {
 		this.highlight = highlight;
 		this.stars = stars;		
 		
-		this.isAlwaysActive = true;
-		
 		ResizableBox box = new ResizableBox(0, 0, 256, 136);
 		box.setGraphicsTo(0);
 		menu = new GUIViewStarOptions(gim, GI_ID, box);
 	}
 
 	@Override
-	public void updateInterface(float mouseX, float mouseY, boolean mouseLeftPress) {		
-		if(mouseLeftPress){
+	public void updateInterfaces(){
+		if(GameInputs.keyPressed(Buttons.LEFT)){
 			if(!menu.active)
 				for(int i = 0; i < stars.length; i++){
 					if(stars.getStar(i).onScreen){
-						if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
+						if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
 							menu.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
 							menu.active = true;
 							break;
 						}
 					}
 				}
-			if(menu.mouseOutOfBounds(mouseX, mouseY, mouseLeftPress)){
+			if(menu.mouseOutOfBounds()){
 				if(menu.isClosable()){
 					menu.active = false;
 				}
@@ -50,13 +50,11 @@ public class GUIStarSelection extends GraphicsUserInterface {
 		}
 
 		selectedStar = null;
-		if(selectedStar==null && !menu.isActive){
-			for(int i = 0; i < stars.length; i++){
-				if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
-					highlight.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
-					selectedStar = stars.getStar(i);
-					break;
-				}
+		for(int i = 0; i < stars.length; i++){
+			if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
+				highlight.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
+				selectedStar = stars.getStar(i);
+				break;
 			}
 		}
 		
@@ -66,9 +64,18 @@ public class GUIStarSelection extends GraphicsUserInterface {
 	}
 	
 	@Override
-	public void renderInterface(SpriteBatch batch) {
+	public void updateInteractives() {
+	}
+	
+	@Override
+	public void renderInterfaces(SpriteBatch batch) {
 		if(selectedStar!=null)
 			highlight.draw(batch);
+	}
+	
+	@Override
+	public void renderInteractives(SpriteBatch batch){
+		
 	}
 
 	@Override

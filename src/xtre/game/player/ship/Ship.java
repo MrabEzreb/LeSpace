@@ -31,9 +31,9 @@ public class Ship {
 
 	}
 	
-	public void update(float camX, float camY, float mouseX, float mouseY, boolean mouseLeftPress){
+	public void update(float camX, float camY){
 		updateCanMove();
-		shipGUICalculator.update(mouseX, mouseY);
+		shipGUICalculator.update();
 	}
 
 	public void render(SpriteBatch batch){

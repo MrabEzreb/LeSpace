@@ -50,18 +50,10 @@ public class PlayerInterface {
 				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_br),
 		};
 		inventory = new Inventory(gim, GlobalsGUI.SHIP_INVENTORY, 3, 3, inventoryGraphics);
-	}
-	
-	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
-		metre.update(mouseX, mouseY, mouseLeftPress);
-		hotbar.update(mouseX, mouseY, mouseLeftPress);
-		inventory.update(mouseX, mouseY, mouseLeftPress);
-	}
-	
-	public void render(SpriteBatch batch){
-		metre.render(batch);
-		hotbar.render(batch);
-		inventory.render(batch);
+		
+		gim.add(metre);
+		gim.add(hotbar);
+		gim.add(inventory);
 	}
 	
 	public boolean setMetreLevel(float level){

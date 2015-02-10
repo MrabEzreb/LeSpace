@@ -1,18 +1,14 @@
 package xtre.game.space_world;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.globals.GlobalScreen;
-import xtre.globals.game_interface.hud.GameInputs;
 import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space.SpriteSpacePlanets;
 import xtre.graphics.sprites.sprite_types.space.SpritesSpaceBackgroundStar;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -30,9 +26,8 @@ public class Stars {
 	private Float[] depths;
 //	private List<Star> warpStars = new ArrayList<>();
 	
-	private float camX, camY, mouseX, mouseY;
+	private float camX, camY;
 //	private boolean starHighlightDisplaying = false, starOptionsDisplaying = false;
-	private boolean justPressedLeftMouseButton = false;
 	
 	private boolean warping;
 	
@@ -69,12 +64,9 @@ public class Stars {
 //			return null;
 //	}
 	
-	public void update(float camX, float camY, float mouseX, float mouseY, boolean justPressedLeftMouseButton){
+	public void update(float camX, float camY){
 		this.camX = camX;
 		this.camY = camY;
-		this.mouseX = mouseX;
-		this.mouseY = mouseY;
-		this.justPressedLeftMouseButton = justPressedLeftMouseButton;
 		
 //		starHighlightDisplaying = gim.hUDDisplaying(GlobalsHUD.STAR_HIGHLIGHT);
 //		starOptionsDisplaying = gim.gUIDisplaying(GlobalsGUI.SPACE_INSPECT_STAR_OPTION);

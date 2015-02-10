@@ -32,19 +32,27 @@ public class SelectionBar extends GraphicsUserInterface{
 	}
 
 	@Override
-	public void updateInterface(float mouseX, float mouseY, boolean justPressedL) {
+	public void updateInterfaces() {
+		
+	}
+	
+	@Override
+	public void updateInteractives() {
 		for(int i = 0; i < buttonArray.size(); i++){
-			if(buttonArray.get(i).isClicked(mouseX, mouseY, justPressedL)){
+			if(buttonArray.get(i).isClicked()){
 				selected = i;
 			}
 		}
 	}
 
 	@Override
-	public void renderInterface(SpriteBatch batch) {
+	public void renderInterfaces(SpriteBatch batch) {
 		for(int i = 0; i < buttonArray.size(); i++){
 			buttonArray.get(i).render(batch);
 		}
+	}
+	
+	public void renderInteractives(SpriteBatch batch){
 	}
 	
 	@Override

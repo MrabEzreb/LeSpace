@@ -1,9 +1,7 @@
 package xtre.game.game_gui;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
-import xtre.game.menus.InGameMenu;
 import xtre.game.scene_manager.GameManager;
 import xtre.game.scene_manager.GameScene;
 import xtre.globals.game_interface.GlobalsInterface;
@@ -14,23 +12,50 @@ public class GameInterfaceManager {
 
 	private GameManager gm;
 	
-	private List<GameInterface> gi = new ArrayList<>();
+	private LinkedList<GameInterfaceComponent> gi = new LinkedList<>();
 
+	 /**
+	  * GameInterfaceManager manages every GUI component on the screen currently.
+	  * This is a more dynamic way of processing interfaces. By adding interfaces to a list
+	  * and then iterating over it to update each component. When done the list can be disposed of
+	  * then renewed for the next batch of interface components.
+	  * 
+	  * To create components, use {@code add(gameInterfaceComponent);}
+	  * @param gm
+	  */
+	
 	public GameInterfaceManager(GameManager gm){
 		this.gm = gm;
 	}
 	
-	public void update(float mouseX, float mouseY, boolean mouseLeftPress){
-		if(!InGameMenu.open){
-			for(int i = 0; i < gi.size(); i++){
-				gi.get(i).update(mouseX, mouseY, mouseLeftPress);
+	public void updateInteractives(){
+		for(int i = gi.size()-1; i >= 0; i--){
+			if(gi.get(i).bringToFront){
+				gi.get(i).bringToFront = false;
+				gi.push(gi.get(i));
+				gi.remove(i);
 			}
+		}
+
+		if(!gi.isEmpty())
+			gi.get(0).updateInteractives();
+	}
+	
+	public void updateInterfaces(){
+		for(int i = 0; i < gi.size(); i++){
+			gi.get(i).updateInterfaces();
 		}
 	}
 	
-	public void render(SpriteBatch batch){
-		for(GameInterface gi:gi){
-			gi.render(batch);
+	public void renderInteractives(SpriteBatch batch){
+		for(GameInterfaceComponent gi:gi){
+			gi.renderInteractives(batch);
+		}
+	}
+	
+	public void renderInterfaces(SpriteBatch batch){
+		for(GameInterfaceComponent gi:gi){
+			gi.renderInterfaces(batch);
 		}
 	}
 
@@ -39,12 +64,12 @@ public class GameInterfaceManager {
 	}
 	
 	public void closeFrames() {
-		for(GameInterface gi:gi){
+		for(GameInterfaceComponent gi:gi){
 			gi.dispose();
 		}
 	}
 	
-	public GameInterface getHUD(int id){
+	public GameInterfaceComponent getHUD(int id){
 		System.out.println("Getting HUD " + id);
 		for(int i = 0; i < gi.size(); i++){
 			if(gi.get(i).GI_ID == id && gi.get(i).TYPE == GlobalsInterface.HUD_TYPE)
@@ -54,7 +79,7 @@ public class GameInterfaceManager {
 		return null;
 	}
 	
-	public GameInterface getGUI(int id){
+	public GameInterfaceComponent getGUI(int id){
 		System.out.println("Getting GUI " + id);
 		for(int i = 0; i < gi.size(); i++){
 			if(gi.get(i).GI_ID == id && gi.get(i).TYPE == GlobalsInterface.GUI_TYPE)
@@ -92,8 +117,11 @@ public class GameInterfaceManager {
 	 * @param hudType
 	 */
 	
-	public int add(GameInterface gi){
-		if(gi.GI_ID == -1) return -1;
+	public int add(GameInterfaceComponent gi){
+		if(gi.GI_ID == -1) {
+			System.out.println("GameInterfaceManager: add(gameInterfaceComponent) returned invalid. GI_ID == " + gi.GI_ID + " for " + gi.getClass().getSimpleName());
+			return -1;
+		}
 		int returnedID = gi.GI_ID;
 		
 		this.gi.add(gi);

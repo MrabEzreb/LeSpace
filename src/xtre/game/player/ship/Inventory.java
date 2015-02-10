@@ -62,14 +62,22 @@ public class Inventory extends GraphicsUserInterface{
 	}
 
 	@Override
-	public void updateInterface(float mouseX, float mouseY, boolean mouseLeftPress) {
+	public void updateInterfaces() {
+	}
+	
+	@Override
+	public void updateInteractives() {
 	}
 
 	@Override
-	public void renderInterface(SpriteBatch batch) {
+	public void renderInterfaces(SpriteBatch batch) {
 		for(int i = 0; i < slots.length; i++){
 			slots[i].render(batch);
 		}
+	}
+	
+	public void renderInteractives(SpriteBatch batch){
+		
 	}
 
 	@Override

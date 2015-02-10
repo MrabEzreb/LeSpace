@@ -69,7 +69,7 @@ public class DropMenu {
 		
 		if(showingSubMenus)
 			for(GameMenu gm:subMenus)
-				gm.update(mouseX, mouseY, leftMousePress);
+				gm.update();
 		
 		if(leftMousePress && GlobalsInterface.withinSquareBounds(mouseX, mouseY, x, y, width, height))
 			showingSubMenus = true;

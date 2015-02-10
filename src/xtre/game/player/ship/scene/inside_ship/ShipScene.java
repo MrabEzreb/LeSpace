@@ -70,8 +70,8 @@ public class ShipScene extends GameScene {
 	}
 	
 	@Override
-	public void update(float camX, float camY, float mouseX, float mouseY, boolean mouseLeftPress) {
-		insideShip.update(mouseX, mouseY, mouseLeftPress);
+	public void update(float camX, float camY) {
+		insideShip.update();
 	}
 	
 	@Override

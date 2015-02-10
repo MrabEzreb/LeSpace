@@ -69,12 +69,11 @@ public class MenuStartGame extends Menu {
 	public void renderScreen(SpriteBatch batch) {
 		stars.render(batch, 0, 0);
 		planet.draw(batch);
-
 	}
 
 	@Override
 	public void checks(float mouseX, float mouseY, boolean mouseLeftPress) {
 			camX+=0.03f;
-		stars.update(camX, camY, mouseX, mouseY, mouseLeftPress);
+		stars.update(camX, camY);
 	}
 }

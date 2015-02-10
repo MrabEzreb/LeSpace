@@ -18,18 +18,16 @@ public class Player {
 		playersGUI = new PlayerInterface(gim, this);
 	}
 	
-	public void update(float camX, float camY, float mouseX, float mouseY, boolean mouseLeftPress){
-		playersGUI.update(mouseX, mouseY, mouseLeftPress);
+	public void update(float camX, float camY){
 		if(!playersGUI.setMetreLevel(ship.getStats().fuelAmount)){
 			ship.getStats().outOfFuel=true;
 			System.out.println("(Player.java:74) out of fuel");
 		}
-		ship.update(camX, camY, mouseX, mouseY, mouseLeftPress);
-		ship.physics.update(mouseX, mouseY);
+		ship.update(camX, camY);
+		ship.physics.update();
 	}
 	
 	public void render(SpriteBatch batch){
 		ship.render(batch);
-		playersGUI.render(batch);
 	}
 }

@@ -20,9 +20,9 @@ public class ShipBodyPhysics {
 	public FixtureDef fixtureDef;
 	
 	private Vector2 force = new Vector2();
-	private Vector2 mp = new Vector2();
 	
 	public float energyUsage=0, shipRotationalAngle=0;
+	private float shipAccelerationRate = -0.005f, shipThrust=1;
 	
 	public boolean useFuel, applyForce;
 	
@@ -51,53 +51,76 @@ public class ShipBodyPhysics {
 		shape.dispose();
 	}
 	
-	public void update(float mouseX, float mouseY){
-		mp.x = mouseX;
-		mp.y = mouseY;
+	public void update(){
+		body.setAngularDamping(5);
+		body.setLinearDamping(shipThrust);
 		
-		//float angle = MathUtils.atan2((ScreenGlobals.HEIGHT/2) - mp.y, (ScreenGlobals.WIDTH/2) - mp.x);
+		double xx = MathUtils.cos(body.getAngle())/10;
+		double yy = MathUtils.sin(body.getAngle())/10;
+		force.x = (float) ((xx*MathUtils.radiansToDegrees));
+		force.y = (float) ((yy*MathUtils.radiansToDegrees));
 		
-		float xx = MathUtils.cos(body.getAngle());
-		float yy = MathUtils.sin(body.getAngle());
-		
-		energyUsage = 0;
-		if(!GameInputs.keyHolding(Keys.SHIFT_LEFT))
-			body.setLinearDamping(.2f);
-		else
-			body.setLinearDamping(0);
-		body.setAngularDamping(4);
-
-		force.x = (xx*MathUtils.radiansToDegrees)/20;
-		force.y = (yy*MathUtils.radiansToDegrees)/20;
-		
-		if(applyForce && Math.abs(body.getLinearVelocity().x+body.getLinearVelocity().y) < 3){
-			if(Gdx.input.isKeyPressed(Keys.A)) {
-				body.applyTorque(0.7f, true);
-			}
-			if(Gdx.input.isKeyPressed(Keys.D)){
-				body.applyTorque(-0.7f, true);
-			}		
-			
-			if(Gdx.input.isKeyPressed(Keys.W)){
-				body.applyForceToCenter(force.x/5, force.y/5, true);
-				
-				if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
-					energyUsage = .05f;
-					body.applyForceToCenter(force, true);
-					body.setLinearDamping(0);
-				}else{
-					energyUsage = .0005f;
-				}
-			}else if(Gdx.input.isKeyPressed(Keys.S)){
-				useFuel = true;
-				body.setLinearDamping(0.78f);
-//				body.applyForceToCenter(-(force.x*3)/4, -(force.y*3)/4, true);
-			}
-		}else{
-			body.setLinearDamping(0.50f);
+		if(GameInputs.keyHolding(Keys.W)){
+			body.applyForceToCenter(force.x, force.y, true);
 		}
-
+		
+		if(GameInputs.keyHolding(Keys.A)){
+			body.applyTorque(shipThrust, true);
+		}
+		
+		if(GameInputs.keyHolding(Keys.D)){
+			body.applyTorque(-shipThrust, true);
+		}
+		
+		System.out.println(shipThrust);
+		
 		shipRotationalAngle =(body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees; 
+
+		
+		
+//		//float angle = MathUtils.atan2((ScreenGlobals.HEIGHT/2) - mp.y, (ScreenGlobals.WIDTH/2) - mp.x);
+//		
+//		energyUsage = 0;
+//		if(!GameInputs.keyHolding(Keys.SHIFT_LEFT))
+//			body.setLinearDamping(.2f);
+//		else
+//			body.setLinearDamping(0);
+//		body.setAngularDamping(4);
+//
+//		double xx = MathUtils.cos(body.getAngle());
+//		double yy = MathUtils.sin(body.getAngle());
+//		
+//		force.x = (float) (xx*MathUtils.radiansToDegrees);
+//		force.y = (float) (yy*MathUtils.radiansToDegrees);
+//		
+//		if(applyForce && Math.abs(body.getLinearVelocity().x+body.getLinearVelocity().y) < 3){
+//			if(Gdx.input.isKeyPressed(Keys.A)) {
+//				body.applyTorque(0.7f, true);
+//			}
+//			if(Gdx.input.isKeyPressed(Keys.D)){
+//				body.applyTorque(-0.7f, true);
+//			}		
+//			
+//			if(Gdx.input.isKeyPressed(Keys.W)){
+//				body.applyForceToCenter(force.x/5f, force.y/5f, true);
+//				
+//				if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
+//					energyUsage = .05f;
+//					body.applyForceToCenter(force, true);
+//					body.setLinearDamping(0);
+//				}else{
+//					energyUsage = .0005f;
+//				}
+//			}else if(Gdx.input.isKeyPressed(Keys.S)){
+//				useFuel = true;
+//				body.setLinearDamping(0.78f);
+////				body.applyForceToCenter(-(force.x*3)/4, -(force.y*3)/4, true);
+//			}
+//		}else{
+//			body.setLinearDamping(0.50f);
+//		}
+//
+//		shipRotationalAngle =(body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees; 
 	}
 	
 	public void create(World world) {

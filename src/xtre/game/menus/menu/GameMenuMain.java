@@ -19,7 +19,7 @@ public class GameMenuMain {
 		box = new DialogBox(x, y, width, height);
 	}
 	
-	public void update(float mouseX, float mouseY, boolean mouseLeftClicked) {
+	public void update() {
 	}
 
 	public void render(SpriteBatch batch) {

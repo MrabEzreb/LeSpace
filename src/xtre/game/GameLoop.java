@@ -66,7 +66,7 @@ public class GameLoop implements Screen {
 		
 		//UPDATE
 
-		gameManager.update(camera.position.x, camera.position.y, Gdx.input.getX(), -Gdx.input.getY()+GlobalScreen.GAME_HEIGHT);
+		gameManager.update(camera.position.x, camera.position.y);
 
 		camera.position.set((gameManager.getPlayer(0).ship.getPosition().x), (gameManager.getPlayer(0).ship.getPosition().y), 0);
 		if(Gdx.input.isKeyPressed(Keys.Q)){

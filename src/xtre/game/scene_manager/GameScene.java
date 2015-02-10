@@ -17,7 +17,7 @@ public abstract class GameScene {
 	
 	protected GameInterfaceManager gim;
 
-	public abstract void update(float camX, float camY, float mouseX, float mouseY, boolean mouseLeftPress);
+	public abstract void update(float camX, float camY);
 	public abstract void render(SpriteBatch batch);
 	public abstract void dispose();
 	

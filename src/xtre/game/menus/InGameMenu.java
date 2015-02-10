@@ -19,7 +19,7 @@ public class InGameMenu {
 		mainMenu = new GameMenuMain(xx - w/2, yy - h/2, w, h);
 	}
 	
-	public void update(float mouseX, float mouseY){
+	public void update(){
 		if(GameInputs.keyPressed(Keys.ESCAPE)){
 			if(!open)
 				open = true;
@@ -28,7 +28,7 @@ public class InGameMenu {
 		}
 
 		if(open){
-			mainMenu.update(mouseX, mouseY, false);
+			mainMenu.update();
 		}
 	}
 	

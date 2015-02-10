@@ -1,7 +1,9 @@
 package xtre.game.game_gui.heads_up_display.button;
 
 import xtre.globals.game_interface.GlobalsInterface;
+import xtre.globals.game_interface.hud.GameInputs;
 
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -34,15 +36,15 @@ public class GameButton {
 		buttonAction.doAction();
 	}
 	
-	public boolean isClicked(float mouseX, float mouseY, boolean mouseLeftPress) {
-		if(mouseLeftPress && GlobalsInterface.withinSquareBounds(mouseX, mouseY, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
+	public boolean isClicked() {
+		if(GameInputs.keyPressed(Buttons.LEFT) && GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
 			return true;
 		else
 			return false;
 	}
 	
-	public boolean isWithin(float mouseX, float mouseY) {
-		if(GlobalsInterface.withinSquareBounds(mouseX, mouseY, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
+	public boolean isWithin() {
+		if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
 			return true;
 		else
 			return false;
