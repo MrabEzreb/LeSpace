@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.GameInterfaceManager;
-import xtre.game.menus.InGameMenu;
+import xtre.game.menus.InGameMenuManager;
 import xtre.game.physics_objects.player.SpaceRock;
 import xtre.game.player.Player;
 import xtre.game.scene_manager.GameScene;
@@ -50,29 +50,39 @@ public class SpaceScene extends GameScene{
 
 	List<String> starOptions = new ArrayList<>();
 	
-	public void update(float camX, float camY) {
+	public void updateInterfaces(float camX, float camY){
 		this.camX = camX;
 		this.camY = camY;
-		
+
 		stars.update(camX, camY);
-		
-		player.update(camX, camY);
-		
+
 		for(int i = 0; i < rock.length; i++){
 			rock[i].update(camX, camY);
 		}
 		
+		player.updateInterfaces(camX, camY);
+
 		world.step(timeStep, velocityIterations, positionIterations);
-		
 	}
 	
-	public void render(SpriteBatch batch){
+	public void updateInteractives(float camX, float camY) {
+		this.camX = camX;
+		this.camY = camY;
+		
+		player.updateInteractives(camX, camY);
+	}
+	
+	public void renderInterfaces(SpriteBatch batch){
 		stars.render(batch, camX, camY);
 		
 		for(int i = 0; i < rock.length; i++){
 			rock[i].render(batch);
 		}
-			player.render(batch);
+			player.renderInterfaces(batch);
+	}
+	
+	public void renderInteractives(SpriteBatch batch){
+		player.renderInteractives(batch);
 	}
 	
 	private void createBounds(float x, float y, float w, float h){

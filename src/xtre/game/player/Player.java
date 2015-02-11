@@ -18,7 +18,11 @@ public class Player {
 		playersGUI = new PlayerInterface(gim, this);
 	}
 	
-	public void update(float camX, float camY){
+	public void updateInterfaces(float camX, float camY){
+		
+	}
+	
+	public void updateInteractives(float camX, float camY){
 		if(!playersGUI.setMetreLevel(ship.getStats().fuelAmount)){
 			ship.getStats().outOfFuel=true;
 			System.out.println("(Player.java:74) out of fuel");
@@ -27,7 +31,10 @@ public class Player {
 		ship.physics.update();
 	}
 	
-	public void render(SpriteBatch batch){
+	public void renderInterfaces(SpriteBatch batch){
 		ship.render(batch);
+	}
+	
+	public void renderInteractives(SpriteBatch batch){
 	}
 }

@@ -72,8 +72,6 @@ public class ShipBodyPhysics {
 			body.applyTorque(-shipThrust, true);
 		}
 		
-		System.out.println(shipThrust);
-		
 		shipRotationalAngle =(body.getAngle()-(90*MathUtils.degreesToRadians))*MathUtils.radiansToDegrees; 
 
 		

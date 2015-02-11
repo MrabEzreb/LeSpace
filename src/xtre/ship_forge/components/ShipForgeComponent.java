@@ -22,7 +22,6 @@ public abstract class ShipForgeComponent {
 		press = false;
 		for(ShipForgeButton b:buttons){ // buttons
 			if(b.pressed) press = true;
-			System.out.println(b.title.title + " : : " + b.pressed);
 		}
 		if(menu.pressed)press = true;
 		

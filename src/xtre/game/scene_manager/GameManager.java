@@ -1,7 +1,7 @@
 package xtre.game.scene_manager;
 
 import xtre.game.game_gui.GameInterfaceManager;
-import xtre.game.menus.InGameMenu;
+import xtre.game.menus.InGameMenuManager;
 import xtre.game.player.Player;
 import xtre.game.space_world.SpaceScene;
 import xtre.globals.game_interface.hud.GameInputs;
@@ -18,7 +18,7 @@ public class GameManager {
 	public GameScene scene;
 	private Player player;
 	private World world = new World(new Vector2(0,0), true);
-	private InGameMenu inGameMenu;
+	private InGameMenuManager inGameMenu;
 	
 	private SceneChanger sceneChanger;
 	
@@ -37,7 +37,7 @@ public class GameManager {
 		sceneChanger = new SceneChanger(this, gim, world, player);
 		scene = new SpaceScene(gim, world, player);
 		
-		inGameMenu = new InGameMenu();
+		inGameMenu = new InGameMenuManager();
 	}
 	
 	public Player getPlayer(int playerID){
@@ -45,27 +45,29 @@ public class GameManager {
 	}
 	
 	public void update(float camX, float camY){		
-		inGameMenu.update();
-		if(InGameMenu.open)
+		if(InGameMenuManager.open){
+			scene.updateInterfaces(camX, camY);
 			gim.updateInterfaces();
-		else {
+		}else{
 			gim.updateInteractives();
 			gim.updateInterfaces();
+			scene.updateInterfaces(camX, camY);
+			scene.updateInteractives(camX, camY);
 		}
-		System.out.println(InGameMenu.open);
-			
-		scene.update(camX, camY);
+		inGameMenu.update();
 	}
 	
 	public void render(SpriteBatch batch, float dt){
-		inGameMenu.render(batch);
-		scene.render(batch);
-		
-		if(!InGameMenu.open){
+		if(InGameMenuManager.open){
+			scene.renderInterfaces(batch);
+			gim.renderInterfaces(batch);
+		}else{
+			scene.renderInterfaces(batch);
+			scene.renderInteractives(batch);
 			gim.renderInteractives(batch);
 			gim.renderInterfaces(batch);
-		}else
-			gim.renderInterfaces(batch);
+		}
+		inGameMenu.render(batch);
 	}
 
 	public void updateDegugMonitor(int data){

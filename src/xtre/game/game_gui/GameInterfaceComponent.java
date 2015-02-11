@@ -39,7 +39,6 @@ public abstract class GameInterfaceComponent{
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		System.out.println("GameInterfaceComponent: " + width + " size " + height + " " + this.getClass().getSimpleName());
 		gim.add(this);
 	}
 	

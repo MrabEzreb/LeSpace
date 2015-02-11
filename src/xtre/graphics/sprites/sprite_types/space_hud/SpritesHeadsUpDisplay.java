@@ -17,6 +17,6 @@ public class SpritesHeadsUpDisplay {
 
 	public final static SpriteDetails star_highlight = new SpriteDetails("output/game_sprites/hud_sprites/hud_sprites.pack", "star_highlight");
 	
-	public final static SpriteDetails button = new SpriteDetails("output/game_sprites/hud_sprites/hud_sprites.pack", "button");
+	//public final static SpriteDetails button = new SpriteDetails("output/game_sprites/hud_sprites/hud_sprites.pack", "button");
 
 }

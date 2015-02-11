@@ -29,8 +29,6 @@ public class SpaceRock extends PhysicsEntity {
 	private Random r = new Random();
 	
 	public SpaceRock(float x, float y, Sprite rockSprite, World world){
-		System.out.println("rock");
-		
 		this.x = x;
 		this.y = y;
 		

@@ -45,7 +45,6 @@ public class TileSpriteForm	{
 	}
 	
 	public void addTile(ShipTile tile){
-		System.out.println(displaySprites.size());
 		if(tile!=null){
 			Sprite s = GlobalSpriteNumbers.getSprite(tile.SHIP_VIEW_SPRITE_ID);
 			s.setPosition(tile.x, tile.y);

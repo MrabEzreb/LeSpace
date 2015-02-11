@@ -108,7 +108,6 @@ public abstract class Menu {
 		for(int i = 0; isDialogBoxOpen && i < dialogBox.buttons.size(); i++){
 			if(!dialogBox.isPressed(i).equals("")){
 				buttonPressed = dialogBox.isPressed(i);
-				System.out.println(" :: " + buttonPressed);
 			}
 		}
 	}

@@ -26,7 +26,7 @@ public class ShipForgeTileListsMenu extends ShipForgeComponent{
 	/** This menu lists the different sets of tiles */
 	private void setupMenu(){
 		menu.setup((GlobalScreen.GAME_WIDTH-300), 512, 128, 18);
-		final ShipForgeButton tiles1 = new ShipForgeButton(menu, 0, new FontEntity("tiles", HUDFont.title_font.smallFont));
+		final ShipForgeButton tiles1 = new ShipForgeButton(menu, 0, new FontEntity(HUDFont.title_font.smallFont, "tiles", menu.x, menu.y));
 		tiles1.setAction(new Action(){
 			public void action(){
 				List<ShipTile> s = ShipForgeSprites.getShipFloorTiles();

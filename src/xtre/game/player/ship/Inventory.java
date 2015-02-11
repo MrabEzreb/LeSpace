@@ -30,7 +30,6 @@ public class Inventory extends GraphicsUserInterface{
 		inventoryX = 0;
 		inventoryY = 0;
 		
-		System.out.println(x + " pos " + y);
 		slots = new GameItem[slotsHorizontal*slotsVirtical];
 		int xx=0, yy=0;
 		for(int i = 0; i < slots.length; i++){
@@ -45,8 +44,6 @@ public class Inventory extends GraphicsUserInterface{
 				xx=0;
 			}
 		}
-		
-		System.out.println("\n length:" + slots.length);
 	}
 	
 	public void put(GameItem item, int slot){

@@ -182,7 +182,6 @@ public class Stars {
 			
 			s.setColor(1, 1, 1, 1.5f);
 			s.setSize(size+(size/2.5f), size+(size/2.5f));
-			System.out.println(s.getWidth()/2 + " " + s.getHeight()/2);
 			stars[i] = new Star(
 					(x+(650-worldSize/2)),		//x
 					(y+(400-worldSize/2)),    	//y

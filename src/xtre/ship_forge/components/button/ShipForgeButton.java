@@ -2,15 +2,11 @@ package xtre.ship_forge.components.button;
 
 import xtre.globals.game_interface.GlobalsInterface;
 import xtre.graphics.font.FontEntity;
-import xtre.graphics.font.HUDFont;
 import xtre.graphics.sprites.GameSprite;
 import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
-import xtre.launcher.menus.utils.TitleString;
 import xtre.ship_forge.components.ShipForgeMenu;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -19,7 +15,7 @@ public class ShipForgeButton {
 	protected FontEntity font;
 	
 	public float x, y, width, height;
-	public TitleString title;
+	public FontEntity title;
 	public Sprite sprite = GameSprite.getSprite(SpritesSpaceHudMenu.menu_bar);
 	public Sprite overlay;
 	private Color col = new Color(1,1,1,1);
@@ -31,8 +27,7 @@ public class ShipForgeButton {
 	
 	public ShipForgeButton(){}
 	public ShipForgeButton(ShipForgeMenu menu, float row, FontEntity font) {
-		 this.font = new FontEntity(font.text, HUDFont.title_font.smallFont);
-		 title = new TitleString(menu.x+16, menu.y+14, font.text);
+		title = font;
 		if(!menu.horizontal){
 			width = menu.width;
 			height = menu.height;
@@ -49,7 +44,7 @@ public class ShipForgeButton {
 		
 	}
 	public ShipForgeButton(ShipForgeMenu menu, float row, String title) {
-		this.title = new TitleString(menu.x, menu.y, title);
+		this.title = new FontEntity(null, title, menu.x, menu.y);
 		if(!menu.horizontal){
 			width = menu.width;
 			height = menu.height;
@@ -65,7 +60,7 @@ public class ShipForgeButton {
 		sprite.setSize(width, height);
 	}
 	public ShipForgeButton(float x, float y, float width, float height, String title){
-		this.title = new TitleString(x, y, title);
+		this.title = new FontEntity(null, title, x, y);
 		
 		this.x = x;
 		this.y = y;
@@ -98,7 +93,7 @@ public class ShipForgeButton {
 			overlay.draw(batch);
 		
 		if(font!=null)
-			font.font.draw(batch, title.title, title.x, title.y);
+			font.font.draw(batch, title.text, title.x, title.y);
 	}
 	public void click(float mouseX, float mouseY){
 		if(hover) {

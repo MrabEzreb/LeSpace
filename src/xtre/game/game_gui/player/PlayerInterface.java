@@ -34,7 +34,7 @@ public class PlayerInterface {
 		};
 		metre = new HUDMetre(gim, GlobalsHUD.SPACE_FUEL_METRE, 1, metreGraphics, (int)100);
 			
-		hotbar = new SelectionBar(gim, GlobalsGUI.HOTBAR, 8, 1, 3, GameSprite.getSprite(SpritesSpaceGUI.hotbar_unselected));
+		//hotbar = new SelectionBar(gim, GlobalsGUI.HOTBAR, 8, 1, 3, GameSprite.getSprite(SpritesSpaceGUI.hotbar_unselected));
 
 		Sprite[] inventoryGraphics = new Sprite[]{
 				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_tm),
@@ -50,10 +50,6 @@ public class PlayerInterface {
 				GameSprite.getSprite(SpritesHeadsUpDisplay.paneling_br),
 		};
 		inventory = new Inventory(gim, GlobalsGUI.SHIP_INVENTORY, 3, 3, inventoryGraphics);
-		
-		gim.add(metre);
-		gim.add(hotbar);
-		gim.add(inventory);
 	}
 	
 	public boolean setMetreLevel(float level){

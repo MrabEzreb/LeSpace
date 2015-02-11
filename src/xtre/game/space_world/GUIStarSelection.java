@@ -31,51 +31,51 @@ public class GUIStarSelection extends GraphicsUserInterface {
 
 	@Override
 	public void updateInterfaces(){
-		if(GameInputs.keyPressed(Buttons.LEFT)){
-			if(!menu.active)
-				for(int i = 0; i < stars.length; i++){
-					if(stars.getStar(i).onScreen){
-						if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
-							menu.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
-							menu.active = true;
-							break;
-						}
-					}
-				}
-			if(menu.mouseOutOfBounds()){
-				if(menu.isClosable()){
-					menu.active = false;
-				}
-			}
-		}
-
-		selectedStar = null;
-		for(int i = 0; i < stars.length; i++){
-			if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
-				highlight.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
-				selectedStar = stars.getStar(i);
-				break;
-			}
-		}
 		
-		if(selectedStar!=null){
-			highlight.setPosition(selectedStar.getX()-(highlight.getWidth()/2)+(selectedStar.sprite.getWidth()/2), selectedStar.getY()-(highlight.getHeight()/2)+(selectedStar.sprite.getHeight()/2));
-		}
 	}
 	
 	@Override
-	public void updateInteractives() {
+	public void updateInteractives(){
+//		if(GameInputs.keyPressed(Buttons.LEFT)){
+//			if(!menu.active)
+//				for(int i = 0; i < stars.length; i++){
+//					if(stars.getStar(i).onScreen){
+//						if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
+//							menu.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
+//							menu.active = true;
+//							break;
+//						}
+//					}
+//				}
+//			if(menu.mouseOutOfBounds()){
+//				if(menu.isClosable()){
+//					menu.active = false;
+//				}
+//			}
+//		}
+//		
+//		selectedStar = null;
+//		for(int i = 0; i < stars.length; i++){
+//			if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), stars.getStar(i).getX()-16, stars.getStar(i).getY()-16, 32, 32)){
+//				highlight.setPosition(stars.getStar(i).getX(), stars.getStar(i).getY());
+//				selectedStar = stars.getStar(i);
+//				break;
+//			}
+//		}
+//		
+//		if(selectedStar!=null){
+//			highlight.setPosition(selectedStar.getX()-(highlight.getWidth()/2)+(selectedStar.sprite.getWidth()/2), selectedStar.getY()-(highlight.getHeight()/2)+(selectedStar.sprite.getHeight()/2));
+//		}
 	}
 	
 	@Override
 	public void renderInterfaces(SpriteBatch batch) {
-		if(selectedStar!=null)
-			highlight.draw(batch);
 	}
 	
 	@Override
 	public void renderInteractives(SpriteBatch batch){
-		
+//		if(selectedStar!=null)
+//			highlight.draw(batch);
 	}
 
 	@Override

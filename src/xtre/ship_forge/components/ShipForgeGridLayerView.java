@@ -1,12 +1,11 @@
-package xtre.ship_forge.components;
 
+package xtre.ship_forge.components;
 import java.util.LinkedList;
-import java.util.Random;
 
 import xtre.game.player.ship.scene.inside_ship.graphics.ShipGrid;
-import xtre.launcher.menus.utils.TitleString;
-import xtre.ship_forge.components.button.ShipForgeButton;
+import xtre.graphics.font.FontEntity;
 import xtre.ship_forge.components.button.Action;
+import xtre.ship_forge.components.button.ShipForgeButton;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -115,16 +114,15 @@ class GridLayer{
 		float r=1,g=1,b=1,s=slot+7; s = s/15;
 		r=0.3f; g=s/1.7f; b=s/3.4f;
 		g=g+g/2; b=b+b/2;
-		System.out.println(s + " " + r + " " + g + " " + b);
 		button.setColor(r, g, b, 1);
 		button.setAction(action);
-		button.title = new TitleString(x, y, "gridLayer " + slot);
+		button.title = new FontEntity(null, "gridLayer " + slot, x, y);
 	}
 	public void click(float mouseX, float mouseY, int slot){
 		this.slot = slot;
 		button.setPosition(x, y+(slot*height));
 		button.click(mouseX, mouseY);
-		button.title.title = "gridLayer " + slot;
+		button.title.text = "gridLayer " + slot;
 	}
 	public void update(float mouseX, float mouseY, boolean mouseLeftPress) {
 		button.update(mouseX, mouseY, mouseLeftPress);

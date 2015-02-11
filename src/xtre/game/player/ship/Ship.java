@@ -20,7 +20,6 @@ public class Ship {
 	private ShipGUIDataCalculator shipGUICalculator;
 	
 	public Ship(float x, float y, Sprite sprite, World world){
-		System.out.println("ship");
 		shipGUICalculator = new ShipGUIDataCalculator();
 		shipGUICalculator.stats.shipX = x;
 		shipGUICalculator.stats.shipY = y;

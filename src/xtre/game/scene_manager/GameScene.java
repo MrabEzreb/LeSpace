@@ -17,8 +17,10 @@ public abstract class GameScene {
 	
 	protected GameInterfaceManager gim;
 
-	public abstract void update(float camX, float camY);
-	public abstract void render(SpriteBatch batch);
+	public abstract void updateInterfaces(float camX, float camY);
+	public abstract void updateInteractives(float camX, float camY);
+	public abstract void renderInterfaces(SpriteBatch batch);
+	public abstract void renderInteractives(SpriteBatch batch);
 	public abstract void dispose();
 	
 }

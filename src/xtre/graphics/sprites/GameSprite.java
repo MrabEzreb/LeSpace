@@ -25,10 +25,4 @@ public class GameSprite {
 		sprites.add(s);
 		return s;
 	}
-	
-	public static void printLoadedSprites(){
-		for(int i = 0; i < sprites.size(); i++){
-			System.out.println("Sprite["+i+"]: " + sprites.get(i));
-		}
-	}
 }

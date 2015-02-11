@@ -70,13 +70,19 @@ public class ShipScene extends GameScene {
 	}
 	
 	@Override
-	public void update(float camX, float camY) {
+	public void updateInterfaces(float camX, float camY) {
 		insideShip.update();
+	}
+	public void updateInteractives(float camX, float camY) {
+		
 	}
 	
 	@Override
-	public void render(SpriteBatch batch){
+	public void renderInterfaces(SpriteBatch batch){
 		insideShip.render(batch);
+	}
+	public void renderInteractives(SpriteBatch batch){
+		
 	}
 
 	@Override

@@ -71,7 +71,6 @@ public class HUDMetre extends GraphicsUserInterface{
 	
 	public void setPosition(int x, int y) {
 		for(int i = 0; i < graphics.length; i++){
-			System.out.println(graphics[i] + "[" + i + "]");
 			graphics[i].setPosition(graphics[i].getX()+x, graphics[i].getY()+y);
 		}
 	}
