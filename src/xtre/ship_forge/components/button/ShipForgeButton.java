@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ShipForgeButton {
+	public String name="";
 
 	protected FontEntity font;
 	
@@ -43,8 +44,8 @@ public class ShipForgeButton {
 		sprite.setSize(width, height);
 		
 	}
-	public ShipForgeButton(ShipForgeMenu menu, float row, String title) {
-		this.title = new FontEntity(null, title, menu.x, menu.y);
+	public ShipForgeButton(ShipForgeMenu menu, float row, String name) {
+		this.name = name;
 		if(!menu.horizontal){
 			width = menu.width;
 			height = menu.height;
@@ -59,13 +60,12 @@ public class ShipForgeButton {
 		sprite.setPosition(x, y);
 		sprite.setSize(width, height);
 	}
-	public ShipForgeButton(float x, float y, float width, float height, String title){
-		this.title = new FontEntity(null, title, x, y);
-		
+	public ShipForgeButton(float x, float y, float width, float height, String name){
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.name = name;
 		
 		sprite.setPosition(x, y);
 		sprite.setSize(width, height);

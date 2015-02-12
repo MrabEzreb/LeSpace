@@ -3,11 +3,13 @@ package xtre.game.game_gui.heads_up_display.button;
 import xtre.globals.game_interface.GlobalsInterface;
 import xtre.globals.game_interface.hud.GameInputs;
 import xtre.graphics.font.FontEntity;
+import xtre.ship_forge.components.button.Action;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 public class GameButton {	
 	
@@ -15,7 +17,7 @@ public class GameButton {
 	
 	public FontEntity title;
 	
-	protected GameButtonAction buttonAction;
+	protected Action buttonAction;
 	
 	public GameButton(){}	
 	public GameButton(Sprite sprite, FontEntity title){
@@ -34,27 +36,29 @@ public class GameButton {
 	}
 	
 	public void doAction() {
-		buttonAction.doAction();
+		buttonAction.action();
 	}
 	
-	boolean buttonIn = false;
-	public boolean isClicked() {
-		System.out.println(title.text);
-		if(!buttonIn && GameInputs.mouseHolding(Buttons.LEFT))
-			buttonIn = true;
-		else if(!GameInputs.mouseHolding(Buttons.LEFT)){
-			buttonIn = false;
+	public boolean isClicked(){
+		boolean hover = isWithin();
+		
+		if(hover && GameInputs.mousePressed(Buttons.LEFT))
 			return true;
-		}
 		
 		return false;
 	}
 	
 	public boolean isWithin() {
-		if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight()))
+		if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight())){
+			sprite.setScale(1f);
+			sprite.setColor(1f,1f,1f,1f);
 			return true;
-		else
+		}
+		else{
+			sprite.setScale(.99f);
+			sprite.setColor(.95f,.95f,.95f,.95f);
 			return false;
+		}
 	}
 
 	public void setLabel(String text){
@@ -65,7 +69,7 @@ public class GameButton {
 //		sprite.setPosition(x, y);
 //	}
 	
-	public void setAction(GameButtonAction buttonAction) {
+	public void setAction(Action buttonAction) {
 		this.buttonAction = buttonAction;
 	}
 	

@@ -11,6 +11,7 @@ import xtre.ship_forge.components.button.Action;
 import xtre.ship_forge.components.tile_components.TileSelectionView;
 import xtre.ship_forge.graphics.ShipForgeSprites;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ShipForgeTileListsMenu extends ShipForgeComponent{
@@ -26,7 +27,7 @@ public class ShipForgeTileListsMenu extends ShipForgeComponent{
 	/** This menu lists the different sets of tiles */
 	private void setupMenu(){
 		menu.setup((GlobalScreen.GAME_WIDTH-300), 512, 128, 18);
-		final ShipForgeButton tiles1 = new ShipForgeButton(menu, 0, new FontEntity(HUDFont.title_font.smallFont, "tiles", menu.x, menu.y));
+		final ShipForgeButton tiles1 = new ShipForgeButton(menu, 0, new FontEntity(HUDFont.title_font.smallFont,  new Color(1, 1, 1, 1), "tiles", menu.x, menu.y));
 		tiles1.setAction(new Action(){
 			public void action(){
 				List<ShipTile> s = ShipForgeSprites.getShipFloorTiles();

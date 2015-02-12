@@ -6,10 +6,11 @@ import java.util.List;
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
 import xtre.game.game_gui.heads_up_display.button.GameButton;
-import xtre.game.game_gui.heads_up_display.button.GameButtonAction;
 import xtre.graphics.font.FontEntity;
 import xtre.graphics.font.HUDFont;
+import xtre.ship_forge.components.button.Action;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -24,12 +25,12 @@ public class SelectionBar extends GraphicsUserInterface{
 			for(int y = 0; y < height; y++){
 				Sprite s = new Sprite(sprite);
 				s.setPosition((x*s.getWidth()), (y*s.getHeight()));
-				buttonArray.add(new GameButton(s, new FontEntity(HUDFont.title_font.smallFont, "SelectionBar: x[" + x +"], y[" + y + "]", x, y)));
+				buttonArray.add(new GameButton(s, new FontEntity(HUDFont.title_font.smallFont, new Color(1,1,1,1), "SelectionBar: x[" + x +"], y[" + y + "]", x, y)));
 			}
 		}
 	}
 	
-	public void setButtonAction(int i, GameButtonAction buttonAction){
+	public void setButtonAction(int i, Action buttonAction){
 		 buttonArray.get(i).setAction(buttonAction);
 	}
 

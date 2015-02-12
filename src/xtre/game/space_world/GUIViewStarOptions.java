@@ -2,15 +2,8 @@ package xtre.game.space_world;
 
 import xtre.game.game_gui.GameInterfaceManager;
 import xtre.game.game_gui.graphics_user_interface.GraphicsUserInterface;
-import xtre.game.game_gui.heads_up_display.button.GameButtonAction;
-import xtre.game.game_gui.heads_up_display.menu.GameMenu;
 import xtre.graphics.components.ResizableBox;
-import xtre.graphics.font.FontEntity;
-import xtre.graphics.font.HUDFont;
-import xtre.graphics.sprites.GameSprite;
-import xtre.graphics.sprites.sprite_types.space_hud.SpritesSpaceHudMenu;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GUIViewStarOptions extends GraphicsUserInterface {

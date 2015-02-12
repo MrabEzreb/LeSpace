@@ -39,11 +39,11 @@ public class MenuControls extends Menu{
 			graphics_keys[4].setPosition((Gdx.graphics.getWidth()/4)-(32), (Gdx.graphics.getHeight()/4)-(55));
 			
 			FontEntity[] descriptions = new FontEntity[]{
-					new FontEntity(null, "Accelerate", graphics_keys[0].getX(), graphics_keys[0].getY()+77),
-					new FontEntity(null, "Turn Left", graphics_keys[1].getX()-100, graphics_keys[1].getY()+64),
-					new FontEntity(null, "Dampers", graphics_keys[2].getX()-27, graphics_keys[2].getY()-7),
-					new FontEntity(null, "Turn Right", graphics_keys[3].getX()+50, graphics_keys[3].getY()+64),
-					new FontEntity(null, "Boosters", graphics_keys[4].getX(), graphics_keys[4].getY()-7)
+					new FontEntity(null, null, "Accelerate", graphics_keys[0].getX(), graphics_keys[0].getY()+77),
+					new FontEntity(null, null, "Turn Left", graphics_keys[1].getX()-100, graphics_keys[1].getY()+64),
+					new FontEntity(null, null, "Dampers", graphics_keys[2].getX()-27, graphics_keys[2].getY()-7),
+					new FontEntity(null, null, "Turn Right", graphics_keys[3].getX()+50, graphics_keys[3].getY()+64),
+					new FontEntity(null, null, "Boosters", graphics_keys[4].getX(), graphics_keys[4].getY()-7)
 			};
 			
 			keyIcons = new KeyIcon[5];

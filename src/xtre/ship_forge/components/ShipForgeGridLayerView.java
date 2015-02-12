@@ -116,7 +116,7 @@ class GridLayer{
 		g=g+g/2; b=b+b/2;
 		button.setColor(r, g, b, 1);
 		button.setAction(action);
-		button.title = new FontEntity(null, "gridLayer " + slot, x, y);
+		button.title = new FontEntity(null, null, "gridLayer " + slot, x, y);
 	}
 	public void click(float mouseX, float mouseY, int slot){
 		this.slot = slot;

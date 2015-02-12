@@ -40,16 +40,6 @@ public class GameLoop implements Screen {
 		debugRenderer = new Box2DDebugRenderer();
 
 		batch = new SpriteBatch();
-		
-//		createShip(10, 10);
-//		
-//		for(int x = 0; x < 500; x++){
-//
-//			createShape(0, -60 + 0.1f*x);
-//		}
-//		
-//		createBounds();
-
 	}
 	
 	public void render(float dt) {

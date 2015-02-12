@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xtre.game.game_gui.heads_up_display.button.GameButton;
-import xtre.game.game_gui.heads_up_display.button.GameButtonAction;
 import xtre.globals.game_interface.GlobalsInterface;
 import xtre.globals.game_interface.hud.GameInputs;
 import xtre.graphics.font.FontEntity;
 import xtre.graphics.font.HUDFont;
+import xtre.ship_forge.components.button.Action;
 
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 public class GameMenu {
 
@@ -21,9 +22,9 @@ public class GameMenu {
 	public float x, y, width, height;
 	public FontEntity title;
 	
-	private GameButtonAction menuBarAction;
+	private Action menuBarAction;
 	
-	private boolean showingButtons;
+	public boolean showingButtons;
 	
 	private List<GameButton> buttons = new ArrayList<>();
 	
@@ -36,6 +37,7 @@ public class GameMenu {
 		this.height = sprite.getHeight();
 		
 		sprite.setPosition(x, y);
+		sprite.setColor(.8f,.8f,.8f,.8f);
 		this.sprite = sprite;
 		title.x = sprite.getX() + (sprite.getWidth()/2) - (title.font.getBounds(title.text).width/2);
 		title.y = sprite.getY() + (sprite.getHeight()/2) + (title.font.getBounds(title.text).height/2);
@@ -43,25 +45,47 @@ public class GameMenu {
 		this.padding = padding;
 	}
 	
-	public void addButton(Sprite s){
-		s.setPosition(sprite.getX(), sprite.getY()-sprite.getHeight() - (buttons.size()*(s.getHeight()+padding)));
-		
-		GameButton gb = new GameButton(s, new FontEntity(HUDFont.title_font.mediumFont, (title.text + " button[" + (buttons.size()) + "]"), s.getX(), s.getY()));
+	public void addButton(Sprite s, FontEntity font){
+		s.setPosition(sprite.getX() + (width/2) - (s.getWidth()/2), sprite.getY()-sprite.getHeight() - (buttons.size()*(s.getHeight()+padding)));
+		font.x = s.getX();
+		font.y = s.getY();
+		GameButton gb = new GameButton(s, font);
 		buttons.add(gb);
 	}
 	
+	boolean buttonIn, secondary;
 	public void update(){
-		if(GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), x, y, width, height)){
-			sprite.setColor(.8f,.8f,.8f,.8f);
-			if(GameInputs.mousePressed(Buttons.LEFT) && !showingButtons)
-				showingButtons = true;
-		}else{
+		boolean mouseOverButton = GlobalsInterface.withinSquareBounds(GameInputs.getX(), GameInputs.getY(), x, y, width, height);
+		boolean mouseHolding = GameInputs.mouseHolding(Buttons.LEFT);
+
+		if(showingButtons)
+			for(GameButton b:buttons){
+				if(b.isClicked())b.doAction();
+			}
+		
+		sprite.setScale(.99f);
+		sprite.setColor(.8f,.8f,.8f,.8f);
+		if(mouseOverButton){
+			sprite.setScale(1f);
 			sprite.setColor(1f,1f,1f,1f);
-			if(GameInputs.mousePressed(Buttons.LEFT) && showingButtons)
-				showingButtons = false;
 		}
-		for(GameButton b:buttons){
-			if(b.isClicked())b.doAction();
+		if(showingButtons){
+			sprite.setScale(1f);
+			sprite.setColor(1f,1f,1f,1f);
+		}
+		if(mouseOverButton && mouseHolding || buttonIn && mouseOverButton){
+			buttonIn = true;
+			
+			if(!mouseHolding){
+				buttonIn = false;
+				showingButtons = true;
+			}else{
+				showingButtons = false;
+			}
+			
+		}else if(!mouseOverButton && mouseHolding){
+			buttonIn = false;
+			showingButtons = false;
 		}
 	}
 	
@@ -132,11 +156,11 @@ public class GameMenu {
 		return buttons;
 	}
 	
-	public void setAction(GameButtonAction menuBarAction) {
+	public void setAction(Action menuBarAction) {
 		this.menuBarAction = menuBarAction;
 	}
 	
-	public void setActionToButton(int i, GameButtonAction gba) {
+	public void setActionToButton(int i, Action gba) {
 		buttons.get(i).setAction(gba);
 	}
 	
