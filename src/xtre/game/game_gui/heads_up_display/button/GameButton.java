@@ -53,8 +53,7 @@ public class GameButton {
 			sprite.setScale(1f);
 			sprite.setColor(1f,1f,1f,1f);
 			return true;
-		}
-		else{
+		}else{
 			sprite.setScale(.99f);
 			sprite.setColor(.95f,.95f,.95f,.95f);
 			return false;

@@ -11,7 +11,7 @@ public class FontEntity {
 	
 	public FontEntity(BitmapFont font, Color col, String text, float x, float y){
 		this.text = text; 
-		font.setColor(col);
+		if(font!=null)font.setColor(col);
 		this.font = font;
 		this.x = x;
 		this.y = y;

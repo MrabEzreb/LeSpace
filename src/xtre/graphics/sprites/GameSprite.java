@@ -6,6 +6,7 @@ import java.util.List;
 import xtre.graphics.sprites.utils.SpriteDetails;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 

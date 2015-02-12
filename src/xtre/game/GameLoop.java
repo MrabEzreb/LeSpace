@@ -3,6 +3,7 @@ package xtre.game;
 import xtre.Main;
 import xtre.game.scene_manager.GameManager;
 import xtre.globals.GlobalScreen;
+import xtre.graphics.sprites.sprite_types.space.SpritesSpaceBackgroundStar;
 import xtre.launcher.LauncherLoop;
 
 import com.badlogic.gdx.Gdx;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -22,6 +24,8 @@ public class GameLoop implements Screen {
 	private Box2DDebugRenderer debugRenderer;
 	
 	private GameManager gameManager;
+	
+	private ParticleEffect effect;
 	
 	public GameLoop(Main main){
 		this.main = main;
@@ -40,6 +44,11 @@ public class GameLoop implements Screen {
 		debugRenderer = new Box2DDebugRenderer();
 
 		batch = new SpriteBatch();
+		
+		effect = new ParticleEffect();
+		effect.load(Gdx.files.internal(SpritesSpaceBackgroundStar.medium_star.path));
+		effect.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+		effect.start();
 	}
 	
 	public void render(float dt) {
@@ -50,6 +59,7 @@ public class GameLoop implements Screen {
 		//debugRenderer.render(world, camera.combined);
 		
 		batch.begin();
+		effect.draw(batch);
 		gameManager.render(batch, dt);
 		batch.end();
 		//
